@@ -1,2 +1,3 @@
-# CienciaDeDados
-Mestrado UFPR - Ciência de Dados para Segurança
+# Ciência da Dados para Segurança (CI1030) - Mestrado UFPR
+
+
