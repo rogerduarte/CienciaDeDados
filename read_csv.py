@@ -129,3 +129,5 @@ if __name__ == "__main__":
         process_sql(database_name, tmp)
 
     print("time spent insert sqlite: " + str(time.monotonic() - start) + "s")
+    
+    
