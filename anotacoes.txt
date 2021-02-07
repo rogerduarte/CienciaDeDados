@@ -1,0 +1,3 @@
+anotações
+> instalar mongodb
+> instalar pymong (python -m pip install pymongo)
