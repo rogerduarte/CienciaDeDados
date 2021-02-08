@@ -1,16 +1,19 @@
 import os
+import sys
 import time
 import sqlite3
 from sqlite3 import Error
+
+from csvcreator_json import CsvCreatorJSON
 from csvcreator_sql import CsvCreatorSQL
 
 
 def process_sql(db_file, csv_class):
     conn = None
-    sql = "INSERT INTO \""+csv_class.table_name+"\" VALUES ("
+    sql = "INSERT INTO \"" + csv_class.table_name + "\" VALUES ("
     for i in range(csv_class.n_columns):
         sql += "?,"
-    sql = sql[:-1]+")"
+    sql = sql[:-1] + ")"
 
     try:
         conn = sqlite3.connect(db_file)
@@ -28,7 +31,21 @@ def process_sql(db_file, csv_class):
 
 
 if __name__ == "__main__":
-    database_name = "work-"+str(time.time())+".db"
+    start = time.monotonic()
+    #csv_files = ["dataset/cve.csv", "dataset/products.csv", "dataset/vendor_product.csv", "dataset/vendors.csv"]
+    csv_files = ["dataset/cve.csv"]
+    csv_classes = []
+    for csv_file in csv_files:
+        tmp = CsvCreatorJSON(csv_file, os.path.basename(csv_file)[0:-4])
+        tmp.read_csv()
+        csv_classes.append(tmp)
+    print("time spent to read CSVs: " + str(time.monotonic() - start) + "s")
+
+    sys.exit(1)
+    """
+    SQL Methods
+    """
+    database_name = "work-" + str(time.time()) + ".db"
     """ 
     Read CVE Files
     """
