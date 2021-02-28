@@ -13,6 +13,8 @@ Roger R R Duarte (PPGINF-202000131793)
 
 O dataset possui um arquivo único JSON com informações específicas de CVEs (_Common Vulnerabilities and Exposures_) do período de 2005 a 2018.
 
+Não foi possível enviar o arquivo JSON a este Git, visto que o mesmo possui aproximadamente 2.14GB. Recomenda-se o download do arquivo .ZIP do dataset diretamente do link supramencionado.
+
 <hr >
 
 #### Organização GIT:
