@@ -1,20 +1,23 @@
-- Que tipos de dados você tem, majoritariamente (atributos numéricos, textuais)?
+Ciência de Dados para Segurança (CI1030) - Trabalho Final
+=================
+
+- **Que tipos de dados você tem, majoritariamente (atributos numéricos, textuais)?**
 
 Majoritariamente os dados são textuais, por se tratarem de informações a respeito de vulnerabilidade conhecidas.
 
-- Qual seu objetivo com esse dataset?
+- **Qual seu objetivo com esse dataset?**
 
 O ojetivo é obter informações gerais de vulnerabilidade conhecidas, com detalhes específicos sobre quais produtos possuem mais vulnerabilidade conhecidas, quais tipos de configurações, scores, 
 formas de acesso e impactos gerados pelos CVEs.  
 
-- Seu dataset é rotulado de que maneira?
+- **Seu dataset é rotulado de que maneira?**
 
-**Verificar**
+VERIFICAR
 
-- Como é a distribuição dos dados do dataset?
+- **Como é a distribuição dos dados do dataset?**
 
 O dataset é um arquivo único JSON com informações dos CVEs.
-Para cada linha, é incluída informação de um CVE com os seguintes campos:
+Para cada linha do arquivo, são incluídas informações de um CVE contendo os atributos:
 
     - Modified (data)
     - Published (data)
@@ -26,21 +29,21 @@ Para cada linha, é incluída informação de um CVE com os seguintes campos:
     - id (Cve-id) (texto)
     - Impact (impacto) {availability, confidentiality, integrity)
     - last-modified (última modificação)
-    - Nessus [] (Informação fornecida pelo www.tenable.com,, possivelmente indica CVE relacionados
-    - References (sites com referências
+    - Nessus [] (Informação fornecida pelo www.tenable.com, possivelmente indica CVEs relacionados)
+    - References (sites com referências)
     - Summary (descrição do CVE)
     - Vulnerable_configuration (configuração do produto vulnerável)
     - Vulnerable_configuration_cpe_2_2 (configuração do produto vulnerável)
 
-Cabe mencionar que, conforme o CVE, algumas das colunas supramencionadas podem ser suprimidas no JSON.
+Cabe mencionar que, conforme o CVE, alguns dos campos supramencionados podem ser suprimidos.
 
-O diretório "exemplos json", possui três arquivos JSON extraídos da base principal para exemplo.
+O diretório "Exemplos JSON", possui três arquivos JSON extraídos da base principal para exemplos.
 
-* Necessário baixar o dataset direto do endereço - https://www.kaggle.com/vsathiamoo/cve-common-vulnerabilities-and-exposures/version/1, visto que o GIT só permite arquivos até 100MB
+Recomenda-se baixar o dataset completo direto do endereço: https://www.kaggle.com/vsathiamoo/cve-common-vulnerabilities-and-exposures/version/1.
 
-- Quais colunas/atributos você julga ser interessante manter e remover? Por quê?
+- **Quais colunas/atributos você julga ser interessante manter e remover? Por quê?**
 
-Colunas que serão mantidas: 
+Atributos que serão mantidos: 
 
     - Modified
     - Published, 
@@ -52,8 +55,8 @@ Colunas que serão mantidas:
     - Summary
     - Vulnerable_configuration_cpe_2_2
 
-A ideia é que possamos obter informações gerais do CVE, com informações do produtos vulneráveis, quais tipos de configurações, scores, 
-formas de acesso e impactos gerados pelos CVEs. Essas informações serão obtidas com os campos acima.
+A ideia é que possamos obter informações gerais do CVE, com informações dos produtos vulneráveis, quais tipos de configurações, scores, 
+formas de acesso e impactos gerados pelos CVEs. Essas informações podem ser obtidas através dos atributos acima.
 
 Colunas removidas:
 
@@ -63,6 +66,8 @@ Colunas removidas:
     - Vulnerable_configuration -> a informação será obtida pela variável Vulnerable_configuration_cpe_2_2
 
 
-- Escreva um relatório no repositório GitHub do seu projeto
+- **Escreva um relatório no repositório GitHub do seu projeto**
+
+VERIFICAR
 
 
