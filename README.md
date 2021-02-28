@@ -1,6 +1,6 @@
 Ciência da Dados para Segurança (CI1030) - Trabalho Final
 =================
-####Alunos:
+#### Alunos:
 
 Michael André Hempkemeyer 
 
@@ -19,7 +19,7 @@ O dataset possui um arquivo único JSON com informações específicas de CVEs (
 
 Exploração de Dados / 
  
- - contêm as respostas da prática 3, bem como um arquivo .ZIP com o dataset.
+ - contêm as respostas da prática 3, com detalhes do dataset e exemplos de três arquivos JSONs do dataset
 
 
 
