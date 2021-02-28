@@ -16,8 +16,8 @@ VERIFICAR
 
 - **Como é a distribuição dos dados do dataset?**
 
-O dataset é um arquivo único JSON com informações dos CVEs.
-Para cada linha do arquivo, são incluídas informações de um CVE contendo os atributos:
+O dataset é um arquivo único em formato JSON com informações dos CVEs.
+Cada linha do arquivo contém um JSON com informações de um CVE específico, contendo os seguintes atributos:
 
     - Modified (data)
     - Published (data)
@@ -37,7 +37,7 @@ Para cada linha do arquivo, são incluídas informações de um CVE contendo os 
 
 Cabe mencionar que, conforme o CVE, alguns dos campos supramencionados podem ser suprimidos.
 
-O diretório "Exemplos JSON", possui três arquivos JSON extraídos da base principal para exemplos.
+O diretório "Exemplos JSON", possui três arquivos JSON extraídos do dataset.
 
 Recomenda-se baixar o dataset completo direto do endereço: https://www.kaggle.com/vsathiamoo/cve-common-vulnerabilities-and-exposures/version/1.
 
@@ -51,6 +51,7 @@ Atributos que serão mantidos:
     - Cvss, 
     - Cvss-time, 
     - Impact, 
+	- id,
     - References, 
     - Summary
     - Vulnerable_configuration_cpe_2_2
