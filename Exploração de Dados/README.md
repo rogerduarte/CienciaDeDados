@@ -8,7 +8,7 @@ Majoritariamente os dados são textuais, por se tratarem de informações a resp
 - **Qual seu objetivo com esse dataset?**
 
 O ojetivo é obter informações gerais de vulnerabilidade conhecidas, com detalhes específicos sobre quais produtos possuem mais vulnerabilidade conhecidas, quais tipos de configurações, scores, 
-formas de acesso e impactos gerados pelos CVEs.  
+formas de acesso e impactos divulgados pelos CVEs.  
 
 - **Seu dataset é rotulado de que maneira?**
 
@@ -56,9 +56,9 @@ Atributos que serão mantidos:
     - Vulnerable_configuration_cpe_2_2
 
 A ideia é que possamos obter informações gerais do CVE, com informações dos produtos vulneráveis, quais tipos de configurações, scores, 
-formas de acesso e impactos gerados pelos CVEs. Essas informações podem ser obtidas através dos atributos acima.
+formas de acesso e impactos divulgados pelos CVEs. Essas informações podem ser obtidas através dos atributos acima.
 
-Colunas removidas:
+Atributos removidos:
 
     - Capec -> não é de interesse do trabalho saber o CAPEC, visto que não será útil para atingir os objetivos já mencionados.
     - Last-modified -> essa informação já obtida pelos outros campos
@@ -69,5 +69,3 @@ Colunas removidas:
 - **Escreva um relatório no repositório GitHub do seu projeto**
 
 VERIFICAR
-
-
