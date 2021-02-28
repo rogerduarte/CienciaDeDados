@@ -1,8 +1,0 @@
-anotações
-> instalar mongodb (https://docs.mongodb.com/manual/tutorial/install-mongodb-on-debian/)
-> instalar pymong (python -m pip install pymongo)
-
-basico mongodb
-https://www.mongodb.com/basics/create-database
-python and mongodb
-https://www.mongodb.com/blog/post/getting-started-with-python-and-mongodb
