@@ -1,4 +1,4 @@
-Ciência da Dados para Segurança (CI1030) - Trabalho Final
+Ciência de Dados para Segurança (CI1030) - Trabalho Final
 =================
 #### Alunos:
 
