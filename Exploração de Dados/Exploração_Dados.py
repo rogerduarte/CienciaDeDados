@@ -1,5 +1,3 @@
-# Teste em funções do pandas no dataset escolhido
-# dataset: https://www.kaggle.com/vsathiamoo/cve-common-vulnerabilities-and-exposures/version/1
 import pandas as pd
 import json
 from dateutil import parser
