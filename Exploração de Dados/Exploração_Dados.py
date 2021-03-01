@@ -1,9 +1,8 @@
 # Teste em funções do pandas no dataset escolhido
 # dataset: https://www.kaggle.com/vsathiamoo/cve-common-vulnerabilities-and-exposures/version/1
-import sys
-
 import pandas as pd
 import json
+from dateutil import parser
 
 # Lista de colunas selecionadas na pré-análise do dataset
 list_columns = ["Modified", "Published", "access", "cvss", "cvss-time", "impact", "references",
@@ -30,6 +29,9 @@ def read_json_file(debug=False):
             tmp_dict = dict()
             for d in list_columns:
                 tmp_dict[d] = tmp[d] if d in tmp.keys() else None
+                # Realiza um ajuste na data. Gasto de CPU alto neste ponto
+                if (d == "Published" or d == "Modified") and tmp_dict[d] is not None:
+                    tmp_dict[d] = parser.parse(tmp_dict[d])
 
             data_list.append(tmp_dict)
             # Utilizado para debug. Cancela o loop conforme condição abaixo
@@ -40,28 +42,18 @@ def read_json_file(debug=False):
 
 
 # Leitura do dataset. Os dados serão salvos na variável global file_name_dataset
-read_json_file(True)
+read_json_file(False)
 # Criação do dataframe utilizando a informação lida do dataset
 df_cve = pd.DataFrame(data_list)
 
-# Group by CVSS (score)
-print(df_cve.groupby('cvss').size().sort_values(ascending=False).head())
-# Lista os CVEs com score "10.0"
-df_sub = df_cve.loc[df_cve["cvss"] == 10.0]
-print(df_sub[['id', 'access']].to_numpy())
+# Número de registros para um dos parâmetros
+print(df_cve.count())
+print()
 
+# Distribuição CVSS (score)
+print(df_cve.fillna('Vazio').groupby('cvss').size().sort_values(ascending=False).head())
+print()
 
-
-# print("\n======> Group by pelo produto")
-# print(df_j.groupby('vulnerable_product').size().sort_values(ascending=False).head())
-
-# print("\n======> Lista apenas algunas colunas")
-# print(df_j.loc[:, ['vendor', 'vulnerable_product', 'access_complexity']])
-# oOu ..
-# print(df_j.reindex(columns=['vendor', 'vulnerable_product', 'access_complexity']))
-
-
-# group by Vendor em que access_complexity == "HIGH"
-# print(df_j.loc[df_j['access_complexity'] == 'HIGH'])
-# Group by por vulnerable_product cujo access_complexity é 'HIGH'
-# print(df_j.loc[df_j['access_complexity'] == 'HIGH'].groupby('vulnerable_product').size().sort_values(ascending=False).head())
+# Distribuição por data de publicação
+print(df_cve.groupby(pd.Grouper(key='Published', freq='Y')).size().sort_values(ascending=False))
+print()
