@@ -39,7 +39,7 @@ Cabe mencionar que, conforme o CVE, alguns dos campos supramencionados podem ser
 
 Recomenda-se baixar o dataset completo direto do endereço: https://www.kaggle.com/vsathiamoo/cve-common-vulnerabilities-and-exposures/version/1.
 
-O arquivo "Exploração_Dados.py" possui um pequeno de exemplo de leitura do dataset, tratamento das variáveis e também exploração de dados.
+O arquivo "Exploração_Dados.py" é um exemplo de leitura do dataset, tratamento das variáveis e também exploração de dados.
 
 As tabelas a seguir foram geradas com a pré-análise do dataset. 
 
