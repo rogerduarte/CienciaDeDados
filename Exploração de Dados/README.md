@@ -31,6 +31,8 @@ Verificou-se que o dataset possui os seguintes campos:
     - Vulnerable_configuration list() (configuração do produto vulnerável)
     - Vulnerable_configuration_cpe_2_2 list() (configuração do produto vulnerável)
 
+A rotulação foi feita de forma manual, conforme apresentado no JSON do dataset.
+
 - **Como é a distribuição dos dados do dataset?**
 
 O dataset é um arquivo único em formato JSON com informações dos CVEs. Cada linha do arquivo contém um JSON com informações de um CVE específico, contendo os atributos mencionados no questionário acima
