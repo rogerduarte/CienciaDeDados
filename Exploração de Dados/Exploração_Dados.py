@@ -13,7 +13,7 @@ max_lines_debug = 60500
 file_name_dataset = "circl-cve-search-expanded.json"
 
 
-def read_json_file(debug=False):
+def read_dataset_to_list(debug=False):
     global data_list, file_name_dataset
 
     # Leitura do dataset
@@ -26,12 +26,39 @@ def read_json_file(debug=False):
             # Cria um novo dicionário contendo apenas as colunas da lista list_columns
             tmp_dict = dict()
             for d in list_columns:
-                tmp_dict[d] = tmp[d] if d in tmp.keys() else None
-                # Realiza um ajuste na data. Gasto de CPU alto neste ponto
-                if (d == "Published" or d == "Modified") and tmp_dict[d] is not None:
-                    tmp_dict[d] = parser.parse(tmp_dict[d])
+                # impact e access são dicionário. Serão tratados de outras forma
+                if d != "impact" and d != "access":
+                    if d in tmp.keys():
+                        # Realiza um ajuste na data, com parser
+                        if d == "Published" or d == "Modified":
+                            tmp_dict[d] = parser.parse(tmp[d])
+                        else:
+                            tmp_dict[d] = tmp[d]
+                    else:
+                        tmp_dict[d] = "None"
+                # Faz o tratamento do dicionário impact
+                elif d == "impact":
+                    if d in tmp.keys():
+                        tmp_dict["impact_availability"] = tmp[d]["availability"] if "availability" in tmp[d] else None
+                        tmp_dict["impact_confidentiality"] = tmp[d]["confidentiality"] if "confidentiality" in tmp[d] else None
+                        tmp_dict["impact_integrity"] = tmp[d]["integrity"] if "integrity" in tmp[d] else None
+                    else:
+                        tmp_dict["impact_availability"] = None
+                        tmp_dict["impact_confidentiality"] = None
+                        tmp_dict["impact_integrity"] = None
+                # Faz o tratamento do dicionário acccess
+                elif d == "access":
+                    if d in tmp.keys():
+                        tmp_dict["access_authentication"] = tmp[d]["authentication"] if "authentication" in tmp[d] else None
+                        tmp_dict["access_complexity"] = tmp[d]["complexity"] if "complexity" in tmp[d] else None
+                        tmp_dict["access_vector"] = tmp[d]["vector"] if "vector" in tmp[d] else None
+                    else:
+                        tmp_dict["access_authentication"] = None
+                        tmp_dict["access_complexity"] = None
+                        tmp_dict["access_vector"] = None
+                # Adiciona a linha lida na lista
+                data_list.append(tmp_dict)
 
-            data_list.append(tmp_dict)
             # Utilizado para debug. Cancela o loop conforme condição abaixo
             if debug is True and control > max_lines_debug:
                 break
@@ -39,19 +66,23 @@ def read_json_file(debug=False):
             line = json_file.readline()
 
 
-# Leitura do dataset. Os dados serão salvos na variável global file_name_dataset
-read_json_file(False)
+# Leitura do dataset. Os dados serão salvos na variável global data_list
+read_dataset_to_list(True)
 # Criação do dataframe utilizando a informação lida do dataset
 df_cve = pd.DataFrame(data_list)
 
 # Número de registros para um dos parâmetros
-print(df_cve.count())
-print()
+print(df_cve.count(), end="\n\n")
 
 # Distribuição CVSS (score)
-print(df_cve.fillna('Vazio').groupby('cvss').size().sort_values(ascending=False).head())
-print()
+print(df_cve.fillna('Vazio').groupby('cvss').size().sort_values(ascending=False).head(), end="\n\n")
 
-# Distribuição por data de publicação
-print(df_cve.groupby(pd.Grouper(key='Published', freq='Y')).size().sort_values(ascending=False))
-print()
+# Distribuição pelo impact
+print(df_cve.fillna('Vazio').groupby('impact_availability').size().sort_values(ascending=False).head(), end="\n")
+print(df_cve.fillna('Vazio').groupby('impact_confidentiality').size().sort_values(ascending=False).head(), end="\n")
+print(df_cve.fillna('Vazio').groupby('impact_integrity').size().sort_values(ascending=False).head(), end="\n\n")
+
+# Distribuição pelo access
+print(df_cve.fillna('Vazio').groupby('access_authentication').size().sort_values(ascending=False).head(), end="\n")
+print(df_cve.fillna('Vazio').groupby('access_complexity').size().sort_values(ascending=False).head(), end="\n")
+print(df_cve.fillna('Vazio').groupby('access_vector').size().sort_values(ascending=False).head(), end="\n\n")

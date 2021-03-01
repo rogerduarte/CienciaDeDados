@@ -4,6 +4,7 @@ Ciência de Dados para Segurança (CI1030) - Trabalho Final
 - **Que tipos de dados você tem, majoritariamente (atributos numéricos, textuais)?**
 
 Majoritariamente os dados são textuais, por se tratarem de informações a respeito de vulnerabilidade conhecidas.
+Foram constatados também atributos numéricos e com datas.
 
 - **Qual seu objetivo com esse dataset?**
 
@@ -14,21 +15,21 @@ formas de acesso e impactos divulgados pelos CVEs.
 
 Verificou-se que o dataset possui os seguintes campos:
 
-    - Modified (data)
-    - Published (data)
-    - Access (tipo de acesso) {authentication, complexity, vector}
-    - Capec (Common Attack Pattern Enumeration and Classification (CAPEC™))
+    - Modified (date)
+    - Published (date)
+    - Access dict{authentication, complexity, vector} (forma de acesso)
+    - Capec list() (Common Attack Pattern Enumeration and Classification (CAPEC™))
     - Cvss (score, float)
-    - Cvss-time (data)
-    - Cwe (texto)
-    - id (Cve-id) (texto)
-    - Impact (impacto) {availability, confidentiality, integrity)
-    - last-modified (última modificação)
-    - Nessus [] (Informação fornecida pelo www.tenable.com, possivelmente indica CVEs relacionados)
-    - References (sites com referências)
-    - Summary (descrição do CVE)
-    - Vulnerable_configuration (configuração do produto vulnerável)
-    - Vulnerable_configuration_cpe_2_2 (configuração do produto vulnerável)
+    - Cvss-time (date)
+    - Cwe (str)
+    - id (Cve-id) (str)
+    - Impact dict{availability, confidentiality, integrity)
+    - last-modified (date)
+    - Nessus [] list() (Informação fornecida pelo www.tenable.com, possivelmente indica CVEs relacionados)
+    - References list() (sites com referências)
+    - Summary str() (descrição do CVE)
+    - Vulnerable_configuration list() (configuração do produto vulnerável)
+    - Vulnerable_configuration_cpe_2_2 list() (configuração do produto vulnerável)
 
 - **Como é a distribuição dos dados do dataset?**
 
@@ -64,6 +65,8 @@ As tabelas a seguir foram geradas com a pré-análise do dataset.
 | 5.0 | 14525 |
 | 6.8 | 7773 |
 
+- A tabela acima faz um groupby pelo atributo csvss e mostra os quatro scores mais comuns
+
 | Ano | Número de registros |
 | --- | --- |
 | 2017 | 18114 |
@@ -71,11 +74,17 @@ As tabelas a seguir foram geradas com a pré-análise do dataset.
 | 2018 | 7898 |
 | 2006 | 6659 |
 | 2007 | 6596 |
-| 2015 | 6588 |
-| 2016 | 6515 |
-| 2009 | 5778 |
-| 2008 | 5664 |
-| 2012 | 5351 |
+
+- A tabela acima faz um groupby pelo atributo Published e mostra os cinco anos que mais tiveram CVE publicados
+
+| impact_availability | impact_confidentiality | impact_integrity |
+| --- | --- | --- |
+| PARTIAL | 155880 | 174330 | 186440 |
+| NONE | 132070 | 128040 | 118910 |
+| COMPLETE | 103430 | 89010 | 86030 |
+
+- A tabela acima faz um groupby pelos atributos availability, confidentiality e integrity (referentes ao dicionário impact) e 
+mostra a distribuição de impactos dos CVEs
 
 
 - **Quais colunas/atributos você julga ser interessante manter e remover? Por quê?**
