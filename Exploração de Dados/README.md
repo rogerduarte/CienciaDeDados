@@ -113,6 +113,3 @@ Atributos removidos:
     - Vulnerable_configuration -> a informação será obtida pela variável Vulnerable_configuration_cpe_2_2
 
 
-- **Escreva um relatório no repositório GitHub do seu projeto**
-
-VERIFICAR
