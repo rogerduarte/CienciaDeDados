@@ -26,7 +26,7 @@ def read_dataset_to_list(debug=False):
             # Cria um novo dicionário contendo apenas as colunas da lista list_columns
             tmp_dict = dict()
             for d in list_columns:
-                # impact e access são dicionário. Serão tratados de outras forma
+                # impact e access são dicionários. Serão tratados na sequencia
                 if d != "impact" and d != "access":
                     if d in tmp.keys():
                         # Realiza um ajuste na data, com parser
@@ -60,6 +60,7 @@ def read_dataset_to_list(debug=False):
                 data_list.append(tmp_dict)
 
             # Utilizado para debug. Cancela o loop conforme condição abaixo
+            # Evita que em todo debug seja necessário ler todo o dataset
             if debug is True and control > max_lines_debug:
                 break
             control += 1
@@ -67,7 +68,7 @@ def read_dataset_to_list(debug=False):
 
 
 # Leitura do dataset. Os dados serão salvos na variável global data_list
-read_dataset_to_list(True)
+read_dataset_to_list()
 # Criação do dataframe utilizando a informação lida do dataset
 df_cve = pd.DataFrame(data_list)
 
