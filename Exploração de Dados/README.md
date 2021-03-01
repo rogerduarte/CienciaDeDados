@@ -66,7 +66,7 @@ As tabelas a seguir foram geradas com a pré-análise do dataset.
 | 5.0 | 14525 |
 | 6.8 | 7773 |
 
-| Ano (cvss) | Número de registros |
+| Ano | Número de registros |
 | --- | --- |
 | 2017-12-31 | 18114 |
 | 2014-12-31 | 8017 |
