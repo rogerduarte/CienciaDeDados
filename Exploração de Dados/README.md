@@ -7,7 +7,7 @@ Majoritariamente os dados são textuais, por se tratarem de informações a resp
 
 - **Qual seu objetivo com esse dataset?**
 
-O ojetivo é obter informações gerais de vulnerabilidade conhecidas, com detalhes específicos sobre quais produtos possuem mais vulnerabilidade conhecidas, quais tipos de configurações, scores, 
+O objetivo é obter informações gerais de vulnerabilidade conhecidas, com detalhes específicos sobre quais produtos possuem mais vulnerabilidade conhecidas, quais tipos de configurações, scores, 
 formas de acesso e impactos divulgados pelos CVEs.  
 
 - **Seu dataset é rotulado de que maneira?**
@@ -34,9 +34,7 @@ Verificou-se que o dataset possui os seguintes campos:
 
 O dataset é um arquivo único em formato JSON com informações dos CVEs. Cada linha do arquivo contém um JSON com informações de um CVE específico, contendo os atributos mencionados no questionário acima
 
-Cabe mencionar que, conforme o CVE, alguns dos campos supramencionados podem ser suprimidos (são preenchidos com None na análise preliminar)
-
-O diretório "Exemplos JSON", possui três arquivos JSON extraídos do dataset.
+Cabe mencionar que, conforme o CVE, alguns dos campos supramencionados podem ser suprimidos (são preenchidos com None na análise preliminar). O diretório "Exemplos JSON", possui três arquivos JSON extraídos do dataset.
 
 Recomenda-se baixar o dataset completo direto do endereço: https://www.kaggle.com/vsathiamoo/cve-common-vulnerabilities-and-exposures/version/1.
 
