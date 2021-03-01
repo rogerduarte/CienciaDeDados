@@ -19,7 +19,7 @@ Não foi possível enviar o dataset a este Git, visto que o mesmo possui aproxim
 
 #### Organização GIT:
 
-Exploração de Dados / 
+[Exploração de Dados / ](https://github.com/rogerduarte/CienciaDeDados/tree/main/Explora%C3%A7%C3%A3o%20de%20Dados)
  
  - contêm as respostas da prática 3, com detalhes do dataset e exemplos de três arquivos JSONs do dataset
 
