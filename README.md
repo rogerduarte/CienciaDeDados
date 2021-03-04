@@ -2,7 +2,7 @@ Ciência de Dados para Segurança (CI1030) - Trabalho Final
 =================
 #### Alunos:
 
-Michael André Hempkemeyer 
+Michael A Hempkemeyer (PPGINF-202000131795)
 
 Roger R R Duarte (PPGINF-202000131793)
 
