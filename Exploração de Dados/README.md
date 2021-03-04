@@ -45,7 +45,7 @@ O arquivo "Exploração_Dados.py" é um exemplo de leitura do dataset, tratament
 
 As tabelas a seguir foram geradas com a pré-análise do dataset. 
 
-| Váriavel | Número de registros |
+| Variável | Número de registros |
 | --- | --- |
 | Modified | 106856 |
 | Published | 106856 |
