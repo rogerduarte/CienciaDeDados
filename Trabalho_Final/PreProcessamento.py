@@ -75,29 +75,29 @@ class PreProcessDataSet:
                             elif tmp[d] is None:
                                 tmp_dict[d] = "NONE"
                             else:
-                                tmp_dict[d] = "NONE"
+                                tmp_dict[d] = tmp[d]
                         else:
-                            tmp_dict[d] = None
+                            tmp_dict[d] = "NONE"
                     # Faz o tratamento do dicionário impact
                     elif d == "impact":
                         if d in tmp.keys():
-                            tmp_dict["impact_availability"] = tmp[d]["availability"] if "availability" in tmp[d] else None
-                            tmp_dict["impact_confidentiality"] = tmp[d]["confidentiality"] if "confidentiality" in tmp[d] else None
-                            tmp_dict["impact_integrity"] = tmp[d]["integrity"] if "integrity" in tmp[d] else None
+                            tmp_dict["impact_availability"] = tmp[d]["availability"] if "availability" in tmp[d] else "NONE"
+                            tmp_dict["impact_confidentiality"] = tmp[d]["confidentiality"] if "confidentiality" in tmp[d] else "NONE"
+                            tmp_dict["impact_integrity"] = tmp[d]["integrity"] if "integrity" in tmp[d] else "NONE"
                         else:
-                            tmp_dict["impact_availability"] = None
-                            tmp_dict["impact_confidentiality"] = None
-                            tmp_dict["impact_integrity"] = None
+                            tmp_dict["impact_availability"] = "NONE"
+                            tmp_dict["impact_confidentiality"] = "NONE"
+                            tmp_dict["impact_integrity"] = "NONE"
                     # Faz o tratamento do dicionário acccess
                     elif d == "access":
                         if d in tmp.keys():
-                            tmp_dict["access_authentication"] = tmp[d]["authentication"] if "authentication" in tmp[d] else None
-                            tmp_dict["access_complexity"] = tmp[d]["complexity"] if "complexity" in tmp[d] else None
-                            tmp_dict["access_vector"] = tmp[d]["vector"] if "vector" in tmp[d] else None
+                            tmp_dict["access_authentication"] = tmp[d]["authentication"] if "authentication" in tmp[d] else "NONE"
+                            tmp_dict["access_complexity"] = tmp[d]["complexity"] if "complexity" in tmp[d] else "NONE"
+                            tmp_dict["access_vector"] = tmp[d]["vector"] if "vector" in tmp[d] else "NONE"
                         else:
-                            tmp_dict["access_authentication"] = None
-                            tmp_dict["access_complexity"] = None
-                            tmp_dict["access_vector"] = None
+                            tmp_dict["access_authentication"] = "NONE"
+                            tmp_dict["access_complexity"] = "NONE"
+                            tmp_dict["access_vector"] = "NONE"
 
                 # Adiciona a linha lida na lista
                 if use_line is True:
