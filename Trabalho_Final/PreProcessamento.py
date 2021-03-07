@@ -16,7 +16,7 @@ class PreProcessDataSet:
 
     def __init__(self):
         # Lista de colunas selecionadas na pré-análise do dataset
-        #self.list_columns = ["id", "Modified", "Published", "access", "cvss", "cvss-time", "impact",
+        # self.list_columns = ["id", "Modified", "Published", "access", "cvss", "cvss-time", "impact",
         #                "summary", "references", "vulnerable_configuration_cpe_2_2"]
         self.list_columns = ["id", "summary", "Published", "access", "impact", "cvss"]
         # Váriavel contendo as listas JSON
