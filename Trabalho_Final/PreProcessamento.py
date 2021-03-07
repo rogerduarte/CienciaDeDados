@@ -69,35 +69,34 @@ class PreProcessDataSet:
                                 if "** REJECT **  DO NOT USE THIS CANDIDATE NUMBER" in tmp[d].upper():
                                     use_line = False
                                     break
-                                # Faz a substituição de uma aspas duplas por simples
-                                # Não é inserido no dataframe
+                                # Não é inserido no dataframe, está sendo utilizado apenas para controle
                                 # tmp_dict[d] = tmp[d].replace("\"", "'")
                             elif tmp[d] is None:
-                                tmp_dict[d] = "NONE"
+                                tmp_dict[d] = "N/A"
                             else:
                                 tmp_dict[d] = tmp[d]
                         else:
-                            tmp_dict[d] = "NONE"
+                            tmp_dict[d] = "N/A"
                     # Faz o tratamento do dicionário impact
                     elif d == "impact":
                         if d in tmp.keys():
-                            tmp_dict["impact_availability"] = tmp[d]["availability"] if "availability" in tmp[d] else "NONE"
-                            tmp_dict["impact_confidentiality"] = tmp[d]["confidentiality"] if "confidentiality" in tmp[d] else "NONE"
-                            tmp_dict["impact_integrity"] = tmp[d]["integrity"] if "integrity" in tmp[d] else "NONE"
+                            tmp_dict["impact_availability"] = tmp[d]["availability"] if "availability" in tmp[d] else "N/A"
+                            tmp_dict["impact_confidentiality"] = tmp[d]["confidentiality"] if "confidentiality" in tmp[d] else "N/A"
+                            tmp_dict["impact_integrity"] = tmp[d]["integrity"] if "integrity" in tmp[d] else "N/A"
                         else:
-                            tmp_dict["impact_availability"] = "NONE"
-                            tmp_dict["impact_confidentiality"] = "NONE"
-                            tmp_dict["impact_integrity"] = "NONE"
+                            tmp_dict["impact_availability"] = "N/A"
+                            tmp_dict["impact_confidentiality"] = "N/A"
+                            tmp_dict["impact_integrity"] = "N/A"
                     # Faz o tratamento do dicionário acccess
                     elif d == "access":
                         if d in tmp.keys():
-                            tmp_dict["access_authentication"] = tmp[d]["authentication"] if "authentication" in tmp[d] else "NONE"
-                            tmp_dict["access_complexity"] = tmp[d]["complexity"] if "complexity" in tmp[d] else "NONE"
-                            tmp_dict["access_vector"] = tmp[d]["vector"] if "vector" in tmp[d] else "NONE"
+                            tmp_dict["access_authentication"] = tmp[d]["authentication"] if "authentication" in tmp[d] else "N/A"
+                            tmp_dict["access_complexity"] = tmp[d]["complexity"] if "complexity" in tmp[d] else "N/A"
+                            tmp_dict["access_vector"] = tmp[d]["vector"] if "vector" in tmp[d] else "N/A"
                         else:
-                            tmp_dict["access_authentication"] = "NONE"
-                            tmp_dict["access_complexity"] = "NONE"
-                            tmp_dict["access_vector"] = "NONE"
+                            tmp_dict["access_authentication"] = "N/A"
+                            tmp_dict["access_complexity"] = "N/A"
+                            tmp_dict["access_vector"] = "N/A"
 
                 # Adiciona a linha lida na lista
                 if use_line is True:

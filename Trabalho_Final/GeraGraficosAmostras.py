@@ -1,7 +1,4 @@
-import sys
-import matplotlib.pyplot as plt
 from Trabalho_Final.PreProcessamento import PreProcessDataSet
-import pandas as pd
 import os.path
 
 # Criação da classe de pré-processamento
