@@ -154,10 +154,10 @@ if __name__ == "__main__":
 
     pre_process.read_dataset_to_list()
     pre_process.partition_80_20()
+    pre_process.generate_csv_80_20()
     print(pre_process.df_80.shape)
     print(pre_process.df_20.shape)
-    #pre_process.generate_csv_80_20()
-
+    
     # Exemplo de resultado do método generate_csv_80_20:
     # De 2,25GB do arquivo JSON, foram gerados dois .CSV, um com 15MB e outro com 160MB
     # 06/03/2021  23:21        15.551.907 data-list-20.csv
