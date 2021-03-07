@@ -130,7 +130,7 @@ df_80 = pd.DataFrame(data_list_80)
 df_20 = pd.DataFrame(data_list_20)
 
 # Grava em formato .csv
-# Três arquivos serão gerados: data-list-20.csv | data-list-80.csv | data-list-all.csv
+# Dois arquivos serão gerados: data-list-20.csv | data-list-80.csv
 # Obs.: quoting=csv.QUOTE_ALL - evita problemas na leitura do CSV no Weka
 df_80.fillna("").to_csv(output_file_name_80, index=False, header=True, quoting=csv.QUOTE_ALL)
 df_20.fillna("").to_csv(output_file_name_20, index=False, header=True, quoting=csv.QUOTE_ALL)
