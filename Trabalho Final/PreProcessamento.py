@@ -16,8 +16,7 @@ class PreProcessDataSet:
 
     def __init__(self):
         # Lista de colunas selecionadas na pré-análise do dataset
-        self.list_columns = ["id", "Modified", "Published", "access", "cvss", "cvss-time", "impact",
-                        "summary", "references", "vulnerable_configuration_cpe_2_2"]
+        self.list_columns = ["id", "Modified", "Published", "access", "cvss", "cvss-time", "impact"]
         # Váriavel contendo as listas JSON
         self.data_list = []
         self.data_list_80 = []
@@ -61,31 +60,6 @@ class PreProcessDataSet:
                             # Realiza um ajuste na data, com parser, em campos com datas
                             if d == "Published" or d == "Modified" or d == "cvss-time":
                                 tmp_dict[d] = parser.parse(tmp[d])
-                            elif d == "summary":
-                                # Em determinados casos, existe a marcação de "REJECT" no summary.
-                                # Tais CVEs que contêm o REJECT no summary serão eliminados
-                                # Ex.: ** REJECT **  DO NOT USE THIS CANDIDATE NUMBER.  ConsultIDs: none.  Reason: This ...
-                                if "** REJECT **  DO NOT USE THIS CANDIDATE NUMBER" in tmp[d].upper():
-                                    use_line = False
-                                    break
-                                # Faz a substituição de uma aspas duplas por simples
-                                # Evita problemas na leitura do CSV pelo Weka
-                                tmp_dict[d] = tmp[d].replace("\"", "'")
-                            elif d == "references":
-                                # Inclui aspas caso necessário
-                                # Verifica se é uma lista e o tamanho da lista
-                                # Se for uma lista vazia, deixa como None
-                                if type(tmp[d]) is list and len(tmp[d]) > 0:
-                                    tmp_dict[d] = tmp[d]
-                                else:
-                                    tmp_dict[d] = None
-                            elif d == "vulnerable_configuration_cpe_2_2":
-                                # vulnerable_configuration_cpe_2_2 também é uma lista
-                                # Deixa None se vazia
-                                if type(tmp[d]) is list and len(tmp[d]) > 0:
-                                    tmp_dict[d] = tmp[d]
-                                else:
-                                    tmp_dict[d] = None
                             else:
                                 tmp_dict[d] = tmp[d]
                         else:
