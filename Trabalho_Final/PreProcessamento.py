@@ -16,8 +16,9 @@ class PreProcessDataSet:
 
     def __init__(self):
         # Lista de colunas selecionadas na pré-análise do dataset
-        self.list_columns = ["id", "Modified", "Published", "access", "cvss", "cvss-time", "impact",
-                        "summary", "references", "vulnerable_configuration_cpe_2_2"]
+        #self.list_columns = ["id", "Modified", "Published", "access", "cvss", "cvss-time", "impact",
+        #                "summary", "references", "vulnerable_configuration_cpe_2_2"]
+        self.list_columns = ["id", "summary", "Published", "access", "impact", "cvss"]
         # Váriavel contendo as listas JSON
         self.data_list = []
         self.data_list_80 = []
@@ -69,23 +70,8 @@ class PreProcessDataSet:
                                     use_line = False
                                     break
                                 # Faz a substituição de uma aspas duplas por simples
-                                # Evita problemas na leitura do CSV pelo Weka
-                                tmp_dict[d] = tmp[d].replace("\"", "'")
-                            elif d == "references":
-                                # Inclui aspas caso necessário
-                                # Verifica se é uma lista e o tamanho da lista
-                                # Se for uma lista vazia, deixa como None
-                                if type(tmp[d]) is list and len(tmp[d]) > 0:
-                                    tmp_dict[d] = tmp[d]
-                                else:
-                                    tmp_dict[d] = None
-                            elif d == "vulnerable_configuration_cpe_2_2":
-                                # vulnerable_configuration_cpe_2_2 também é uma lista
-                                # Deixa None se vazia
-                                if type(tmp[d]) is list and len(tmp[d]) > 0:
-                                    tmp_dict[d] = tmp[d]
-                                else:
-                                    tmp_dict[d] = None
+                                # Não é inserido no dataframe
+                                # tmp_dict[d] = tmp[d].replace("\"", "'")
                             else:
                                 tmp_dict[d] = tmp[d]
                         else:
@@ -167,9 +153,11 @@ if __name__ == "__main__":
 
     pre_process.read_dataset_to_list()
     pre_process.partition_80_20()
-    pre_process.generate_csv_80_20()
+    print(pre_process.df_80.shape)
+    print(pre_process.df_20.shape)
+    #pre_process.generate_csv_80_20()
 
-    # Exemplo de resultado:
+    # Exemplo de resultado do método generate_csv_80_20:
     # De 2,25GB do arquivo JSON, foram gerados dois .CSV, um com 15MB e outro com 160MB
     # 06/03/2021  23:21        15.551.907 data-list-20.csv
     # 06/03/2021  23:20       160.093.295 data-list-80.csv
