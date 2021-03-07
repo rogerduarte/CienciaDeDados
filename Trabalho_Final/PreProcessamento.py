@@ -60,7 +60,7 @@ class PreProcessDataSet:
                     if d != "impact" and d != "access":
                         if d in tmp.keys():
                             # Realiza um ajuste na data, com parser, em campos com datas
-                            if d == "Published" or d == "Modified" or d == "cvss-time":
+                            if d == "Published":
                                 tmp_dict[d] = parser.parse(tmp[d])
                             elif d == "summary":
                                 # Em determinados casos, existe a marcação de "REJECT" no summary.
@@ -72,8 +72,10 @@ class PreProcessDataSet:
                                 # Faz a substituição de uma aspas duplas por simples
                                 # Não é inserido no dataframe
                                 # tmp_dict[d] = tmp[d].replace("\"", "'")
+                            elif tmp[d] is None:
+                                tmp_dict[d] = "NONE"
                             else:
-                                tmp_dict[d] = tmp[d]
+                                tmp_dict[d] = "NONE"
                         else:
                             tmp_dict[d] = None
                     # Faz o tratamento do dicionário impact
