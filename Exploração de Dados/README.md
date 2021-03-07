@@ -71,11 +71,11 @@ As tabelas a seguir foram geradas com a pré-análise do dataset.
 
 | Ano | Número de registros |
 | --- | --- |
-| 2017 | 18114 |
-| 2014 | 8017 |
-| 2018 | 7898 |
-| 2006 | 6659 |
-| 2007 | 6596 |
+| 2017 | 14651 |
+| 2014 | 7938 |
+| 2006 | 6610 |
+| 2007 | 6520 |
+| 2015 | 6488 |
 
 - A tabela acima faz um groupby pelo atributo Published e mostra os cinco anos que mais tiveram CVE publicados
 
