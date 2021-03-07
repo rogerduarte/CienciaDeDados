@@ -50,24 +50,15 @@ def read_dataset_to_list(debug=False, max_line=max_lines_debug):
                             if "** REJECT **  DO NOT USE THIS CANDIDATE NUMBER" in tmp[d].upper():
                                 use_line = False
                                 break
-                            # Inclui aspas caso necessário
-                            if tmp[d][0] != "\"" and tmp[d][-1:] != "\"":
-                                tmp_dict[d] = "\"" + tmp[d] + "\""
-                            else:
-                                tmp_dict[d] = tmp[d]
+                            # Faz a substituição de uma aspas duplas por simples
+                            # Evita problemas na leitura do CSV pelo Weka
+                            tmp_dict[d] = tmp[d].replace("\"", "'")
                         elif d == "references":
                             # Inclui aspas caso necessário
                             # Verifica se é uma lista e o tamanho da lista
                             # Se for uma lista vazia, deixa como None
                             if type(tmp[d]) is list and len(tmp[d]) > 0:
-                                tmp_f = []
-                                for i in tmp[d]:
-                                    str_tmp = str(i)
-                                    if str_tmp[0] != "\"" and str_tmp[-1:] != "\"":
-                                        tmp_f.append("\"" + str_tmp + "\"")
-                                    else:
-                                        tmp_f.append(str_tmp)
-                                tmp_dict[d] = tmp_f
+                                tmp_dict[d] = tmp[d]
                             else:
                                 tmp_dict[d] = None
                         elif d == "vulnerable_configuration_cpe_2_2":
@@ -140,13 +131,15 @@ df_20 = pd.DataFrame(data_list_20)
 
 # Grava em formato .csv
 # Três arquivos serão gerados: data-list-20.csv | data-list-80.csv | data-list-all.csv
-df_80.fillna("").to_csv(output_file_name_80, index=False, header=True, quoting=csv.QUOTE_NONE, quotechar="",
-                        escapechar="\\")
-df_20.fillna("").to_csv(output_file_name_20, index=False, header=True, quoting=csv.QUOTE_NONE, quotechar="",
-                        escapechar="\\")
+# Obs.: quoting=csv.QUOTE_ALL - evita problemas na leitura do CSV no Weka
+df_80.fillna("").to_csv(output_file_name_80, index=False, header=True, quoting=csv.QUOTE_ALL)
+df_20.fillna("").to_csv(output_file_name_20, index=False, header=True, quoting=csv.QUOTE_ALL)
 
 
 # Exemplo de resultado:
 # De 2,25GB do arquivo JSON, foram gerados dois .CSV, um com 15MB e outro com 160MB
 # 06/03/2021  23:21        15.551.907 data-list-20.csv
 # 06/03/2021  23:20       160.093.295 data-list-80.csv
+
+
+# O CSV gerado foi lido corretamente pelo Weka

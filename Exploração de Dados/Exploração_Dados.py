@@ -125,3 +125,7 @@ print(df_cve.fillna('Vazio').groupby('impact_integrity').size().sort_values(asce
 print(df_cve.fillna('Vazio').groupby('access_authentication').size().sort_values(ascending=False).head(), end="\n")
 print(df_cve.fillna('Vazio').groupby('access_complexity').size().sort_values(ascending=False).head(), end="\n")
 print(df_cve.fillna('Vazio').groupby('access_vector').size().sort_values(ascending=False).head(), end="\n\n")
+
+# Distribuição por data
+print(df_cve.fillna('Vazio').groupby(df_cve['Published'].dt.year).size().sort_values(ascending=False).head(),
+      end="\n\n")
