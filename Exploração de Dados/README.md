@@ -101,9 +101,6 @@ Atributos que serão mantidos:
     - Cvss-time, 
     - Impact, 
 	- id,
-    - References, 
-    - Summary
-    - Vulnerable_configuration_cpe_2_2
 
 A ideia é que possamos obter informações gerais do CVE, com informações dos produtos vulneráveis, quais tipos de configurações, scores, 
 formas de acesso e impactos divulgados pelos CVEs. Essas informações podem ser obtidas através dos atributos acima.
@@ -113,6 +110,9 @@ Atributos removidos:
     - Capec -> não é de interesse do trabalho saber o CAPEC, visto que não será útil para atingir os objetivos já mencionados.
     - Last-modified -> essa informação já obtida pelos outros campos
     - Nessus -> não é de interesse do trabalho saber CVEs possivelmente relacionados, visto que não será útil para atingir os objetivos já mencionados.
-    - Vulnerable_configuration -> a informação será obtida pela variável Vulnerable_configuration_cpe_2_2
+    - References -> não é de interesse do trabalho saber a referência do CVE.
+    - Summary -> não é do interesse do trabalho saber um resumo da vulnerabilidade
+    - Vulnerable_configuration -> não é de interesse do trabalho.
+    - Vulnerable_configuration_cpe_2_2 -> não é de interesse do trabalho.
 
 
