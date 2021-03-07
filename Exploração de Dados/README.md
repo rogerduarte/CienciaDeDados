@@ -47,18 +47,18 @@ As tabelas a seguir foram geradas com a pré-análise do dataset.
 
 | Variável | Número de registros |
 | --- | --- |
-| Modified | 106856 |
-| Published | 106856 |
-| access | 84981 |
+| Modified | 101062 |
+| Published | 101062 |
+| access | 84979 |
 | cvss | 99885 |
-| cvss-time | 84981 |
-| impact | 84981 |
-| references | 106856 |
-| summary |  106856 |
-| vulnerable_configuration_cpe_2_2 | 106856
-| id | 106856 |
+| cvss-time | 84979 |
+| impact | 84979 |
+| references | 100274 |
+| summary |  101062 |
+| vulnerable_configuration_cpe_2_2 | 99156
+| id | 101062 |
 
-- A tabela acima indica que o número total de CVEs do dataset é 106856, e que existem alguns atributos que estão suprimidos no dataset (Ex.: o atributo "access" foi encontrado em 84981 CVEs, "id" foi encontrado em todos os CVEs, etc). Isso será levado em conta na análise posterior.
+- A tabela acima indica que o número total de CVEs do dataset é 101062, e que existem alguns atributos que estão suprimidos no dataset (Ex.: o atributo "access" foi encontrado em 84979 CVEs, "id" foi encontrado em todos os CVEs, etc). Isso será levado em conta na análise posterior.
 
 | Scores (cvss) | Número de registros |
 | --- | --- |
@@ -81,9 +81,10 @@ As tabelas a seguir foram geradas com a pré-análise do dataset.
 
 | Impacto (availability) | Impacto (confidentiality) | Impacto (integrity) |
 | --- | --- | --- |
-| PARTIAL | 155880 | 174330 | 186440 |
-| NONE | 132070 | 128040 | 118910 |
-| COMPLETE | 103430 | 89010 | 86030 |
+| PARTIAL | 36370 | 39337 | 43865 |
+| NONE | 27186 | 27056 | 23168 |
+| COMPLETE | 103430 | 18586 | 17946 |
+| Vazio | 16083 | 16083 | 16083 |
 
 - A tabela acima faz um groupby pelos atributos availability, confidentiality e integrity (referentes ao dicionário impact) e 
 mostra a distribuição de impactos dos CVEs
