@@ -1,16 +1,25 @@
 import pandas as pd
 import json
 from dateutil import parser
+import math
+import csv
+
+## Pré-processamento
 
 # Lista de colunas selecionadas na pré-análise do dataset
-list_columns = ["Modified", "Published", "access", "cvss", "cvss-time", "impact", "references",
-                "summary", "vulnerable_configuration_cpe_2_2", "id"]
-# Váriavel contendo a lista de JSON
+list_columns = ["id", "Modified", "Published", "access", "cvss", "cvss-time", "impact",
+                "summary", "references", "vulnerable_configuration_cpe_2_2"]
+# Váriavel contendo as listas JSON
 data_list = []
+data_list_80 = []
+data_list_20 = []
 # Número máximo de linhas que serão lidas. Geralmente utilizado para debug
 max_lines_debug = 60500
 # Caminho do arquivo dataset
-file_name_dataset = "circl-cve-search-expanded.json"
+file_name_dataset = "../Exploração de Dados/circl-cve-search-expanded.json"
+# Arquivo de saida do pré-processamento
+output_file_name_80 = "data-list-80.csv"
+output_file_name_20 = "data-list-20.csv"
 
 
 def read_dataset_to_list(debug=False, max_line=max_lines_debug):
@@ -105,23 +114,39 @@ def read_dataset_to_list(debug=False, max_line=max_lines_debug):
             line = json_file.readline()
 
 
+# Particiona a variável data_list em 80x20
+def partition_80_20():
+    global data_list, data_list_80, data_list_20
+
+    size_80 = math.floor((len(data_list) * 80) / 100)
+    max_loop = len(data_list)
+
+    for i in range(len(data_list)):
+        if i < size_80:
+            data_list_80.append(data_list[i])
+        else:
+            data_list_20.append(data_list[i])
+
+
 # Leitura do dataset. Os dados serão salvos na variável global data_list
+# read_dataset_to_list(True, 10) # modo debug
 read_dataset_to_list()
-# Criação do dataframe utilizando a informação lida do dataset
-df_cve = pd.DataFrame(data_list)
+# Particiona os dados em dois vetores, 80x20
+partition_80_20()
 
-# Número de registros para um dos parâmetros
-print(df_cve.count(), end="\n\n")
+# Cria os dataframes
+df_80 = pd.DataFrame(data_list_80)
+df_20 = pd.DataFrame(data_list_20)
 
-# Distribuição CVSS (score)
-print(df_cve.fillna('Vazio').groupby('cvss').size().sort_values(ascending=False).head(), end="\n\n")
+# Grava em formato .csv
+# Três arquivos serão gerados: data-list-20.csv | data-list-80.csv | data-list-all.csv
+df_80.fillna("").to_csv(output_file_name_80, index=False, header=True, quoting=csv.QUOTE_NONE, quotechar="",
+                        escapechar="\\")
+df_20.fillna("").to_csv(output_file_name_20, index=False, header=True, quoting=csv.QUOTE_NONE, quotechar="",
+                        escapechar="\\")
 
-# Distribuição pelo impact
-print(df_cve.fillna('Vazio').groupby('impact_availability').size().sort_values(ascending=False).head(), end="\n")
-print(df_cve.fillna('Vazio').groupby('impact_confidentiality').size().sort_values(ascending=False).head(), end="\n")
-print(df_cve.fillna('Vazio').groupby('impact_integrity').size().sort_values(ascending=False).head(), end="\n\n")
 
-# Distribuição pelo access
-print(df_cve.fillna('Vazio').groupby('access_authentication').size().sort_values(ascending=False).head(), end="\n")
-print(df_cve.fillna('Vazio').groupby('access_complexity').size().sort_values(ascending=False).head(), end="\n")
-print(df_cve.fillna('Vazio').groupby('access_vector').size().sort_values(ascending=False).head(), end="\n\n")
+# Exemplo de resultado:
+# De 2,25GB do arquivo JSON, foram gerados dois .CSV, um com 15MB e outro com 160MB
+# 06/03/2021  23:21        15.551.907 data-list-20.csv
+# 06/03/2021  23:20       160.093.295 data-list-80.csv
