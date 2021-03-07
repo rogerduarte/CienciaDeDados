@@ -49,10 +49,10 @@ As tabelas a seguir foram geradas com a pré-análise do dataset.
 | --- | --- |
 | Modified | 101062 |
 | Published | 101062 |
-| access | 84979 |
+| access (authentication,complexity,vector)  | 84979 |
 | cvss | 99885 |
 | cvss-time | 84979 |
-| impact | 84979 |
+| impact (availability,confidentiality,integrity)  | 84979 |
 | references | 100274 |
 | summary |  101062 |
 | vulnerable_configuration_cpe_2_2 | 99156
