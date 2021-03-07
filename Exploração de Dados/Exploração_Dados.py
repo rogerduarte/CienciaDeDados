@@ -3,8 +3,7 @@ import json
 from dateutil import parser
 
 # Lista de colunas selecionadas na pré-análise do dataset
-list_columns = ["Modified", "Published", "access", "cvss", "cvss-time", "impact", "references",
-                "summary", "vulnerable_configuration_cpe_2_2", "id"]
+list_columns = [ "id", "Modified", "Published", "access", "cvss", "cvss-time", "impact"]
 # Váriavel contendo a lista de JSON
 data_list = []
 # Número máximo de linhas que serão lidas. Geralmente utilizado para debug
@@ -34,40 +33,6 @@ def read_dataset_to_list(debug=False, max_line=max_lines_debug):
                         # Realiza um ajuste na data, com parser, em campos com datas
                         if d == "Published" or d == "Modified" or d == "cvss-time":
                             tmp_dict[d] = parser.parse(tmp[d])
-                        elif d == "summary":
-                            # Em determinados casos, existe a marcação de "REJECT" no summary.
-                            # Tais CVEs que contêm o REJECT no summary serão eliminados
-                            # Ex.: ** REJECT **  DO NOT USE THIS CANDIDATE NUMBER.  ConsultIDs: none.  Reason: This ...
-                            if "** REJECT **  DO NOT USE THIS CANDIDATE NUMBER" in tmp[d].upper():
-                                use_line = False
-                                break
-                            # Inclui aspas caso necessário
-                            if tmp[d][0] != "\"" and tmp[d][-1:] != "\"":
-                                tmp_dict[d] = "\"" + tmp[d] + "\""
-                            else:
-                                tmp_dict[d] = tmp[d]
-                        elif d == "references":
-                            # Inclui aspas caso necessário
-                            # Verifica se é uma lista e o tamanho da lista
-                            # Se for uma lista vazia, deixa como None
-                            if type(tmp[d]) is list and len(tmp[d]) > 0:
-                                tmp_f = []
-                                for i in tmp[d]:
-                                    str_tmp = str(i)
-                                    if str_tmp[0] != "\"" and str_tmp[-1:] != "\"":
-                                        tmp_f.append("\"" + str_tmp + "\"")
-                                    else:
-                                        tmp_f.append(str_tmp)
-                                tmp_dict[d] = tmp_f
-                            else:
-                                tmp_dict[d] = None
-                        elif d == "vulnerable_configuration_cpe_2_2":
-                            # vulnerable_configuration_cpe_2_2 também é uma lista
-                            # Deixa None se vazia
-                            if type(tmp[d]) is list and len(tmp[d]) > 0:
-                                tmp_dict[d] = tmp[d]
-                            else:
-                                tmp_dict[d] = None
                         else:
                             tmp_dict[d] = tmp[d]
                     else:
