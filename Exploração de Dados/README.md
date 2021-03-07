@@ -79,8 +79,8 @@ As tabelas a seguir foram geradas com a pré-análise do dataset.
 
 - A tabela acima faz um groupby pelo atributo Published e mostra os cinco anos que mais tiveram CVE publicados
 
-| Impacto (availability) | Impacto (confidentiality) | Impacto (integrity) |
-| --- | -- | --- | --- |
+| Categoria | Impacto (availability) | Impacto (confidentiality) | Impacto (integrity) |
+| --- | --- | --- | --- |
 | PARTIAL | 36370 | 39337 | 43865 |
 | NONE | 27186 | 27056 | 23168 |
 | COMPLETE | 21423 | 18586 | 17946 |
