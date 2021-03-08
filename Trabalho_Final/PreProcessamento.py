@@ -148,18 +148,13 @@ class PreProcessDataSet:
         return True
 
 
-# Utilizado para testar a classe
 if __name__ == "__main__":
     pre_process = PreProcessDataSet()
 
+    print("Leitura e pré-processamento do dataset ...")
     pre_process.read_dataset_to_list()
+    print("Particionamento dos dados em 80% e 20% ...")
     pre_process.partition_80_20()
+    print("Gravação dos datasets pré-processados em disco ...")
     pre_process.generate_csv_80_20()
-    print(pre_process.df_80.shape)
-    print(pre_process.df_20.shape)
-    
-    # Exemplo de resultado do método generate_csv_80_20:
-    # De 2,25GB do arquivo JSON, foram gerados dois .CSV, um com 15MB e outro com 160MB
-    # 06/03/2021  23:21        15.551.907 data-list-20.csv
-    # 06/03/2021  23:20       160.093.295 data-list-80.csv
-
+    print("Finalizado!")
