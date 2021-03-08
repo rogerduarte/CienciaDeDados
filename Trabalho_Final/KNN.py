@@ -5,8 +5,8 @@ import pandas as pd
 #Read dataset CSV file
 list_columns = ["access_authentication","access_complexity","access_vector","impact_availability",
         "impact_confidentiality","impact_integrity","cvss"]
-file_csv_OrdinalEncoder = "" 
-dataset = pd.read_csv("/content/drive/My Drive/06_Mestrado/Aula-Ciencia_Dados/Trabalho_Final/data-list-80_OrdinalEncoder.csv", nrows=60000, usecols= list_columns)
+file_csv_OrdinalEncoder = "dataset/data-list-80_OrdinalEncoder.csv" 
+dataset = pd.read_csv(file_csv_OrdinalEncoder, nrows=60000, usecols= list_columns)
 
 
 X = dataset.iloc[:, :-1].values
