@@ -19,12 +19,10 @@ from gensim.models import Word2Vec
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.preprocessing import MinMaxScaler
 from sklearn.ensemble import RandomForestClassifier
-from sklearn.metrics import confusion_matrix
-import numpy as np
-from sklearn.metrics import accuracy_score
+from sklearn.metrics import confusion_matrix, precision_score, mean_absolute_error
 import numpy as np
 from sklearn.neighbors import KNeighborsClassifier
-
+from sklearn.svm import SVC
 
 # Caminho dos DataSets
 data_path_80 = os.path.join("dataset", "data-list-80.csv")
@@ -47,6 +45,9 @@ df_data = pd.read_csv(data_path_80)
 
 # Valor do label, que será utilizado para classificação
 label = df_data[label_attribute].values
+
+# Apaga o label do dataset
+del df_data[label_attribute]
 
 
 def split_data(param_data):
@@ -114,7 +115,7 @@ def textual_feature_word2vec(train_data_param, test_data_param):
     return train_features_o, test_features_o
 
 
-def generate_models(text_type="tfidf", model_type="RandomForestClassifier"):
+def generate_models(model_type="RandomForestClassifier"):
     global df_data, label
     # Split dos dados
     train_data, test_data = split_data(df_data)
@@ -126,14 +127,14 @@ def generate_models(text_type="tfidf", model_type="RandomForestClassifier"):
 
     # Faz o tratamento das características textuais e já faz a junção com os numéricos
     for a in textual_attributes:
-        if text_type == "tfidf":
-            train_texts, test_texts = textual_feature_tfid(train_data[a].values, test_data[a].values)
-            train_features = np.concatenate((train_features, train_texts.toarray()), axis=1)
-            test_features = np.concatenate((test_features, test_texts.toarray()), axis=1)
-        elif text_type == "word2vec":
-            train_texts, test_texts = textual_feature_word2vec(train_data[a].values, test_data[a].values)
-            train_features = np.concatenate((train_features, train_texts), axis=1)
-            test_features = np.concatenate((test_features, test_texts), axis=1)
+        # TDF-IDF
+        train_texts, test_texts = textual_feature_tfid(train_data[a].values, test_data[a].values)
+        train_features = np.concatenate((train_features, train_texts.toarray()), axis=1)
+        test_features = np.concatenate((test_features, test_texts.toarray()), axis=1)
+        # Word2Vec
+        train_texts, test_texts = textual_feature_word2vec(train_data[a].values, test_data[a].values)
+        train_features = np.concatenate((train_features, train_texts), axis=1)
+        test_features = np.concatenate((test_features, test_texts), axis=1)
 
     # Faz a normalização
     scaler_param = MinMaxScaler()
@@ -145,27 +146,41 @@ def generate_models(text_type="tfidf", model_type="RandomForestClassifier"):
         clf = RandomForestClassifier(n_estimators=10, random_state=0)
         clf.fit(train_features_norm, train_label)
         test_pred = clf.predict(test_features_norm)
-        print(f"Acurácia: ", end="")
-        print(accuracy_score(test_label, test_pred))
+        print(f"Precisão: ", end="")
+        print(precision_score(test_label, test_pred))
+        print(f"Erro (mean_absolute_error): ", end="")
+        print(mean_absolute_error(test_label, test_pred))
         print(f"Matriz de confusão: ")
         print(confusion_matrix(test_label, test_pred))
     elif model_type == "KNeighborsClassifier":
         clf = KNeighborsClassifier(n_neighbors=3)
         clf.fit(train_features_norm, train_label)
         test_pred = clf.predict(test_features_norm)
-        print(f"Acurácia: ", end="")
-        print(accuracy_score(test_label, test_pred))
+        print(f"Precisão: ", end="")
+        print(precision_score(test_label, test_pred))
+        print(f"Erro (mean_absolute_error): ", end="")
+        print(mean_absolute_error(test_label, test_pred))
+        print(f"Matriz de confusão: ")
+        print(confusion_matrix(test_label, test_pred))
+    elif model_type == "SVM":
+        clf = SVC(kernel="linear")
+        clf.fit(train_features_norm, train_label)
+        test_pred = clf.predict(test_features_norm)
+        print(f"Precisão: ", end="")
+        print(precision_score(test_label, test_pred))
+        print(f"Erro (mean_absolute_error): ", end="")
+        print(mean_absolute_error(test_label, test_pred))
         print(f"Matriz de confusão: ")
         print(confusion_matrix(test_label, test_pred))
 
 
-print("-------- RandomForestClassifier (tfidf): ")
-generate_models("tfidf", "RandomForestClassifier")
-print("-------- KNeighborsClassifier (tfidf): ")
-generate_models("tfidf", "KNeighborsClassifier")
-print("-------- RandomForestClassifier (word2vec): ")
-generate_models("word2vec", "RandomForestClassifier")
-print("-------- KNeighborsClassifier (word2vec): ")
-generate_models("word2vec", "KNeighborsClassifier")
+if __name__ == "__main__":
+    print("---------*--------- Split percentage ---------*---------")
+    print("-------- RandomForestClassifier: ")
+    generate_models("RandomForestClassifier")
+    print("-------- KNeighborsClassifier: ")
+    generate_models("KNeighborsClassifier")
+    print("-------- SVM: ")
+    generate_models("SVM")
 
-sys.exit(0)
+    sys.exit(0)
