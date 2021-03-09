@@ -211,7 +211,7 @@ if __name__ == "__main__":
     pre_process = PreProcessDataSet()
 
     print("Leitura e pré-processamento do dataset ...")
-    pre_process.read_dataset_to_list(True, 50000)
+    pre_process.read_dataset_to_list()
     print("Particionamento dos dados em 80% e 20% ...")
     pre_process.partition_80_20()
     print("Gravação dos datasets pré-processados em disco ...")
