@@ -61,3 +61,4 @@ fig.tight_layout()
 plt.savefig(os.path.join(folder_graphics, "distribuição-de-classes.pdf"))
 
 print(f"Finalizado. Arquivo PDF com os gráficos salvo em \"{folder_graphics}\"")
+sys.exit(0)
