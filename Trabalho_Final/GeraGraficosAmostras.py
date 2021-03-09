@@ -1,166 +1,63 @@
-from Trabalho_Final.PreProcessamento import PreProcessDataSet
+"""
+Trabalho final - Ciência de Dados para Segurança (CI1030) - Trabalho Final
+Alunos:
+    Michael A Hempkemeyer (PPGINF-202000131795)
+    Roger R R Duarte (PPGINF-202000131793)
+
+Antes de executar esse script, execute o pré-processamento através do py "PreProcessamento.py"
+Esse script faz a geração do gráfico de distribuição por classes do dataset
+"""
+import sys
 import os.path
+import pandas as pd
+import matplotlib.pyplot as plt
 
-# Criação da classe de pré-processamento
-pre_process = None
+# Caminho dos DataSets
+data_path_80 = os.path.join("dataset", "data-list-80.csv")
+data_path_20 = os.path.join("dataset", "data-list-20.csv")
+
+# Verifica se os arquivos de dataset pré-processados existem
+if os.path.isfile(data_path_80) is False or os.path.isfile(data_path_20) is False:
+    print(f"Arquivos \"{data_path_80}\" e \"{data_path_20}\" não encontrados")
+    print("Execute primeiramente o pré-processamento com o script \"PreProcessamento.py\"")
+    sys.exit(-1)
+
+# Atribuição das colunas conforme o tipo das colunas
+all_attributes = ["cvss", "cwe", "access", "impact", "summary", "vulnerable_configuration_cpe_2_2"]
+textual_attributes = ["cwe", "summary", "vulnerable_configuration_cpe_2_2"]
+numerical_attributes = ["cvss", "access"]
+label_attribute = "impact"
+
+print(f"Leitura dos datasets \"{data_path_80}\" e \"{data_path_20}\" ...")
+df_80 = pd.read_csv(data_path_80)
+df_20 = pd.read_csv(data_path_20)
+
 # Pasta para o armazenamentos dos arquivos PDF com os gráficos
-folder_graphics = "graficos"
-# Variável de control
-count = 1
+folder_graphics = "Gráfico_Dist_Classes"
+print(f"Criação da pasta de destino dos gráfico \"{folder_graphics}\" ...")
+if os.path.isdir(folder_graphics) is False:
+    os.mkdir(folder_graphics)
 
+print("Gerando gráficos ... ")
 
-def generate_graphics_80():
-    """
-    Gera os gráficos em formato PDF para a distribuição de 80%
-    :return:
-    """
-    global count, pre_process, folder_graphics
+fig = plt.figure()
 
-    # Criação gráfico PUBLICAÇÃO DE CVE POR ANO  (80%)
-    tmp = pre_process.df_80.fillna('N/A').groupby([pre_process.df_80['Published'].dt.year]).size()
-    ax = tmp.plot(kind="bar", figsize=(6, 6))
-    ax.set_xlabel("Ano")
-    ax.set_ylabel("Nº de CVEs")
-    ax.figure.suptitle('PUBLICAÇÃO DE CVEs POR ANO (porção 80%)')
-    ax.figure.savefig(os.path.join(folder_graphics, str(count)+'-80-cve-por-ano.pdf'))
+ax_80 = fig.add_subplot(211)
+ax_80 = df_80[label_attribute].groupby(df_80[label_attribute]).count().plot(kind="bar")
+ax_80.set_xlabel("Impacto")
+ax_80.set_ylabel("Quantidade")
+ax_80.set_xticklabels(["CVEs que não geraram impacto", "CVEs que geraram impacto"], rotation='horizontal')
+ax_80.set_title("Distribuição de Classes (Impacto CVEs) - Distribuição 80%")
+fig.tight_layout()
 
-    # IMPACTO (impact_availability) POR ANO DE PUBLICAÇÃO (80%)
-    count += 1
-    tmp = pre_process.df_80.fillna('N/A').groupby([pre_process.df_80['Published'].dt.year, 'impact_availability']).size()
-    ax = tmp.plot(kind="bar", figsize=(25, 15))
-    ax.set_xlabel("Ano e categoria de impacto")
-    ax.set_ylabel("Nº de CVEs")
-    ax.figure.suptitle('IMPACTO (impact_availability) POR ANO DE PUBLICAÇÃO (porção 80%)')
-    ax.figure.savefig(os.path.join(folder_graphics, str(count)+'-80-impact_availability-por-ano.pdf'))
+ax_20 = fig.add_subplot(212)
+ax_20 = df_20[label_attribute].groupby(df_20[label_attribute]).count().plot(kind="bar")
+ax_20.set_xlabel("Impacto")
+ax_20.set_ylabel("Quantidade")
+ax_20.set_xticklabels(["CVEs que não geraram impacto", "CVEs que geraram impacto"], rotation='horizontal')
+ax_20.set_title("Distribuição de Classes (Impacto CVEs) - Distribuição 20%")
+fig.tight_layout()
 
-    # IMPACTO (impact_confidentiality) POR ANO DE PUBLICAÇÃO (80%)")
-    count += 1
-    tmp = pre_process.df_80.fillna('N/A').groupby([pre_process.df_80['Published'].dt.year, 'impact_confidentiality']).size()
-    ax = tmp.plot(kind="bar", figsize=(25, 15))
-    ax.set_xlabel("Ano e categoria de impacto")
-    ax.set_ylabel("Nº de CVEs")
-    ax.figure.suptitle('IMPACTO (impact_confidentiality) POR ANO DE PUBLICAÇÃO (porção 80%)')
-    ax.figure.savefig(os.path.join(folder_graphics, str(count)+'-80-impact_confidentiality-por-ano.pdf'))
+plt.savefig(os.path.join(folder_graphics, "distribuição-de-classes.pdf"))
 
-    # IMPACTO (impact_integrity) POR ANO DE PUBLICAÇÃO (80%)")
-    count += 1
-    tmp = pre_process.df_80.fillna('N/A').groupby([pre_process.df_80['Published'].dt.year, 'impact_integrity']).size()
-    ax = tmp.plot(kind="bar", figsize=(25, 15))
-    ax.set_xlabel("Ano e categoria de impacto")
-    ax.set_ylabel("Nº de CVEs")
-    ax.figure.suptitle('IMPACTO (impact_integrity) POR ANO DE PUBLICAÇÃO (porção 80%)')
-    ax.figure.savefig(os.path.join(folder_graphics, str(count)+'-80-impact_integrity-por-ano.pdf'))
-
-    # ACESSO (access_authentication) POR ANO DE PUBLICAÇÃO (80%)"
-    count += 1
-    tmp = pre_process.df_80.fillna('N/A').groupby([pre_process.df_80['Published'].dt.year, 'access_authentication']).size()
-    ax = tmp.plot(kind="bar", figsize=(25, 15))
-    ax.set_xlabel("Ano e categoria de acesso")
-    ax.set_ylabel("Nº de CVEs")
-    ax.figure.suptitle('Acesso (access_authentication) POR ANO DE PUBLICAÇÃO (porção 80%)')
-    ax.figure.savefig(os.path.join(folder_graphics, str(count)+'-80-access_authentication-por-ano.pdf'))
-
-    # ACESSO (access_complexity) POR ANO DE PUBLICAÇÃO (80%)"
-    count += 1
-    tmp = pre_process.df_80.fillna('N/A').groupby([pre_process.df_80['Published'].dt.year, 'access_complexity']).size()
-    ax = tmp.plot(kind="bar", figsize=(25, 15))
-    ax.set_xlabel("Ano e categoria de acesso")
-    ax.set_ylabel("Nº de CVEs")
-    ax.figure.suptitle('Acesso (access_complexity) POR ANO DE PUBLICAÇÃO (porção 80%)')
-    ax.figure.savefig(os.path.join(folder_graphics, str(count)+'-80-access_complexity-por-ano.pdf'))
-
-    # ACESSO (access_vector) POR ANO DE PUBLICAÇÃO (80%)"
-    count += 1
-    tmp = pre_process.df_80.fillna('N/A').groupby([pre_process.df_80['Published'].dt.year, 'access_vector']).size()
-    ax = tmp.plot(kind="bar", figsize=(25, 15))
-    ax.set_xlabel("Ano e categoria de acesso")
-    ax.set_ylabel("Nº de CVEs")
-    ax.figure.suptitle('Acesso (access_vector) POR ANO DE PUBLICAÇÃO (porção 80%)')
-    ax.figure.savefig(os.path.join(folder_graphics, str(count)+'-80-access_vector-por-ano.pdf'))
-
-
-def generate_graphics_20():
-    """
-    Gera os gráficos em formato PDF para a distribuição de 20%
-    :return:
-    """
-    global count, pre_process, folder_graphics
-
-    count += 1
-    # Criação gráfico PUBLICAÇÃO DE CVE POR ANO  (20%)
-    tmp = pre_process.df_20.fillna('N/A').groupby([pre_process.df_20['Published'].dt.year]).size()
-    ax = tmp.plot(kind="bar", figsize=(6, 6))
-    ax.set_xlabel("Ano")
-    ax.set_ylabel("Nº de CVEs")
-    ax.figure.suptitle('PUBLICAÇÃO DE CVEs POR ANO (porção 20%)')
-    ax.figure.savefig(os.path.join(folder_graphics, str(count)+'-20-cve-por-ano.pdf'))
-
-    # IMPACTO (impact_availability) POR ANO DE PUBLICAÇÃO (20%)
-    count += 1
-    tmp = pre_process.df_20.fillna('N/A').groupby([pre_process.df_20['Published'].dt.year, 'impact_availability']).size()
-    ax = tmp.plot(kind="bar", figsize=(25, 15))
-    ax.set_xlabel("Ano e categoria de impacto")
-    ax.set_ylabel("Nº de CVEs")
-    ax.figure.suptitle('IMPACTO (impact_availability) POR ANO DE PUBLICAÇÃO (porção 20%)')
-    ax.figure.savefig(os.path.join(folder_graphics, str(count)+'-20-impact_availability-por-ano.pdf'))
-
-    # IMPACTO (impact_confidentiality) POR ANO DE PUBLICAÇÃO (20%)")
-    count += 1
-    tmp = pre_process.df_20.fillna('N/A').groupby([pre_process.df_20['Published'].dt.year, 'impact_confidentiality']).size()
-    ax = tmp.plot(kind="bar", figsize=(25, 15))
-    ax.set_xlabel("Ano e categoria de impacto")
-    ax.set_ylabel("Nº de CVEs")
-    ax.figure.suptitle('IMPACTO (impact_confidentiality) POR ANO DE PUBLICAÇÃO (porção 20%)')
-    ax.figure.savefig(os.path.join(folder_graphics, str(count)+'-20-impact_confidentiality-por-ano.pdf'))
-
-    # IMPACTO (impact_integrity) POR ANO DE PUBLICAÇÃO (20%)")
-    count += 1
-    tmp = pre_process.df_20.fillna('N/A').groupby([pre_process.df_20['Published'].dt.year, 'impact_integrity']).size()
-    ax = tmp.plot(kind="bar", figsize=(25, 15))
-    ax.set_xlabel("Ano e categoria de impacto")
-    ax.set_ylabel("Nº de CVEs")
-    ax.figure.suptitle('IMPACTO (impact_integrity) POR ANO DE PUBLICAÇÃO (porção 20%)')
-    ax.figure.savefig(os.path.join(folder_graphics, str(count)+'-20-impact_integrity-por-ano.pdf'))
-
-    # ACESSO (access_authentication) POR ANO DE PUBLICAÇÃO (20%)"
-    count += 1
-    tmp = pre_process.df_20.fillna('N/A').groupby([pre_process.df_20['Published'].dt.year, 'access_authentication']).size()
-    ax = tmp.plot(kind="bar", figsize=(25, 15))
-    ax.set_xlabel("Ano e categoria de acesso")
-    ax.set_ylabel("Nº de CVEs")
-    ax.figure.suptitle('ACESSO (access_authentication) POR ANO DE PUBLICAÇÃO (porção 20%)')
-    ax.figure.savefig(os.path.join(folder_graphics, str(count)+'-20-access_authentication-por-ano.pdf'))
-
-    # ACESSO (access_complexity) POR ANO DE PUBLICAÇÃO (20%)"
-    count += 1
-    tmp = pre_process.df_20.fillna('N/A').groupby([pre_process.df_20['Published'].dt.year, 'access_complexity']).size()
-    ax = tmp.plot(kind="bar", figsize=(25, 15))
-    ax.set_xlabel("Ano e categoria de acesso")
-    ax.set_ylabel("Nº de CVEs")
-    ax.figure.suptitle('ACESSO (access_complexity) POR ANO DE PUBLICAÇÃO (porção 20%)')
-    ax.figure.savefig(os.path.join(folder_graphics, str(count)+'-20-access_complexity-por-ano.pdf'))
-
-    # ACESSO (access_vector) POR ANO DE PUBLICAÇÃO (20%)"
-    count += 1
-    tmp = pre_process.df_20.fillna('N/A').groupby([pre_process.df_20['Published'].dt.year, 'access_vector']).size()
-    ax = tmp.plot(kind="bar", figsize=(25, 15))
-    ax.set_xlabel("Ano e categoria de acesso")
-    ax.set_ylabel("Nº de CVEs")
-    ax.figure.suptitle('ACESSO (access_vector) POR ANO DE PUBLICAÇÃO (porção 20%)')
-    ax.figure.savefig(os.path.join(folder_graphics, str(count)+'-20-access_vector-por-ano.pdf'))
-
-
-if __name__ == "__main__":
-    print(f"Criação da pasta de destino dos gráfico \"{folder_graphics}\" ...")
-    if os.path.isdir(folder_graphics) is False:
-        os.mkdir(folder_graphics)
-    print("Leitura e pré-processamento do dataset ...")
-    pre_process = PreProcessDataSet()
-    pre_process.read_dataset_to_list()
-    print("Particionamento dos dados do dataset em 80% e 20% ...")
-    pre_process.partition_80_20()
-    print("Gerando gráficos da porção de 80% ...")
-    generate_graphics_80()
-    print("Gerando gráficos da porção de 20% ...")
-    generate_graphics_20()
-    print("Finalizado!")
+print(f"Finalizado. Arquivo PDF com os gráficos salvo em \"{folder_graphics}\"")

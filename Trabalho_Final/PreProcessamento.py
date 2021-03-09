@@ -1,3 +1,12 @@
+"""
+Trabalho final - Ciência de Dados para Segurança (CI1030) - Trabalho Final
+Alunos:
+    Michael A Hempkemeyer (PPGINF-202000131795)
+    Roger R R Duarte (PPGINF-202000131793)
+
+Esse script faz o pré-processamento do dataset de CVEs (arquivo JSON).
+Como resultado, gera dois CSVs, um com 80% dos dados e outro com 20% dos dados.
+"""
 import pandas as pd
 import json
 from dateutil import parser
@@ -18,7 +27,8 @@ class PreProcessDataSet:
         # Lista de colunas selecionadas na pré-análise do dataset
         # self.list_columns = ["id", "Modified", "Published", "access", "cvss", "cvss-time", "impact",
         #                "summary", "references", "vulnerable_configuration_cpe_2_2"]
-        self.list_columns = ["id", "summary", "Published", "access", "impact", "cvss"]
+        # self.list_columns = ["id", "summary", "Published", "access", "impact", "cvss"]
+        self.list_columns = ["cvss", "cwe", "access", "impact", "summary", "vulnerable_configuration_cpe_2_2"]
         # Váriavel contendo as listas JSON
         self.data_list = []
         self.data_list_80 = []
@@ -33,6 +43,25 @@ class PreProcessDataSet:
         # DataFrames (pandas)
         self.df_20 = None
         self.df_80 = None
+        # Variável para controle do campo access
+        self.control_access = {
+            "vector": {
+                "ADJACENT_NETWORK": 1,
+                "LOCAL": 2,
+                "NETWORK": 3
+            },
+            "complexity": {
+                "HIGH": 5,
+                "LOW": 6,
+                "MEDIUM": 7
+            },
+            "authentication": {
+                "MULTIPLE_INSTANCES": 9,
+                "NONE": 10,
+                "SINGLE_INSTANCE": 11
+            },
+            "NotAvailable": 12
+        }
 
     def read_dataset_to_list(self, debug=False, max_line=None):
         """
@@ -62,15 +91,31 @@ class PreProcessDataSet:
                             # Realiza um ajuste na data, com parser, em campos com datas
                             if d == "Published":
                                 tmp_dict[d] = parser.parse(tmp[d])
+                            elif d == "cvss":
+                                # Não inclui no dataset pre-processado itens com cvss zerados
+                                if tmp[d] is None:
+                                    use_line = False
+                                    break
+                                else:
+                                    tmp_dict[d] = tmp[d]
                             elif d == "summary":
                                 # Em determinados casos, existe a marcação de "REJECT" no summary.
                                 # Tais CVEs que contêm o REJECT no summary serão eliminados
                                 # Ex.: ** REJECT **  DO NOT USE THIS CANDIDATE NUMBER.  ConsultIDs: none.  Reason: This ...
-                                if "** REJECT **  DO NOT USE THIS CANDIDATE NUMBER" in tmp[d].upper():
+                                if ("** REJECT **" in tmp[d].upper() or
+                                        "DO NOT USE THIS CANDIDATE NUMBER" in tmp[d].upper()):
                                     use_line = False
                                     break
-                                # Não é inserido no dataframe, está sendo utilizado apenas para controle
-                                # tmp_dict[d] = tmp[d].replace("\"", "'")
+                                # Para teste, será incluído
+                                tmp_dict[d] = tmp[d].replace("\"", "'")
+                            elif d == "vulnerable_configuration_cpe_2_2":
+                                if type(tmp[d]) is list and len(tmp[d]) > 0:
+                                    tmp_vc = ""
+                                    for i in tmp[d]:
+                                        tmp_vc = tmp_vc+";"+i
+                                    tmp_dict[d] = tmp_vc
+                                else:
+                                    tmp_dict[d] = "NotAvailable"
                             elif tmp[d] is None:
                                 tmp_dict[d] = "NotAvailable"
                             else:
@@ -79,6 +124,14 @@ class PreProcessDataSet:
                             tmp_dict[d] = "NotAvailable"
                     # Faz o tratamento do dicionário impact
                     elif d == "impact":
+                        if ((d in tmp.keys()) and
+                                (tmp[d]["availability"] == "PARTIAL" or tmp[d]["availability"] == "COMPLETE") and
+                                (tmp[d]["confidentiality"] == "PARTIAL" or tmp[d]["confidentiality"] == "COMPLETE") and
+                                (tmp[d]["integrity"] == "PARTIAL" or tmp[d]["integrity"] == "COMPLETE")):
+                            tmp_dict["impact"] = 1
+                        else:
+                            tmp_dict["impact"] = 0
+                        ''' 
                         if d in tmp.keys():
                             tmp_dict["impact_availability"] = tmp[d]["availability"] if "availability" in tmp[d] else "NotAvailable"
                             tmp_dict["impact_confidentiality"] = tmp[d]["confidentiality"] if "confidentiality" in tmp[d] else "NotAvailable"
@@ -87,16 +140,22 @@ class PreProcessDataSet:
                             tmp_dict["impact_availability"] = "NotAvailable"
                             tmp_dict["impact_confidentiality"] = "NotAvailable"
                             tmp_dict["impact_integrity"] = "NotAvailable"
+                        '''
                     # Faz o tratamento do dicionário acccess
                     elif d == "access":
                         if d in tmp.keys():
+                            # Faz a categorização do access conforme variável self.access_control
+                            tmp_dict["access"] = self.control_access["vector"][tmp[d]["vector"]]
+                            tmp_dict["access"] += self.control_access["authentication"][tmp[d]["authentication"]]
+                            tmp_dict["access"] += self.control_access["complexity"][tmp[d]["complexity"]]
+
+                            '''
                             tmp_dict["access_authentication"] = tmp[d]["authentication"] if "authentication" in tmp[d] else "NotAvailable"
                             tmp_dict["access_complexity"] = tmp[d]["complexity"] if "complexity" in tmp[d] else "NotAvailable"
                             tmp_dict["access_vector"] = tmp[d]["vector"] if "vector" in tmp[d] else "NotAvailable"
+                            '''
                         else:
-                            tmp_dict["access_authentication"] = "NotAvailable"
-                            tmp_dict["access_complexity"] = "NotAvailable"
-                            tmp_dict["access_vector"] = "NotAvailable"
+                            tmp_dict["access"] = self.control_access["NotAvailable"]
 
                 # Adiciona a linha lida na lista
                 if use_line is True:
