@@ -23,6 +23,8 @@ from sklearn.metrics import confusion_matrix
 import numpy as np
 from sklearn.metrics import accuracy_score
 import numpy as np
+from sklearn.neighbors import KNeighborsClassifier
+
 
 # Caminho dos DataSets
 data_path_80 = os.path.join("dataset", "data-list-80.csv")
@@ -112,7 +114,8 @@ def textual_feature_word2vec(train_data_param, test_data_param):
     return train_features_o, test_features_o
 
 
-def generate_randon_forest(text_type="tfid"):
+def generate_models(text_type="tfidf", model_type="RandomForestClassifier"):
+    global df_data, label
     # Split dos dados
     train_data, test_data = split_data(df_data)
     train_label, test_label = split_data(label)
@@ -123,7 +126,7 @@ def generate_randon_forest(text_type="tfid"):
 
     # Faz o tratamento das características textuais e já faz a junção com os numéricos
     for a in textual_attributes:
-        if text_type == "tfid":
+        if text_type == "tfidf":
             train_texts, test_texts = textual_feature_tfid(train_data[a].values, test_data[a].values)
             train_features = np.concatenate((train_features, train_texts.toarray()), axis=1)
             test_features = np.concatenate((test_features, test_texts.toarray()), axis=1)
@@ -138,21 +141,31 @@ def generate_randon_forest(text_type="tfid"):
     train_features_norm = scaler_param.transform(train_features)
     test_features_norm = scaler_param.transform(test_features)
 
-    # Inicializa
-    clf = RandomForestClassifier(n_estimators=10, random_state=0)
-    # Treina o classificador
-    clf.fit(train_features_norm, train_label)
-    # Classe de predição
-    test_pred = clf.predict(test_features_norm)
-    # print(test_pred.shape, test_label.shape)
+    if model_type == "RandomForestClassifier":
+        clf = RandomForestClassifier(n_estimators=10, random_state=0)
+        clf.fit(train_features_norm, train_label)
+        test_pred = clf.predict(test_features_norm)
+        print(f"Acurácia: ", end="")
+        print(accuracy_score(test_label, test_pred))
+        print(f"Matriz de confusão: ")
+        print(confusion_matrix(test_label, test_pred))
+    elif model_type == "KNeighborsClassifier":
+        clf = KNeighborsClassifier(n_neighbors=3)
+        clf.fit(train_features_norm, train_label)
+        test_pred = clf.predict(test_features_norm)
+        print(f"Acurácia: ", end="")
+        print(accuracy_score(test_label, test_pred))
+        print(f"Matriz de confusão: ")
+        print(confusion_matrix(test_label, test_pred))
 
-    print(f"Acurácia ({text_type}): ", end="")
-    print(accuracy_score(test_label, test_pred))
-    print(f"Matriz de confusão ({text_type}): ")
-    print(confusion_matrix(test_label, test_pred))
 
-
-generate_randon_forest("tfid")
-generate_randon_forest("word2vec")
+print("-------- RandomForestClassifier (tfidf): ")
+generate_models("tfidf", "RandomForestClassifier")
+print("-------- KNeighborsClassifier (tfidf): ")
+generate_models("tfidf", "KNeighborsClassifier")
+print("-------- RandomForestClassifier (word2vec): ")
+generate_models("word2vec", "RandomForestClassifier")
+print("-------- KNeighborsClassifier (word2vec): ")
+generate_models("word2vec", "KNeighborsClassifier")
 
 sys.exit(0)
