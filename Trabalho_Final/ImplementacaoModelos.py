@@ -20,16 +20,25 @@ import os
 from gensim.models import Word2Vec
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.model_selection import StratifiedKFold
-from sklearn.preprocessing import MinMaxScaler
+from sklearn.multiclass import OneVsRestClassifier
+from sklearn.preprocessing import MinMaxScaler, label_binarize
 from sklearn.ensemble import RandomForestClassifier
-from sklearn.metrics import confusion_matrix, precision_score, mean_absolute_error
+from sklearn.metrics import confusion_matrix, precision_score, mean_absolute_error, roc_curve, auc
 import numpy as np
 from sklearn.neighbors import KNeighborsClassifier
 from sklearn.svm import SVC
+import matplotlib.pyplot as plt
+from sklearn.metrics import plot_roc_curve
 
 # Caminho dos DataSets
 data_path_80 = os.path.join("dataset", "data-list-80.csv")
 data_path_20 = os.path.join("dataset", "data-list-20.csv")
+
+# Pasta para o armazenamentos dos arquivos PDF com os gráficos
+folder_graphics = "Gráficos_ROC"
+print(f"Criação da pasta de destino dos gráficos \"{folder_graphics}\" ...")
+if os.path.isdir(folder_graphics) is False:
+    os.mkdir(folder_graphics)
 
 # Verifica se os arquivos de dataset pré-processados existem
 if os.path.isfile(data_path_80) is False or os.path.isfile(data_path_20) is False:
@@ -142,6 +151,7 @@ def execute_kfold(model, X, Y, cv):
 
 
 def execute_model(model, train_features_norm, train_label, test_features_norm, test_label, model_name=""):
+    global folder_graphics
     """
     Executa um modelo conforme parâmetros
     """
@@ -157,6 +167,13 @@ def execute_model(model, train_features_norm, train_label, test_features_norm, t
         print(f"Matriz de confusão: ")
         print(confusion_matrix(test_label, test_pred))
         print(f"---------*--------- Kfold ({model_name}) ---------*---------")
+
+        # Geração curva ROC
+        # Documentação base: https://scikit-learn.org/stable/auto_examples/miscellaneous/plot_roc_curve_visualization_api.html
+        # Aqui abre uma tela com a curva ROC e o SW fica travado.
+        # Verificar uma forma de colocar isso em PDF
+        plot_roc_curve(clf, test_features_norm, test_label)
+        plt.show()
 
 
 def generate_models():
@@ -192,9 +209,9 @@ def generate_models():
     cv = 5
 
     # ****************************** RandomForestClassifier
-    execute_model(RandomForestClassifier(n_estimators=200), train_features_norm, train_label,
+    execute_model(RandomForestClassifier(n_estimators=50), train_features_norm, train_label,
                   test_features_norm, test_label, model_name="RandomForestClassifier")
-    execute_kfold(RandomForestClassifier(n_estimators=200), train_features_norm, train_label, cv)
+    execute_kfold(RandomForestClassifier(n_estimators=50), train_features_norm, train_label, cv)
 
     # ****************************** "KNeighborsClassifier
     execute_model(KNeighborsClassifier(n_neighbors=5), train_features_norm, train_label, test_features_norm, test_label,
