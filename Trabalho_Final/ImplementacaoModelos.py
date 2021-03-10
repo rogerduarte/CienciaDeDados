@@ -5,18 +5,21 @@ Alunos:
     Roger R R Duarte (PPGINF-202000131793)
 
 Antes de executar esse script, execute o pré-processamento através do py "PreProcessamento.py"
-Esse script faz o processamento do dataset com o RandonForest
+Esse script faz a criação e execução de modelos
 
 Referência:
 https://github.com/fabriciojoc/ml-cybersecuritiy-course/
 """
+import math
 import sys
+import time
 
 import pandas as pd
 import os
 
 from gensim.models import Word2Vec
 from sklearn.feature_extraction.text import TfidfVectorizer
+from sklearn.model_selection import StratifiedKFold
 from sklearn.preprocessing import MinMaxScaler
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.metrics import confusion_matrix, precision_score, mean_absolute_error
@@ -54,11 +57,13 @@ def split_data(param_data):
     """
     Função utilizada para realizar o split dos dados
     :param param_data: dataset
-    :return: duas porções do dataset, uma com 80% dos dados e outra com 20%
+    :return: duas porções do dataset (80 e 20 % dos dados)
     """
-    middle = int((len(param_data) + 1) / 2)
-    train_data_f = param_data[:middle]
-    test_data_f = param_data[middle:]
+    size_80 = math.floor((len(param_data) * 80) / 100)
+
+    train_data_f = param_data[:size_80]
+    test_data_f = param_data[size_80:]
+
     return train_data_f, test_data_f
 
 
@@ -81,6 +86,7 @@ class MeanEmbeddingVectorizer(object):
     Classe utilizada para o processamento do Word2Vec
     Referência: https://github.com/fabriciojoc/ml-cybersecuritiy-course/blob/master/04_features.ipynb
     """
+
     def __init__(self, size, min_count=1):
         self.size = size
         self.min_count = 1
@@ -115,7 +121,49 @@ def textual_feature_word2vec(train_data_param, test_data_param):
     return train_features_o, test_features_o
 
 
-def generate_models(model_type="RandomForestClassifier"):
+def execute_kfold(model, X, Y, cv):
+    """
+    Execução k-fold cross validation, k=cv
+    """
+    kf = StratifiedKFold(n_splits=cv, random_state=None, shuffle=False)
+
+    for train_index, test_index in kf.split(X, Y):
+        X_train, X_test = X[train_index], X[test_index]
+        Y_train, Y_test = Y[train_index], Y[test_index]
+        clf = model
+        clf.fit(X_train, Y_train)
+        pred_t = clf.predict(X_test)
+        print(f"Precisão: ", end="")
+        print(precision_score(Y_test, pred_t))
+        print(f"Erro (mean_absolute_error): ", end="")
+        print(mean_absolute_error(Y_test, pred_t))
+        print(f"Matriz de confusão: ")
+        print(confusion_matrix(Y_test, pred_t))
+
+
+def execute_model(model, train_features_norm, train_label, test_features_norm, test_label, model_name=""):
+    """
+    Executa um modelo conforme parâmetros
+    """
+    if model_name == "RandomForestClassifier" or model_name == "KNeighborsClassifier" or model == "SVM":
+        clf = model
+        clf.fit(train_features_norm, train_label)
+        test_pred = clf.predict(test_features_norm)
+        print(f"---------*--------- Split percentage ({model_name}) ---------*---------")
+        print(f"Precisão: ", end="")
+        print(precision_score(test_label, test_pred))
+        print(f"Erro (mean_absolute_error): ", end="")
+        print(mean_absolute_error(test_label, test_pred))
+        print(f"Matriz de confusão: ")
+        print(confusion_matrix(test_label, test_pred))
+        print(f"---------*--------- Kfold ({model_name}) ---------*---------")
+
+
+def generate_models():
+    """
+    Função principal para gerar os modelos e executá-los
+    :return:
+    """
     global df_data, label
     # Split dos dados
     train_data, test_data = split_data(df_data)
@@ -141,46 +189,27 @@ def generate_models(model_type="RandomForestClassifier"):
     scaler_param.fit(train_features)
     train_features_norm = scaler_param.transform(train_features)
     test_features_norm = scaler_param.transform(test_features)
+    cv = 5
 
-    if model_type == "RandomForestClassifier":
-        clf = RandomForestClassifier(n_estimators=10, random_state=0)
-        clf.fit(train_features_norm, train_label)
-        test_pred = clf.predict(test_features_norm)
-        print(f"Precisão: ", end="")
-        print(precision_score(test_label, test_pred))
-        print(f"Erro (mean_absolute_error): ", end="")
-        print(mean_absolute_error(test_label, test_pred))
-        print(f"Matriz de confusão: ")
-        print(confusion_matrix(test_label, test_pred))
-    elif model_type == "KNeighborsClassifier":
-        clf = KNeighborsClassifier(n_neighbors=3)
-        clf.fit(train_features_norm, train_label)
-        test_pred = clf.predict(test_features_norm)
-        print(f"Precisão: ", end="")
-        print(precision_score(test_label, test_pred))
-        print(f"Erro (mean_absolute_error): ", end="")
-        print(mean_absolute_error(test_label, test_pred))
-        print(f"Matriz de confusão: ")
-        print(confusion_matrix(test_label, test_pred))
-    elif model_type == "SVM":
-        clf = SVC(kernel="linear")
-        clf.fit(train_features_norm, train_label)
-        test_pred = clf.predict(test_features_norm)
-        print(f"Precisão: ", end="")
-        print(precision_score(test_label, test_pred))
-        print(f"Erro (mean_absolute_error): ", end="")
-        print(mean_absolute_error(test_label, test_pred))
-        print(f"Matriz de confusão: ")
-        print(confusion_matrix(test_label, test_pred))
+    # ****************************** RandomForestClassifier
+    execute_model(RandomForestClassifier(n_estimators=200), train_features_norm, train_label,
+                  test_features_norm, test_label, model_name="RandomForestClassifier")
+    execute_kfold(RandomForestClassifier(n_estimators=200), train_features_norm, train_label, cv)
+
+    # ****************************** "KNeighborsClassifier
+    execute_model(KNeighborsClassifier(n_neighbors=5), train_features_norm, train_label, test_features_norm, test_label,
+                  model_name="KNeighborsClassifier")
+    execute_kfold(KNeighborsClassifier(n_neighbors=5), train_features_norm, train_label, cv)
+
+    # ****************************** SVM
+    execute_model(SVC(kernel="linear"), train_features_norm, train_label, test_features_norm, test_label,
+                  model_name="SVM")
+    execute_kfold(SVC(kernel="linear"), train_features_norm, train_label, cv)
 
 
 if __name__ == "__main__":
-    print("---------*--------- Split percentage ---------*---------")
-    print("-------- RandomForestClassifier: ")
-    generate_models("RandomForestClassifier")
-    print("-------- KNeighborsClassifier: ")
-    generate_models("KNeighborsClassifier")
-    print("-------- SVM: ")
-    generate_models("SVM")
-
+    start = time.time()
+    generate_models()
+    end = time.time()
+    print(f"\nRuntime of the program is {end - start}s")
     sys.exit(0)
