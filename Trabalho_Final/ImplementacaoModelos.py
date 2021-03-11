@@ -238,7 +238,7 @@ if __name__ == "__main__":
     if len(sys.argv) >= 2:
         if "-roc=false" in sys.argv:
             generate_roc_curve = False
-            print("Geração dos gráficos de curva ROC desabilitados")
+            print("Geração dos gráficos de curva ROC desabilitado")
 
     generate_models()
     end = time.time()
