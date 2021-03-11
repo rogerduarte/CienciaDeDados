@@ -108,7 +108,6 @@ class PreProcessDataSet:
                                         "DO NOT USE THIS CANDIDATE NUMBER" in tmp[d].upper()):
                                     use_line = False
                                     break
-                                # Para teste, será incluído
                                 tmp_dict[d] = tmp[d].replace("\"", "'")
                             elif d == "vulnerable_configuration_cpe_2_2":
                                 if type(tmp[d]) is list and len(tmp[d]) > 0:
