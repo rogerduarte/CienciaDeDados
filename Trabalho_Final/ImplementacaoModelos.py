@@ -6,9 +6,6 @@ Alunos:
 
 Antes de executar esse script, execute o pré-processamento através do py "PreProcessamento.py"
 Esse script faz a criação e execução de modelos
-
-Referência:
-https://github.com/fabriciojoc/ml-cybersecuritiy-course/
 """
 import math
 import sys
@@ -132,7 +129,12 @@ def execute_kfold(model, X, Y, cv, model_name=""):
     Execução k-fold cross validation, k=cv
     """
     global generate_roc_curve
-    kf = StratifiedKFold(n_splits=cv, random_state=None, shuffle=True)
+
+    """
+    https://scikit-learn.org/stable/modules/generated/sklearn.model_selection.StratifiedKFold.html
+    https://scikit-learn.org/stable/glossary.html#term-random_state
+    """
+    kf = StratifiedKFold(n_splits=cv, random_state=None)
 
     count = 1
     ax = plt.gca()
@@ -184,7 +186,12 @@ def execute_model(model, train_features_norm, train_label, test_features_norm, t
 def generate_models():
     """
     Função principal para gerar os modelos e executá-los
-    :return:
+
+    Referência:
+    https://github.com/fabriciojoc/ml-cybersecuritiy-course/
+    https://scikit-learn.org/stable/modules/generated/sklearn.ensemble.RandomForestClassifier.html#sklearn.ensemble.RandomForestClassifier
+    https://scikit-learn.org/stable/modules/generated/sklearn.neighbors.KNeighborsClassifier.html#sklearn.neighbors.KNeighborsClassifier
+    https://scikit-learn.org/stable/modules/generated/sklearn.svm.SVC.html#sklearn.svm.SVC
     """
     global df_data, label
     # Split dos dados
@@ -214,11 +221,10 @@ def generate_models():
     cv = 5
 
     # ****************************** RandomForestClassifier
-    execute_model(RandomForestClassifier(n_estimators=50), train_features_norm, train_label,
+    execute_model(RandomForestClassifier(n_estimators=100), train_features_norm, train_label,
                   test_features_norm, test_label, model_name="RandomForestClassifier")
-    execute_kfold(RandomForestClassifier(n_estimators=50), train_features_norm, train_label, cv,
+    execute_kfold(RandomForestClassifier(n_estimators=100), train_features_norm, train_label, cv,
                   model_name="RandomForestClassifier-KFold")
-
 
     # ****************************** "KNeighborsClassifier
     execute_model(KNeighborsClassifier(n_neighbors=5), train_features_norm, train_label, test_features_norm, test_label,
