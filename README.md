@@ -14,7 +14,7 @@ Escrever
 #### Dataset: 
 O dataset possui um arquivo único com diversos JSONs (um por linha) com informações específicas de CVEs (_Common Vulnerabilities and Exposures_). Acesso ao dataset completo em https://www.kaggle.com/vsathiamoo/cve-common-vulnerabilities-and-exposures/version/1.
 
-Verificou-se que o dataset possui os seguintes campos:
+Verificou-se que o dataset possuía os seguintes campos:
 
     - Modified | tipo: date
     - Published | tipo: date
@@ -51,7 +51,7 @@ Os campos cvss, cwe, access, impact, summary e vulnerable_configuration_cpe_2_2 
 
 #### Pré-processamento:
 
-O pré-processamento foi realizado através do Script Python "PreProcessamento.py".
+O pré-processamento foi realizado através do Script Python ["PreProcessamento.py"] (https://github.com/rogerduarte/CienciaDeDados/blob/main/Trabalho_Final/PreProcessamento.py)
 
 Foi realizada a leitura do arquivo JSON de forma parcial e apenas as colunas cvss, cwe, access, impact, summary e vulnerable_configuration_cpe_2_2 foram mantidas.
 
@@ -81,7 +81,7 @@ e
 		tmp_dict[d] = tmp[d].replace("\"", "'")
 ```		
 
-As colunas impact e access tiveram que passar por ajustes, visto que estas eram dicionários. Para a coluna summary, o seguinte trecho de código foi adicionado. Dessa forma, foi mapeado quais CVE geraram impacto e quais não geravam (objetivo do trabalho).
+As colunas impact e access tiveram que passar por ajustes, visto que estas eram dicionários. Para a coluna summary, o seguinte trecho de código foi adicionado. Dessa forma, foi mapeado quais CVEs geraram impacto e quais não geraram (objetivo do trabalho).
 
 ```python
 	elif d == "impact":
@@ -132,7 +132,7 @@ Para a coluna access, o seguinte tratamento foi realizado:
 
 Com o trecho acima, a coluna access que antes era um dicionário, foi mapeada para um valor número. Isto foi realizado para facilitar o mapeamento posterior da característica.
 
-O campo vulnerable_configuration_cpe_2_2, que possui informações a respeito do ambiente que possui a vulnerabilidade do CVE, foi convertida de uma lista para uma string, conforme trecho de código abaixo:
+O campo vulnerable_configuration_cpe_2_2, que possui informações a respeito do ambiente que possui a vulnerabilidade do CVE, foi convertida de uma lista de strings para uma única string, conforme trecho de código abaixo:
 
 ```python
 	elif d == "vulnerable_configuration_cpe_2_2":
@@ -145,13 +145,15 @@ O campo vulnerable_configuration_cpe_2_2, que possui informações a respeito do
 			tmp_dict[d] = "NotAvailable"
 ```
 
-O resultado final do script foram dois arquivos CVS, um com uma porção de 80% dos dados e outra com 20%.
+Como resultado final do script foram criados dois arquivos CVS pré-processados, um com uma porção de 80% dos dados e outra com 20%.
+
+<hr >
 
 #### Distribuição de classes
 
-Conforme saída do CSV de pré-processamento, foram criados dois gráficos contendo o mapa de distribuição de classes, com base no campo impact.
+Conforme saída do CSV de pré-processamento, foram criados dois gráficos do mapa de distribuição de classes, com base no campo impact.
 
-A seguir são apresentados os gráficos de distribuição de classe da porções de 20% e 80%.
+A seguir são apresentados os gráficos de distribuição de classe das porções de 20% e 80%.
 
 ![Gráfico Distribuição Classe 20%](./Trabalho_Final/Gráfico_Dist_Classes/grafico_dist_20.png)
 
