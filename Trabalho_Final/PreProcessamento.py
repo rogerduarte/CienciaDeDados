@@ -40,9 +40,11 @@ class PreProcessDataSet:
         # Arquivo de saida do pré-processamento
         self.output_file_name_80 = "dataset/data-list-80.csv"
         self.output_file_name_20 = "dataset/data-list-20.csv"
+        self.output_file_name_all = "dataset/data-list-complete.csv"
         # DataFrames (pandas)
         self.df_20 = None
         self.df_80 = None
+        self.df_all = None
         # Variável para controle do campo access
         self.control_access = {
             "vector": {
@@ -131,16 +133,6 @@ class PreProcessDataSet:
                             tmp_dict["impact"] = 1
                         else:
                             tmp_dict["impact"] = 0
-                        ''' 
-                        if d in tmp.keys():
-                            tmp_dict["impact_availability"] = tmp[d]["availability"] if "availability" in tmp[d] else "NotAvailable"
-                            tmp_dict["impact_confidentiality"] = tmp[d]["confidentiality"] if "confidentiality" in tmp[d] else "NotAvailable"
-                            tmp_dict["impact_integrity"] = tmp[d]["integrity"] if "integrity" in tmp[d] else "NotAvailable"
-                        else:
-                            tmp_dict["impact_availability"] = "NotAvailable"
-                            tmp_dict["impact_confidentiality"] = "NotAvailable"
-                            tmp_dict["impact_integrity"] = "NotAvailable"
-                        '''
                     # Faz o tratamento do dicionário acccess
                     elif d == "access":
                         if d in tmp.keys():
@@ -148,12 +140,6 @@ class PreProcessDataSet:
                             tmp_dict["access"] = self.control_access["vector"][tmp[d]["vector"]]
                             tmp_dict["access"] += self.control_access["authentication"][tmp[d]["authentication"]]
                             tmp_dict["access"] += self.control_access["complexity"][tmp[d]["complexity"]]
-
-                            '''
-                            tmp_dict["access_authentication"] = tmp[d]["authentication"] if "authentication" in tmp[d] else "NotAvailable"
-                            tmp_dict["access_complexity"] = tmp[d]["complexity"] if "complexity" in tmp[d] else "NotAvailable"
-                            tmp_dict["access_vector"] = tmp[d]["vector"] if "vector" in tmp[d] else "NotAvailable"
-                            '''
                         else:
                             tmp_dict["access"] = self.control_access["NotAvailable"]
 
@@ -183,6 +169,7 @@ class PreProcessDataSet:
 
         self.df_80 = pd.DataFrame(self.data_list_80)
         self.df_20 = pd.DataFrame(self.data_list_20)
+        self.df_all = pd.DataFrame(self.data_list)
 
     def generate_csv_80_20(self, f_name_80=None, f_name_20=None):
         """
@@ -206,6 +193,17 @@ class PreProcessDataSet:
 
         return True
 
+    def generate_csv_all(self, f_name_all=None):
+        """
+        Gera um CVS com todos os dados lidos e pré-processados do datalist
+        :param f_name_all: caminho do destino
+        :return:
+        """
+        if f_name_all is None:
+            self.df_all.fillna("").to_csv(self.output_file_name_all, index=False, header=True, quoting=csv.QUOTE_ALL)
+        else:
+            self.df_all.fillna("").to_csv(f_name_all, index=False, header=True, quoting=csv.QUOTE_ALL)
+
 
 if __name__ == "__main__":
     pre_process = PreProcessDataSet()
@@ -216,4 +214,5 @@ if __name__ == "__main__":
     pre_process.partition_80_20()
     print("Gravação dos datasets pré-processados em disco ...")
     pre_process.generate_csv_80_20()
+    pre_process.generate_csv_all()
     print("Finalizado!")
