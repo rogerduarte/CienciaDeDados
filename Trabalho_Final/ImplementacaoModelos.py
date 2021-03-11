@@ -20,10 +20,9 @@ import os
 from gensim.models import Word2Vec
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.model_selection import StratifiedKFold
-from sklearn.multiclass import OneVsRestClassifier
-from sklearn.preprocessing import MinMaxScaler, label_binarize
+from sklearn.preprocessing import MinMaxScaler
 from sklearn.ensemble import RandomForestClassifier
-from sklearn.metrics import confusion_matrix, precision_score, mean_absolute_error, roc_curve, auc
+from sklearn.metrics import confusion_matrix, precision_score, mean_absolute_error
 import numpy as np
 from sklearn.neighbors import KNeighborsClassifier
 from sklearn.svm import SVC
@@ -33,12 +32,6 @@ from sklearn.metrics import plot_roc_curve
 # Caminho dos DataSets
 data_path_80 = os.path.join("dataset", "data-list-80.csv")
 data_path_20 = os.path.join("dataset", "data-list-20.csv")
-
-# Pasta para o armazenamentos dos arquivos PDF com os gráficos
-folder_graphics = "Gráficos_ROC"
-print(f"Criação da pasta de destino dos gráficos \"{folder_graphics}\" ...")
-if os.path.isdir(folder_graphics) is False:
-    os.mkdir(folder_graphics)
 
 # Verifica se os arquivos de dataset pré-processados existem
 if os.path.isfile(data_path_80) is False or os.path.isfile(data_path_20) is False:
@@ -60,6 +53,10 @@ label = df_data[label_attribute].values
 
 # Apaga o label do dataset
 del df_data[label_attribute]
+
+# Variável para controle da geração das janelas de gráficos das curvas ROC
+# Documentação base: https://scikit-learn.org/stable/auto_examples/miscellaneous/plot_roc_curve_visualization_api.html
+generate_roc_curve = True
 
 
 def split_data(param_data):
@@ -130,12 +127,17 @@ def textual_feature_word2vec(train_data_param, test_data_param):
     return train_features_o, test_features_o
 
 
-def execute_kfold(model, X, Y, cv):
+def execute_kfold(model, X, Y, cv, model_name=""):
     """
     Execução k-fold cross validation, k=cv
     """
-    kf = StratifiedKFold(n_splits=cv, random_state=None, shuffle=False)
+    global generate_roc_curve
+    kf = StratifiedKFold(n_splits=cv, random_state=None, shuffle=True)
 
+    count = 1
+    ax = plt.gca()
+
+    print(f"---------*--------- Kfold ({model_name}) ---------*---------")
     for train_index, test_index in kf.split(X, Y):
         X_train, X_test = X[train_index], X[test_index]
         Y_train, Y_test = Y[train_index], Y[test_index]
@@ -149,9 +151,16 @@ def execute_kfold(model, X, Y, cv):
         print(f"Matriz de confusão: ")
         print(confusion_matrix(Y_test, pred_t))
 
+        if generate_roc_curve is True:
+            plot_roc_curve(clf, X_test, Y_test, ax=ax, label=f"{model_name}-{count}")
+            count += 1
+
+    if generate_roc_curve is True:
+        plt.show()
+
 
 def execute_model(model, train_features_norm, train_label, test_features_norm, test_label, model_name=""):
-    global folder_graphics
+    global generate_roc_curve
     """
     Executa um modelo conforme parâmetros
     """
@@ -166,14 +175,10 @@ def execute_model(model, train_features_norm, train_label, test_features_norm, t
         print(mean_absolute_error(test_label, test_pred))
         print(f"Matriz de confusão: ")
         print(confusion_matrix(test_label, test_pred))
-        print(f"---------*--------- Kfold ({model_name}) ---------*---------")
 
-        # Geração curva ROC
-        # Documentação base: https://scikit-learn.org/stable/auto_examples/miscellaneous/plot_roc_curve_visualization_api.html
-        # Aqui abre uma tela com a curva ROC e o SW fica travado.
-        # Verificar uma forma de colocar isso em PDF
-        plot_roc_curve(clf, test_features_norm, test_label)
-        plt.show()
+        if generate_roc_curve is True:
+            plot_roc_curve(clf, test_features_norm, test_label)
+            plt.show()
 
 
 def generate_models():
@@ -211,21 +216,30 @@ def generate_models():
     # ****************************** RandomForestClassifier
     execute_model(RandomForestClassifier(n_estimators=50), train_features_norm, train_label,
                   test_features_norm, test_label, model_name="RandomForestClassifier")
-    execute_kfold(RandomForestClassifier(n_estimators=50), train_features_norm, train_label, cv)
+    execute_kfold(RandomForestClassifier(n_estimators=50), train_features_norm, train_label, cv,
+                  model_name="RandomForestClassifier-KFold")
 
     # ****************************** "KNeighborsClassifier
     execute_model(KNeighborsClassifier(n_neighbors=5), train_features_norm, train_label, test_features_norm, test_label,
                   model_name="KNeighborsClassifier")
-    execute_kfold(KNeighborsClassifier(n_neighbors=5), train_features_norm, train_label, cv)
+    execute_kfold(KNeighborsClassifier(n_neighbors=5), train_features_norm, train_label, cv,
+                  model_name="KNeighborsClassifier-KFold")
 
     # ****************************** SVM
     execute_model(SVC(kernel="linear"), train_features_norm, train_label, test_features_norm, test_label,
                   model_name="SVM")
-    execute_kfold(SVC(kernel="linear"), train_features_norm, train_label, cv)
+    execute_kfold(SVC(kernel="linear"), train_features_norm, train_label, cv,
+                  model_name="SVM-KFold")
 
 
 if __name__ == "__main__":
     start = time.time()
+
+    if len(sys.argv) >= 2:
+        if "-roc=false" in sys.argv:
+            generate_roc_curve = False
+            print("Geração dos gráficos de curva ROC desabilitados")
+
     generate_models()
     end = time.time()
     print(f"\nRuntime of the program is {end - start}s")
