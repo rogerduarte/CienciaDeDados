@@ -80,7 +80,7 @@ As tabelas a seguir foram geradas com a pré-análise do dataset.
 | CVEs que não geraram impacto | 55615 | 
 | CVEs que geraram impacto | 44270 | 
 
-- A tabela acima faz um groupby pelos atributos impact e mostra a distribuição dos CVEs que geraram ou não impacto. Ressalta-se que para saber de um determinado CVE gerou impacto, foi verificado se os campos availability, confidentiality e integrity eram PARTIAL ou COMPLETE.
+- A tabela acima faz um groupby pelo atributo impact e mostra a distribuição dos CVEs que geraram ou não impacto. Ressalta-se que para saber de um determinado CVE gerou impacto, foi verificado se os campos availability, confidentiality e integrity eram PARTIAL ou COMPLETE.
 
 
 - **Quais colunas/atributos você julga ser interessante manter e remover? Por quê?**
