@@ -12,7 +12,7 @@ Roger R R Duarte (PPGINF-202000131793)
 
 Em nosso trabalho um Dataset relacionado a CVEs foi utilizado. CVE (_Common Vulnerabilities and Exposures_) é um referência pública de segurança da informação relacionada a vulnerabilidades e exposições.
 
-Verificando-se os campos do Dataset, colocamos objetivo o mapeamento de quais CVE geram impacto e quais não geram, isso com base nas variáveis do dataset. Na sequência deste relatório, o dataset e seus respectivos rótulos são apresentados, bem como informações a respeito do pré-processamento do mesmo, distribuição de classes, treinamentos/testes e resultados obtidos com o processamento do dataset utilizando os algoritmos RandomForest, Kneighbors e SVM.
+Verificando os campos do Dataset, o objetivo traçado foi o mapeamento de quais CVE geraram impacto e quais não geraram, isso com base nas variáveis do Dataset. Na sequência deste relatório, são apresentados o Dataset e seus respectivos rótulos, informações a respeito do pré-processamento do Dataset, gráficos distribuição de classes, informações de treinamentos, testes e resultados obtidos com o processamento do Dataset utilizando os algoritmos RandomForest, Kneighbors e SVM.
 
 <hr >
 
