@@ -164,7 +164,7 @@ def execute_model(model, train_features_norm, train_label, test_features_norm, t
     """
     Executa um modelo conforme parâmetros
     """
-    if model_name == "RandomForestClassifier" or model_name == "KNeighborsClassifier" or model == "SVM":
+    if model_name == "RandomForestClassifier" or model_name == "KNeighborsClassifier" or model_name == "SVM":
         clf = model
         clf.fit(train_features_norm, train_label)
         test_pred = clf.predict(test_features_norm)
@@ -218,6 +218,7 @@ def generate_models():
                   test_features_norm, test_label, model_name="RandomForestClassifier")
     execute_kfold(RandomForestClassifier(n_estimators=50), train_features_norm, train_label, cv,
                   model_name="RandomForestClassifier-KFold")
+
 
     # ****************************** "KNeighborsClassifier
     execute_model(KNeighborsClassifier(n_neighbors=5), train_features_norm, train_label, test_features_norm, test_label,
