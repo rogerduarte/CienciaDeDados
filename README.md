@@ -9,9 +9,15 @@ Roger R R Duarte (PPGINF-202000131793)
 <hr >
 
 #### Objetivo do trabalho:
-Escrever
+
+Em nosso trabalho um Dataset relacionado a CVEs foi utilizado. CVE (_Common Vulnerabilities and Exposures_) é um referência pública de segurança da informação relacionada a vulnerabilidades e exposições.
+
+Verificando-se os campos do Dataset, colocamos objetivo o mapeamento de quais CVE geram impacto e quais não geram, isso com base nas variáveis do dataset. Na sequência deste relatório, o dataset e seus respectivos rótulos são apresentados, bem como informações a respeito do pré-processamento do mesmo, distribuição de classes, treinamentos/testes e resultados obtidos com o processamento do dataset utilizando os algoritmos RandomForest, Kneighbors e SVM.
+
+<hr >
 
 #### Dataset: 
+
 O dataset possui um arquivo único com diversos JSONs (um por linha) com informações específicas de CVEs (_Common Vulnerabilities and Exposures_). Acesso ao dataset completo em https://www.kaggle.com/vsathiamoo/cve-common-vulnerabilities-and-exposures/version/1.
 
 Verificou-se que o dataset possuía os seguintes campos:
@@ -66,8 +72,7 @@ As colunas summary e cvss foram utilizadas como base para determinar quais linha
 	else:
 		tmp_dict[d] = tmp[d]
 ```
-									
-e
+								
 
 ```python
 	elif d == "summary":
