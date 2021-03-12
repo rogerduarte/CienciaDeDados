@@ -328,9 +328,9 @@ Matriz de confusão:
 
 Já os gráficos das curvas ROC obtidas foram as seguintes:
 
-![Gráfico Split Kneighbors](./Trabalho_Final/Curva ROC/80_percent/03-split-percentage-kneighbors.png)
+![Gráfico Split Kneighbors](./Trabalho_Final/Curva_ROC/80_percent/03-split-percentage-kneighbors.png)
 
-![Gráfico Kfold Kneighbors](./Trabalho_Final/Curva ROC/80_percent/04-kfold-kneighbors.png)
+![Gráfico Kfold Kneighbors](./Trabalho_Final/Curva_ROC/80_percent/04-kfold-kneighbors.png)
 
    c) discussão resultados
 
@@ -412,7 +412,12 @@ Tempo total: Runtime of the program is 4922.091492176056s
 
 
    b) resultado split/resultado kfold/curva roc
+   
+Já os gráficos das curvas ROC obtidas foram as seguintes:
 
+![Gráfico Split RandomForest](./Trabalho_Final/Curva_ROC/20_percent/01-split-percentage-random-forest.png)
+
+![Gráfico kfold RandomForest](./Trabalho_Final/Curva_ROC/20_percent/02-kfold-random-forest.png)
 
    c) discussão resultados
 
@@ -424,6 +429,12 @@ Tempo total: Runtime of the program is 4922.091492176056s
 
 
    b) resultado split/resultado kfold/curva roc
+
+Já os gráficos das curvas ROC obtidas foram as seguintes:
+
+![Gráfico Split Kneighbors](./Trabalho_Final/Curva_ROC/20_percent/03-split-percentage-kneighbors.png)
+
+![Gráfico Kfold Kneighbors](./Trabalho_Final/Curva_ROC/20_percent/04-kfold-kneighbors.png)
 
 
    c) discussão resultados
@@ -437,6 +448,11 @@ Tempo total: Runtime of the program is 4922.091492176056s
 
    b) resultado split/resultado kfold/curva roc
 
+Já os gráficos das curvas ROC obtidas foram as seguintes:
+
+![Gráfico Split SVM](./Trabalho_Final/Curva ROC/20_percent/05-split-percentage-svm.png)
+
+![Gráfico Kfold SVM](./Trabalho_Final/Curva ROC/20_percent/06-kfold-svm.png)
 
    c) discussão resultados
 
