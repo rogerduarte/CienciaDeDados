@@ -200,9 +200,16 @@ O referido Script irá treinar, testar e gerar os resultados dos 3 modelos a seg
 Cabe resaltar que foram utilizados os seguintes sítios como referência para a implantação dos modelos mencionados:
 
 Referência:
+
     - https://github.com/fabriciojoc/ml-cybersecuritiy-course/
+    
+    
     - https://scikit-learn.org/stable/modules/generated/sklearn.ensemble.RandomForestClassifier.html#sklearn.ensemble.RandomForestClassifier
+
+
     - https://scikit-learn.org/stable/modules/generated/sklearn.neighbors.KNeighborsClassifier.html#sklearn.neighbors.KNeighborsClassifier
+
+
     - https://scikit-learn.org/stable/modules/generated/sklearn.svm.SVC.html#sklearn.svm.SVC
 
 #### 1) RandonForest:
