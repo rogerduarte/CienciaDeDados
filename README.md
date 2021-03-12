@@ -655,7 +655,7 @@ Conforme é possível observar nos resultados, o modelo "SVM" obteve uma precis�
 
 Após o treinamento, os testes e a obtenção de resultados dos modelos RandomForest, Kneighborn e Support-vector machine (SVM) para a porção dos 80% dos dados, foi realizado o processamento dos dados que estavam contidos na porção de 20% do dataset pré-processado. O objetivo é validar os modelos e comparar os resultados. Para isso, foram criadas as funções execute_models_production(...), execute_model_production(...) e execute_kfold_production(..).
 
-As funções supramencionadas fazem a leitura dos treinamentos dos algoritmos, que foram gravados em disco pela função dump(..), e executam a predição com a porção de 20% do dataset. Abaixo são apresentadas as funções:
+As funções supramencionadas fazem a leitura dos algoritmos treinados, que foram gravados em disco pela função dump(..), e executam a predição com a porção de 20% do dataset. Abaixo são apresentadas as funções:
 
 ```python
 def execute_models_production(random_florest=False, k_neighbors=False, svm=False):
