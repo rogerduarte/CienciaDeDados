@@ -1,0 +1,71 @@
+---------*--------- Split percentage (KNeighborsClassifier) ---------*---------
+Precisão: 0.7862013174621518
+Erro (mean_absolute_error): 0.26066825178325614
+Matriz de confusão: 
+[[5013 1850]
+ [2316 6803]]
+---------*--------- Kfold (KNeighborsClassifier-KFold) ---------*---------
+Precisão: 0.7855846512833808
+Erro (mean_absolute_error): 0.20303456905990927
+Matriz de confusão: 
+[[7160  827]
+ [1769 3030]]
+Precisão: 0.7542561065877128
+Erro (mean_absolute_error): 0.2140789988267501
+Matriz de confusão: 
+[[6991  996]
+ [1741 3057]]
+Precisão: 0.6498940677966102
+Erro (mean_absolute_error): 0.24254986312084473
+Matriz de confusão: 
+[[6003 1983]
+ [1118 3681]]
+Precisão: 0.5999106611078022
+Erro (mean_absolute_error): 0.2703949941337505
+Matriz de confusão: 
+[[5299 2687]
+ [ 770 4029]]
+Precisão: 0.6753698868581375
+Erro (mean_absolute_error): 0.21775518185373485
+Matriz de confusão: 
+[[6121 1865]
+ [ 919 3880]]
+
+
+
+---------*--------- Split percentage (KNeighborsClassifier)-Production---------*---------
+Precisão: 0.7300113483957495
+Erro (mean_absolute_error): 0.3352855784151775
+Matriz de confusão: 
+[[6203 2617]
+ [4081 7076]]
+---------*--------- Kfold (KNeighborsClassifier-KFold)-Production ---------*---------
+Precisão: 0.735875106202209
+Erro (mean_absolute_error): 0.3361365570405967
+Matriz de confusão: 
+[[6333 2487]
+ [4228 6929]]
+Precisão: 0.7730773933243673
+Erro (mean_absolute_error): 0.3348851178855684
+Matriz de confusão: 
+[[6964 1856]
+ [4834 6323]]
+Precisão: 0.7230492556698971
+Erro (mean_absolute_error): 0.3349852330179707
+Matriz de confusão: 
+[[6048 2772]
+ [3920 7237]]
+Precisão: 0.6956560205255242
+Erro (mean_absolute_error): 0.3370876507984182
+Matriz de confusão: 
+[[5380 3440]
+ [3294 7863]]
+Precisão: 0.7201473447252634
+Erro (mean_absolute_error): 0.34309455874255396
+Matriz de confusão: 
+[[6085 2735]
+ [4119 7038]]
+
+Runtime of the program is 1888.2427361011505s
+
+Process finished with exit code 0

@@ -25,6 +25,8 @@ from sklearn.neighbors import KNeighborsClassifier
 from sklearn.svm import SVC
 import matplotlib.pyplot as plt
 from sklearn.metrics import plot_roc_curve
+from joblib import dump, load
+import shutil
 
 # Caminho dos DataSets
 data_path_80 = os.path.join("dataset", "data-list-80.csv")
@@ -44,16 +46,54 @@ label_attribute = "impact"
 
 # Criação dos DataFrames conforme as porções de dados
 df_data = pd.read_csv(data_path_80)
+df_data_20 = pd.read_csv(data_path_20)
 
 # Valor do label, que será utilizado para classificação
 label = df_data[label_attribute].values
+label_20 = df_data_20[label_attribute].values
 
 # Apaga o label do dataset
 del df_data[label_attribute]
+del df_data_20[label_attribute]
 
 # Variável para controle da geração das janelas de gráficos das curvas ROC
 # Documentação base: https://scikit-learn.org/stable/auto_examples/miscellaneous/plot_roc_curve_visualization_api.html
 generate_roc_curve = True
+
+# Variáveis utilizadas para indicar o caminho onde os modelos treinados serão salvos
+# (para serem utilizados posteriormente sem treinar)
+
+output_model_folder = "ModelosSalvos"
+output_model_recreate_folder = False
+if os.path.isdir(output_model_folder) is False:
+    print(f"Criando pasta \"{output_model_folder}\" ...")
+    os.mkdir(output_model_folder)
+else:
+    if output_model_recreate_folder is True:
+        print(f"Recriando pasta \"{output_model_folder}\" ...")
+        shutil.rmtree(output_model_folder)
+        os.mkdir(output_model_folder)
+output_model_word2vec = os.path.join(output_model_folder, "vectorizer-tfidf.model")
+output_model_tdidf = os.path.join(output_model_folder, "vectorizer-w2vec.model")
+output_model_split = {"RandomForestClassifier": os.path.join(output_model_folder, "RandomForestClassifier_model_split.model"),
+                      "KNeighborsClassifier": os.path.join(output_model_folder, "KNeighborsClassifier_model_split.model"),
+                      "SMV": os.path.join(output_model_folder, "SVM_model_model_split.model")}
+output_model_kfold = {"RandomForestClassifier-KFold":
+                          [os.path.join(output_model_folder, "RandomForestClassifier_model_kfold1.model"),
+                           os.path.join(output_model_folder, "RandomForestClassifier_model_kfold2.model"),
+                           os.path.join(output_model_folder, "RandomForestClassifier_model_kfold3.model"),
+                           os.path.join(output_model_folder, "RandomForestClassifier_model_kfold4.model"),
+                           os.path.join(output_model_folder, "RandomForestClassifier_model_kfold5.model")],
+                      "KNeighborsClassifier-KFold": [os.path.join("ModelosSalvos", "KNeighborsClassifier_model_kfold1.model"),
+                                               os.path.join("ModelosSalvos", "KNeighborsClassifier_model_kfold2.model"),
+                                               os.path.join("ModelosSalvos", "KNeighborsClassifier_model_kfold3.model"),
+                                               os.path.join("ModelosSalvos", "KNeighborsClassifier_model_kfold4.model"),
+                                               os.path.join("ModelosSalvos", "KNeighborsClassifier_model_kfold5.model")],
+                      "SVM-KFold": [os.path.join(output_model_folder, "SVM_model_kfold1.model"),
+                              os.path.join(output_model_folder, "SVM_model_kfold2.model"),
+                              os.path.join(output_model_folder, "SVM_model_kfold3.model"),
+                              os.path.join(output_model_folder, "SVM_model_kfold4.model"),
+                              os.path.join(output_model_folder, "SVM_model_kfold5.model")]}
 
 
 def split_data(param_data):
@@ -70,17 +110,26 @@ def split_data(param_data):
     return train_data_f, test_data_f
 
 
-def textual_feature_tfid(train_data_param, test_data_param):
+def textual_feature_tfid(train_data_param, test_data_param=None):
     """
     Função utilizada para o processamento do Tf-idf
     :param train_data_param: dataset de treino
     :param test_data_param: dataset de test
     :return: dois dataset processados pelo tf-idf
     """
-    extractor = TfidfVectorizer(max_features=100)
-    extractor.fit(train_data_param)
+    extractor = None
+    if os.path.exists(output_model_tdidf) is True:
+        extractor = load(output_model_tdidf)
+    else:
+        extractor = TfidfVectorizer(max_features=100)
+        extractor.fit(train_data_param)
+        dump(extractor, output_model_tdidf)
+
     train_features_o = extractor.transform(train_data_param)
-    test_features_o = extractor.transform(test_data_param)
+    if test_data_param is not None:
+        test_features_o = extractor.transform(test_data_param)
+    else:
+        test_features_o = None
     return train_features_o, test_features_o
 
 
@@ -110,17 +159,26 @@ class MeanEmbeddingVectorizer(object):
         ])
 
 
-def textual_feature_word2vec(train_data_param, test_data_param):
+def textual_feature_word2vec(train_data_param, test_data_param=None):
     """
     Função utilizada para o processamento do Word2Vec
     :param train_data_param: dataset de treino
     :param test_data_param: dataset de test
     :return: dois dataset processados pelo Word2Vec
     """
-    word2vec = MeanEmbeddingVectorizer(size=200)
-    word2vec.fit(train_data_param)
+    word2vec = None
+    if os.path.exists(output_model_word2vec):
+        word2vec = load(output_model_word2vec)
+    else:
+        word2vec = MeanEmbeddingVectorizer(size=200)
+        word2vec.fit(train_data_param)
+        dump(word2vec, output_model_word2vec)
+
     train_features_o = word2vec.transform(train_data_param)
-    test_features_o = word2vec.transform(test_data_param)
+    if test_data_param is not None:
+        test_features_o = word2vec.transform(test_data_param)
+    else:
+        test_features_o = None
     return train_features_o, test_features_o
 
 
@@ -138,6 +196,7 @@ def execute_kfold(model, X, Y, cv, model_name=""):
 
     count = 1
     ax = plt.gca()
+    idx = 0
 
     print(f"---------*--------- Kfold ({model_name}) ---------*---------")
     for train_index, test_index in kf.split(X, Y):
@@ -145,6 +204,8 @@ def execute_kfold(model, X, Y, cv, model_name=""):
         Y_train, Y_test = Y[train_index], Y[test_index]
         clf = model
         clf.fit(X_train, Y_train)
+        dump(clf, output_model_kfold[model_name][idx])
+        idx += 1
         pred_t = clf.predict(X_test)
         print(f"Precisão: ", end="")
         print(precision_score(Y_test, pred_t))
@@ -161,16 +222,49 @@ def execute_kfold(model, X, Y, cv, model_name=""):
         plt.show()
 
 
+def execute_kfold_production(test_features_norm, test_label, cv, model_name=""):
+    """
+    Execução k-fold cross validation de um modelo já treinado
+    """
+    global generate_roc_curve
+
+    count = 1
+    ax = plt.gca()
+
+    print(f"---------*--------- Kfold ({model_name})-Production ---------*---------")
+    for i in range(cv):
+        # Carrega o modelo treinado
+        clf = load(output_model_kfold[model_name][i])
+        pred_t = clf.predict(test_features_norm)
+
+        print(f"Precisão: ", end="")
+        print(precision_score(test_label, pred_t))
+        print(f"Erro (mean_absolute_error): ", end="")
+        print(mean_absolute_error(test_label, pred_t))
+        print(f"Matriz de confusão: ")
+        print(confusion_matrix(test_label, pred_t))
+
+        if generate_roc_curve is True:
+            plot_roc_curve(clf, test_features_norm, test_label, ax=ax, label=f"{model_name}-{count}")
+            count += 1
+
+    if generate_roc_curve is True:
+        plt.show()
+
+
 def execute_model(model, train_features_norm, train_label, test_features_norm, test_label, model_name=""):
     global generate_roc_curve
     """
     Executa um modelo conforme parâmetros
     """
     if model_name == "RandomForestClassifier" or model_name == "KNeighborsClassifier" or model_name == "SVM":
+        print(f"---------*--------- Split percentage ({model_name}) ---------*---------")
         clf = model
         clf.fit(train_features_norm, train_label)
+        # Salvo o modelo treinado
+        dump(clf, output_model_split[model_name])
+        # Predição
         test_pred = clf.predict(test_features_norm)
-        print(f"---------*--------- Split percentage ({model_name}) ---------*---------")
         print(f"Precisão: ", end="")
         print(precision_score(test_label, test_pred))
         print(f"Erro (mean_absolute_error): ", end="")
@@ -183,7 +277,30 @@ def execute_model(model, train_features_norm, train_label, test_features_norm, t
             plt.show()
 
 
-def generate_models():
+def execute_model_production(test_features_norm, test_label, model_name=""):
+    global generate_roc_curve
+    """
+    Executa um modelo conforme parâmetros
+    """
+    if model_name == "RandomForestClassifier" or model_name == "KNeighborsClassifier" or model_name == "SVM":
+        print(f"---------*--------- Split percentage ({model_name})-Production---------*---------")
+        # Carrega o modelo salvo em disco
+        clf = load(output_model_split[model_name])
+        # Predição
+        test_pred = clf.predict(test_features_norm)
+        print(f"Precisão: ", end="")
+        print(precision_score(test_label, test_pred))
+        print(f"Erro (mean_absolute_error): ", end="")
+        print(mean_absolute_error(test_label, test_pred))
+        print(f"Matriz de confusão: ")
+        print(confusion_matrix(test_label, test_pred))
+
+        if generate_roc_curve is True:
+            plot_roc_curve(clf, test_features_norm, test_label)
+            plt.show()
+
+
+def generate_models(random_florest=False, k_neighbors=False, svm=False):
     """
     Função principal para gerar os modelos e executá-los
 
@@ -194,6 +311,11 @@ def generate_models():
     https://scikit-learn.org/stable/modules/generated/sklearn.svm.SVC.html#sklearn.svm.SVC
     """
     global df_data, label
+
+    # Finaliza a função se nenhum algortimo foi selecionado
+    if random_florest is False and k_neighbors is False and svm is False:
+        return
+
     # Split dos dados
     train_data, test_data = split_data(df_data)
     train_label, test_label = split_data(label)
@@ -221,22 +343,72 @@ def generate_models():
     cv = 5
 
     # ****************************** RandomForestClassifier
-    execute_model(RandomForestClassifier(n_estimators=100), train_features_norm, train_label,
-                  test_features_norm, test_label, model_name="RandomForestClassifier")
-    execute_kfold(RandomForestClassifier(n_estimators=100), train_features_norm, train_label, cv,
-                  model_name="RandomForestClassifier-KFold")
+    if random_florest is True:
+        execute_model(RandomForestClassifier(n_estimators=100), train_features_norm, train_label,
+                      test_features_norm, test_label, model_name="RandomForestClassifier")
+        execute_kfold(RandomForestClassifier(n_estimators=100), train_features_norm, train_label, cv,
+                      model_name="RandomForestClassifier-KFold")
 
     # ****************************** "KNeighborsClassifier
-    execute_model(KNeighborsClassifier(n_neighbors=5), train_features_norm, train_label, test_features_norm, test_label,
-                  model_name="KNeighborsClassifier")
-    execute_kfold(KNeighborsClassifier(n_neighbors=5), train_features_norm, train_label, cv,
-                  model_name="KNeighborsClassifier-KFold")
+    if k_neighbors is True:
+        execute_model(KNeighborsClassifier(n_neighbors=5), train_features_norm, train_label, test_features_norm, test_label,
+                      model_name="KNeighborsClassifier")
+        execute_kfold(KNeighborsClassifier(n_neighbors=5), train_features_norm, train_label, cv,
+                      model_name="KNeighborsClassifier-KFold")
 
     # ****************************** SVM
-    execute_model(SVC(kernel="linear"), train_features_norm, train_label, test_features_norm, test_label,
-                  model_name="SVM")
-    execute_kfold(SVC(kernel="linear"), train_features_norm, train_label, cv,
-                  model_name="SVM-KFold")
+    if svm is True:
+        execute_model(SVC(kernel="linear"), train_features_norm, train_label, test_features_norm, test_label,
+                      model_name="SVM")
+        execute_kfold(SVC(kernel="linear"), train_features_norm, train_label, cv,
+                      model_name="SVM-KFold")
+
+
+def execute_models_production(random_florest=False, k_neighbors=False, svm=False):
+    """
+    Função principal para executar os modelos já salvos
+    """
+    global df_data_20, label_20
+
+    # Finaliza a função se nenhum algortimo foi selecionado
+    if random_florest is False and k_neighbors is False and svm is False:
+        return
+
+    # Split dos dados
+    test_data = df_data_20
+    test_label = label_20
+
+    # Obtem atributos numéricos
+    test_features = test_data[numerical_attributes].values
+
+    # Faz o tratamento das características textuais e já faz a junção com os numéricos
+    for a in textual_attributes:
+        # TDF-IDF
+        test_texts, _ = textual_feature_tfid(test_data[a].values, None)
+        test_features = np.concatenate((test_features, test_texts.toarray()), axis=1)
+        # Word2Vec
+        test_texts, _ = textual_feature_word2vec(test_data[a].values, None)
+        test_features = np.concatenate((test_features, test_texts), axis=1)
+
+    # Faz a normalização
+    scaler_param = MinMaxScaler()
+    scaler_param.fit(test_features)
+    test_features_norm = scaler_param.transform(test_features)
+    cv = 5
+
+    # ****************************** RandomForestClassifier
+    if random_florest is True:
+        execute_model_production(test_features_norm, test_label, model_name="RandomForestClassifier")
+        execute_kfold_production(test_features_norm, test_label, 5, model_name="RandomForestClassifier-KFold")
+
+    # ****************************** "KNeighborsClassifier
+    if k_neighbors is True:
+        execute_model_production(test_features_norm, test_label, model_name="KNeighborsClassifier")
+        execute_kfold_production(test_features_norm, test_label, 5, model_name="KNeighborsClassifier-KFold")
+
+    if svm is True:
+        execute_model_production(test_features_norm, test_label, model_name="SVM")
+        execute_kfold_production(test_features_norm, test_label, 5, model_name="SVM-KFold")
 
 
 if __name__ == "__main__":
@@ -247,7 +419,12 @@ if __name__ == "__main__":
             generate_roc_curve = False
             print("Geração dos gráficos de curva ROC desabilitado")
 
-    generate_models()
+    # Treina os modelos
+    generate_models(svm=True)
+    # Executa os modelos com base em treinos já realizados (salvos em disco).
+    # Utiliza a porção dos 20%
+    execute_models_production(svm=True)
+
     end = time.time()
     print(f"\nRuntime of the program is {end - start}s")
     sys.exit(0)

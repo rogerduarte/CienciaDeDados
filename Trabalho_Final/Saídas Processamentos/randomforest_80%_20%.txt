@@ -1,0 +1,69 @@
+---------*--------- Split percentage (RandomForestClassifier) ---------*---------
+Precisão: 0.930338389731622
+Erro (mean_absolute_error): 0.1090601927168064
+Matriz de confusão: 
+[[6266  597]
+ [1146 7973]]
+---------*--------- Kfold (RandomForestClassifier-KFold) ---------*---------
+Precisão: 0.9697966507177034
+Erro (mean_absolute_error): 0.12959486938839357
+Matriz de confusão: 
+[[7886  101]
+ [1556 3243]]
+Precisão: 0.9623915139826422
+Erro (mean_absolute_error): 0.07524442706296441
+Matriz de confusão: 
+[[7831  156]
+ [ 806 3992]]
+Precisão: 0.8889611797874648
+Erro (mean_absolute_error): 0.09479859210011732
+Matriz de confusão: 
+[[7474  512]
+ [ 700 4099]]
+Precisão: 0.7716535433070866
+Erro (mean_absolute_error): 0.14329292139225655
+Matriz de confusão: 
+[[6739 1247]
+ [ 585 4214]]
+Precisão: 0.8881856540084389
+Erro (mean_absolute_error): 0.08752444270629645
+Matriz de confusão: 
+[[7456  530]
+ [ 589 4210]]
+
+
+
+---------*--------- Split percentage (RandomForestClassifier)-Production---------*---------
+Precisão: 0.9266188959660298
+Erro (mean_absolute_error): 0.23662211543274767
+Matriz de confusão: 
+[[8267  553]
+ [4174 6983]]
+---------*--------- Kfold (RandomForestClassifier-KFold)-Production ---------*---------
+Precisão: 0.9313820743259655
+Erro (mean_absolute_error): 0.20288331581318517
+Matriz de confusão: 
+[[8255  565]
+ [3488 7669]]
+Precisão: 0.9448778616191329
+Erro (mean_absolute_error): 0.21024177804475147
+Matriz de confusão: 
+[[8389  431]
+ [3769 7388]]
+Precisão: 0.9388465362943321
+Erro (mean_absolute_error): 0.29338739550483056
+Matriz de confusão: 
+[[8451  369]
+ [5492 5665]]
+Precisão: 0.9165649786455156
+Erro (mean_absolute_error): 0.28507783951544274
+Matriz de confusão: 
+[[8273  547]
+ [5148 6009]]
+Precisão: 0.9369237523781648
+Erro (mean_absolute_error): 0.25959853831906693
+Matriz de confusão: 
+[[8389  431]
+ [4755 6402]]
+
+Runtime of the program is 836.1474664211273s
