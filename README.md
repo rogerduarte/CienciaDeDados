@@ -402,7 +402,7 @@ Os resultados obtidos do Split dos dados e do K-Fold foram os seguintes.
 
 <table>
   <tr>
-    <td colspan="3" style="width:100%;align=center"><b>Split percentage (RandomForestClassifier)<b/></td>
+    <td colspan="3" style="width:100%;align=center"><b>Split percentage (KNeighborsClassifier)<b/></td>
   </tr>
   <tr>
     <td><b>Precisão</b></td>
@@ -418,7 +418,7 @@ Os resultados obtidos do Split dos dados e do K-Fold foram os seguintes.
 
 <table>
   <tr>
-    <td colspan="4" style="width:100%;align=center"><b>K-Folds cross-validator (RandomForestClassifier)<b/></td>
+    <td colspan="4" style="width:100%;align=center"><b>K-Folds cross-validator (KNeighborsClassifier)<b/></td>
   </tr>
   <tr>
     <td><b>K-Fold</b></td>
