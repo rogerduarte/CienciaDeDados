@@ -199,27 +199,20 @@ O treinamento, teste e obtenção dos resultados foi realizado através do Scrip
 O referido Script irá gerar treinar, testar e gerar relatórios dos 3 modelos a seguir.
 
 #### 1) RandonForest:
-É um método de aprendizagem para classificação, regressão e outras tarefas que operam construindo uma infinidade de árvores de decisão, de maneira aleatória.
+É um método de aprendizagem para classificação, regressão e outras tarefas que operam construindo uma infinidade de árvores de decisão de maneira aleatória.
 
    a) treinamento/teste
-A execução do método é inciada pela função “generate_models”, conforme abaixo
+A execução do método é inciada pela função “generate_models”, conforme abaixo:
 
 ```python
-
 def generate_models():
-"""
-Função principal para gerar os modelos e executá-los
-.
-.
-.
+(...)
 # ****************************** RandomForestClassifier
 execute_model(RandomForestClassifier(n_estimators=100), train_features_norm, train_label,
 test_features_norm, test_label, model_name="RandomForestClassifier")
 execute_kfold(RandomForestClassifier(n_estimators=100), train_features_norm, train_label, cv,
 model_name="RandomForestClassifier-KFold")
-.
-.
-.
+(...)
 ````
 
    b) resultado split/resultado kfold/curva roc
@@ -274,19 +267,13 @@ A execução do método é inciada pela função “generate_models”, conforme
 ```python
 
 def generate_models():
-"""
-Função principal para gerar os modelos e executá-los
-.
-.
-.
+(...)
 # ****************************** "KNeighborsClassifier
 execute_model(KNeighborsClassifier(n_neighbors=5), train_features_norm, train_label, test_features_norm, test_label,
 model_name="KNeighborsClassifier")
 execute_kfold(KNeighborsClassifier(n_neighbors=5), train_features_norm, train_label, cv,
 model_name="KNeighborsClassifier-KFold")
-.
-.
-.
+(...)
 ```
 
    b) resultado split/resultado kfold/curva roc
@@ -341,21 +328,14 @@ Já os gráficos das curvas ROC obtidas foram as seguintes:
 A execução do método é inciada pela função “generate_models”, conforme abaixo
 
 ```python
-
 def generate_models():
-"""
-Função principal para gerar os modelos e executá-los
-.
-.
-.
+(...)
 # ****************************** SVM
 execute_model(SVC(kernel="linear"), train_features_norm, train_label, test_features_norm, test_label,
 model_name="SVM")
 execute_kfold(SVC(kernel="linear"), train_features_norm, train_label, cv,
 model_name="SVM-KFold")
-.
-.
-.
+(...)
 ```
 
    b) resultado split/resultado kfold/curva roc
@@ -406,6 +386,7 @@ Tempo total: Runtime of the program is 4922.091492176056s
 
 
 <hr >
+
 #### 1) RandonForest:
 
    a) treinamento/teste
