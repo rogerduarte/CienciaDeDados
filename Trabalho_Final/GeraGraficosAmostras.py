@@ -40,25 +40,23 @@ if os.path.isdir(folder_graphics) is False:
 
 print("Gerando gráficos ... ")
 
-fig = plt.figure()
-
-ax_80 = fig.add_subplot(211)
+fig, ax_80 = plt.subplots()
 ax_80 = df_80[label_attribute].groupby(df_80[label_attribute]).count().plot(kind="bar")
 ax_80.set_xlabel("Impacto")
 ax_80.set_ylabel("Quantidade")
 ax_80.set_xticklabels(["CVEs que não geraram impacto", "CVEs que geraram impacto"], rotation='horizontal')
 ax_80.set_title("Distribuição de Classes (Impacto CVEs) - Distribuição 80%")
 fig.tight_layout()
+plt.savefig(os.path.join(folder_graphics, "80-distribuição-de-classes.pdf"))
 
-ax_20 = fig.add_subplot(212)
+fig, ax_20 = plt.subplots()
 ax_20 = df_20[label_attribute].groupby(df_20[label_attribute]).count().plot(kind="bar")
 ax_20.set_xlabel("Impacto")
 ax_20.set_ylabel("Quantidade")
 ax_20.set_xticklabels(["CVEs que não geraram impacto", "CVEs que geraram impacto"], rotation='horizontal')
 ax_20.set_title("Distribuição de Classes (Impacto CVEs) - Distribuição 20%")
 fig.tight_layout()
-
-plt.savefig(os.path.join(folder_graphics, "distribuição-de-classes.pdf"))
+plt.savefig(os.path.join(folder_graphics, "20-distribuição-de-classes.pdf"))
 
 print(f"Finalizado. Arquivo PDF com os gráficos salvo em \"{folder_graphics}\"")
 sys.exit(0)
