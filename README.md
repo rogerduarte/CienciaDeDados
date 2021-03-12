@@ -308,8 +308,33 @@ def execute_kfold(model, X, Y, cv, model_name=""):
    
 Os resultados obtidos do Split dos dados e do K-Fold foram os seguintes.
 
+| Scores (cvss) | Número de registros |
+| --- | --- |
+| 7.5 | 16273 |
+| 4.3 | 14798 |
+| 5.0 | 14525 |
+| 6.8 | 7773 |
+| 10.0 | 6927 |
+
+<table>
+  <th>
+    <td colspan="2">---------*--------- Split percentage (RandomForestClassifier) ---------*---------</td>
+  </th>
+  <th>
+    <td>Precisão</td>
+    <td>Erro</td>
+	<td>Matriz de confusão:</td>
+  </th>
+  <tr>
+    <td>0.9522465567848273</td>
+    <td>0.06926542360155175</td>
+	<td>[[6440  423]
+ [ 684 8435]]</td>
+  </tr>
+</table>
+
 ```
----------*--------- Split percentage (RandomForestClassifier) ---------*---------
+
 Precisão: 0.9522465567848273
 Erro (mean_absolute_error): 0.06926542360155175
 Matriz de confusão: 
