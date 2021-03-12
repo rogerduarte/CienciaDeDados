@@ -406,6 +406,7 @@ def execute_models_production(random_florest=False, k_neighbors=False, svm=False
         execute_model_production(test_features_norm, test_label, model_name="KNeighborsClassifier")
         execute_kfold_production(test_features_norm, test_label, 5, model_name="KNeighborsClassifier-KFold")
 
+    # ****************************** "SVM
     if svm is True:
         execute_model_production(test_features_norm, test_label, model_name="SVM")
         execute_kfold_production(test_features_norm, test_label, 5, model_name="SVM-KFold")
