@@ -206,7 +206,6 @@ Referência:
     https://scikit-learn.org/stable/modules/generated/sklearn.svm.SVC.html#sklearn.svm.SVC
 
 #### 1) RandonForest:
-É um método de aprendizagem para classificação, regressão e outras tarefas que operam construindo uma infinidade de árvores de decisão de maneira aleatória.
 
    1.a) Treinamento/Teste: 
    A execução do método é iniciada pela função “generate_models”, conforme abaixo.
@@ -333,7 +332,7 @@ Já os gráficos das curvas ROC obtidas foram as seguintes:
    1.c) Discussão dos resultados:
 Conforme é possível observar nos resultados, o modelo "RandomForest" obteve uma precisão mínima de "0.8430840759395584" e máxima de "0.9785809906291834". Já com o Split dos dados, a precisão foi de "0.9522465567848273". Já a média absoluta de erros variou de "0.0517012123582323" até "0.15165024245268263" no K-Fold e "0.06926542360155175" no Split dos dados. Esse resultado sugere que a precisão do modelo é expressivamene alta, considerando o tamanho do dataset e as informações utilizadas para as tomadas de decisão.
 
- #### 2) Kneighborn:
+ #### 2) KNeighborsClassifier:
 
    2.a) Treinamento/Teste:
 A execução do método é inciada pela função “generate_models”, conforme abaixo. As duas chamadas fazem menção aos métodos já descritos no item "1.a" do presente relatório.
@@ -390,9 +389,9 @@ Matriz de confusão:
 
 Já os gráficos das curvas ROC obtidas foram as seguintes:
 
-![Gráfico Split Kneighbors](./Trabalho_Final/Curva_ROC/80_percent/03-split-percentage-kneighbors.png)
+![Gráfico Split KNeighborsClassifier](./Trabalho_Final/Curva_ROC/80_percent/03-split-percentage-kneighbors.png)
 
-![Gráfico Kfold Kneighbors](./Trabalho_Final/Curva_ROC/80_percent/04-kfold-kneighbors.png)
+![Gráfico Kfold KNeighborsClassifier](./Trabalho_Final/Curva_ROC/80_percent/04-kfold-kneighbors.png)
 
    2.c) discussão resultados
 Conforme é possível observar nos resultados, o modelo "KNeighborsClassifier" obteve uma precisão mínima de "0.6462404251993121" e máxima de "0.772666128598332". Já com o Split dos dados, a precisão foi de "0.8527952365200132". Já a média absoluta de erros variou de "0.167774736018772" até "0.22901838091513493" no K-Fold e "0.17019146539857338" no Split dos dados. Esse resultado sugere que a precisão do modelo é razoavél, considerando o tamanho do dataset e as informações utilizadas para as tomadas de decisão. Ainda, o resultado positivo do Split foi relativamente maior que o do K-Fold.
@@ -466,15 +465,21 @@ Cumpre referir que o tempo total de execução de todo o processamntos dos model
 <hr >
 
 
-Após o treinamento, os testes e a obteção de resultados dos modelos RandomForest, Kneighborn e Support-vector machine (SVM), foi realizado o processamento dos dados que estavam contidos na porção de 20% do dataset pré-processado. O objetivo é validar os modelos e comparar os resultados.
+Após o treinamento, os testes e a obteção de resultados dos modelos RandomForest, Kneighborn e Support-vector machine (SVM) para a porção dos 80% dos dados, foi realizado o processamento dos dados que estavam contidos na porção de 20% do dataset pré-processado. O objetivo é validar os modelos e comparar os resultados. Para isso, foi realizado a seguintes mudançs no código do Scrypt Python "ImplementacaoModelos.py"
 
-#### 1) RandonForest:
+- Antes:
+```python
+# Criação dos DataFrames conforme as porções de dados
+df_data = pd.read_csv(data_path_80)
+```
+- Depois:
+```python
+# Criação dos DataFrames conforme as porções de dados
+df_data = pd.read_csv(data_path_20)
+```
+#### 4) RandonForest:
 
-   a) Treinamento/Teste
-
-
-
-   b) Resultado Split/Resultado K-Fold/Curva ROC:
+   4.a) Resultado Split/Resultado K-Fold/Curva ROC:
 Os resultados obtidos do Split dos dados e do K-Fold foram os seguintes.
 ```python
 ---------*--------- Split percentage (RandomForestClassifier) ---------*---------
@@ -516,17 +521,13 @@ Já os gráficos das curvas ROC obtidas foram as seguintes:
 
 ![Gráfico kfold RandomForest](./Trabalho_Final/Curva_ROC/20_percent/02-kfold-random-forest.png)
 
-   c) discussão resultados
+   4.b) discussão resultados
 
 
 
-####  2) Kneighborn:
+####  5) KNeighborsClassifier:
 
-   a) Treinamento/Teste
-
-
-
-   b) Resultado Split/Resultado K-Fold/Curva ROC:
+   5.a) Resultado Split/Resultado K-Fold/Curva ROC:
 Os resultados obtidos do Split dos dados e do K-Fold foram os seguintes.
 ```python
 ---------*--------- Split percentage (KNeighborsClassifier) ---------*---------
@@ -565,22 +566,18 @@ Matriz de confusão:
 
 Já os gráficos das curvas ROC obtidas foram as seguintes:
 
-![Gráfico Split Kneighbors](./Trabalho_Final/Curva_ROC/20_percent/03-split-percentage-kneighbors.png)
+![Gráfico Split KNeighborsClassifier](./Trabalho_Final/Curva_ROC/20_percent/03-split-percentage-kneighbors.png)
 
-![Gráfico Kfold Kneighbors](./Trabalho_Final/Curva_ROC/20_percent/04-kfold-kneighbors.png)
-
-
-   c) discussão resultados
+![Gráfico Kfold KNeighborsClassifier](./Trabalho_Final/Curva_ROC/20_percent/04-kfold-kneighbors.png)
 
 
-
-####  3) SVM:
-
-   a) Treinamento/Teste:
+   5.b) discussão resultados
 
 
 
-   b) Resultado Split/Resultado K-Fold/Curva ROC:
+####  6) SVM:
+
+   6.a) Resultado Split/Resultado K-Fold/Curva ROC:
 Os resultados obtidos do Split dos dados e do K-Fold foram os seguintes.
 ```python
 ---------*--------- Split percentage (SVM) ---------*---------
@@ -624,5 +621,5 @@ Já os gráficos das curvas ROC obtidas foram as seguintes:
 
 ![Gráfico Kfold SVM](./Trabalho_Final/Curva_ROC/20_percent/06-kfold-svm.png)
 
-   c) discussão resultados
+   6.b) discussão resultados
 
