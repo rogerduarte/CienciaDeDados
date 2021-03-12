@@ -166,3 +166,70 @@ A seguir são apresentados os gráficos de distribuição de classe das porçõe
 
 ![Gráfico Distribuição Classe 80%](./Trabalho_Final/Gráfico_Dist_Classes/grafico_dist_80.png)
 
+
+<hr >
+###Treinamentos, testes e resultados 
+
+Após o prévio processamento do dataset “circl-cve-search-expanded.json” – escolha das informações de interesse e divisão dos dados em dois grupos, um com 80% e o outro com 20% dos dados – foi realizado o treinamento do dataset com a porção de 80% das informações nos modelos RandomForest, Kneighborn e Support-vector machine (SVM). Para isso, além de outras bibliotecas, foram utilizadas a biblioteca de aprendizado de máquina scikit-learn e a biblioteca de criação de gráficos e visualizações de dados em geral Matplotlib, ambas para a linguagem de programação Python.
+```python
+
+import math
+import sys
+import time
+
+import pandas as pd
+import os
+
+from gensim.models import Word2Vec
+from sklearn.feature_extraction.text import TfidfVectorizer
+from sklearn.model_selection import StratifiedKFold
+from sklearn.preprocessing import MinMaxScaler
+from sklearn.ensemble import RandomForestClassifier
+from sklearn.metrics import confusion_matrix, precision_score, mean_absolute_error
+import numpy as np
+from sklearn.neighbors import KNeighborsClassifier
+from sklearn.svm import SVC
+import matplotlib.pyplot as plt
+from sklearn.metrics import plot_roc_curve
+```
+
+O treinamento, teste e obtenção dos resultados foi realizado através do Script Python ["ImplementacaoModelos.py"]  (https://github.com/rogerduarte/CienciaDeDados/blob/main/Trabalho_Final/ImplementacaoModelos.py)
+
+
+<hr >
+### 1) RandonForest
+
+   a) treinamento/teste
+   b) resultado split/resultado kfold/curva roc
+   c) discussão resultados
+
+ ###2) Kneighborn
+
+   a) treinamento/test
+   b) resultado split/resultado kfold/curva roc
+   c) discussão resultados
+
+###3) SVM
+
+   a) treinamento/test
+   b) resultado split/resultado kfold/curva roc
+   c) discussão resultados
+
+<hr >
+20%
+### 1) RandonForest
+   a) treinamento/teste
+   b) resultado split/resultado kfold/curva roc
+   c) discussão resultados
+
+###  2) Kneighborn
+   a) treinamento/test
+   b) resultado split/resultado kfold/curva roc
+   c) discussão resultados
+
+###  3) SVM
+   a) treinamento/test
+   b) resultado split/resultado kfold/curva roc
+   c) discussão resultados
+
+
