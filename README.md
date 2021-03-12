@@ -400,40 +400,64 @@ model_name="KNeighborsClassifier-KFold")
    
 Os resultados obtidos do Split dos dados e do K-Fold foram os seguintes.
 
-```
----------*--------- Split percentage (KNeighborsClassifier) ---------*---------
-Precisão: 0.8527952365200132
-Erro (mean_absolute_error): 0.17019146539857338
-Matriz de confusão: 
-[[5528 1335]
- [1385 7734]]
----------*--------- Kfold (KNeighborsClassifier-KFold) ---------*---------
-Precisão: 0.772666128598332
-Erro (mean_absolute_error): 0.21679962458939464
-Matriz de confusão: 
-[[7142  845]
- [1927 2872]]
-Precisão: 0.7485303723056825
-Erro (mean_absolute_error): 0.19671490027375832
-Matriz de confusão: 
-[[6832 1155]
- [1360 3438]]
-Precisão: 0.6890955506929248
-Erro (mean_absolute_error): 0.21314039890496675
-Matriz de confusão: 
-[[6281 1705]
- [1020 3779]]
-Precisão: 0.6462404251993121
-Erro (mean_absolute_error): 0.22901838091513493
-Matriz de confusão: 
-[[5723 2263]
- [ 665 4134]]
-Precisão: 0.7380696088984571
-Erro (mean_absolute_error): 0.167774736018772
-Matriz de confusão: 
-[[6526 1460]
- [ 685 4114]]
-```
+<table>
+  <tr>
+    <td colspan="3" style="width:100%;align=center"><b>Split percentage (RandomForestClassifier)<b/></td>
+  </tr>
+  <tr>
+    <td><b>Precisão</b></td>
+    <td><b>Erro</b></td>
+	<td><b>Matriz de confusão:</b></td>
+  </tr>
+  <tr>
+    <td>0.8527952365200132</td>
+    <td>0.17019146539857338</td>
+	<td>[5528 1335]<br />[1385 7734]</td>
+  </tr>
+</table>
+
+<table>
+  <tr>
+    <td colspan="4" style="width:100%;align=center"><b>K-Folds cross-validator (RandomForestClassifier)<b/></td>
+  </tr>
+  <tr>
+    <td><b>K-Fold</b></td>
+    <td><b>Precisão</b></td>
+    <td><b>Erro</b></td>
+	<td><b>Matriz de confusão:</b></td>
+  </tr>
+  <tr>
+	<td>1</td>
+    <td>0.772666128598332</td>
+    <td>0.21679962458939464</td>
+	<td>[7142  845]<br />[1927 2872]</td>
+  </tr>
+  <tr>
+	<td>2</td>
+    <td>0.7485303723056825</td>
+    <td>0.19671490027375832</td>
+	<td>[6832 1155]<br />[1360 3438]</td>
+  </tr>
+  <tr>
+	<td>3</td>
+    <td>0.6890955506929248</td>
+    <td>0.21314039890496675</td>
+	<td>[6281 1705]<br />[1020 3779]</td>
+  </tr>
+  <tr>
+	<td>4</td>
+    <td> 0.6462404251993121</td>
+    <td>0.22901838091513493</td>
+	<td>[5723 2263]<br />[665  4134]</td>
+  </tr>
+  <tr>
+	<td>5</td>
+    <td> 0.7380696088984571</td>
+    <td>0.167774736018772</td>
+	<td>[6526 1460]<br />[685  4114]</td>
+  </tr>
+</table>
+
 
 Já os gráficos das curvas ROC obtidas foram as seguintes:
 
