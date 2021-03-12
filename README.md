@@ -344,9 +344,10 @@ Matriz de confusão:
 ```
 Já os gráficos das curvas ROC obtidas foram as seguintes:
 
-![Gráfico Split RandomForest](./Trabalho_Final/Curva_ROC/80_percent/01-split-percentage-random-forest.png)
-
-![Gráfico kfold RandomForest](./Trabalho_Final/Curva_ROC/80_percent/02-kfold-random-forest.png)
+<p float="left">
+	<img src="./Trabalho_Final/Curva_ROC/80_percent/01-split-percentage-random-forest.png" width="500px" />
+	<img src="./Trabalho_Final/Curva_ROC/80_percent/02-kfold-random-forest.png" width="500px" />
+<p/>
 
    **1.c. Discussão dos resultados:**
    
