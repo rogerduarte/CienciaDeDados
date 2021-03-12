@@ -168,7 +168,7 @@ A seguir são apresentados os gráficos de distribuição de classe das porçõe
 
 
 <hr >
-###Treinamentos, testes e resultados 
+#### Treinamentos, testes e resultados 
 
 Após o prévio processamento do dataset “circl-cve-search-expanded.json” – escolha das informações de interesse e divisão dos dados em dois grupos, um com 80% e o outro com 20% dos dados – foi realizado o treinamento do dataset com a porção de 80% das informações nos modelos RandomForest, Kneighborn e Support-vector machine (SVM). Para isso, além de outras bibliotecas, foram utilizadas a biblioteca de aprendizado de máquina scikit-learn e a biblioteca de criação de gráficos e visualizações de dados em geral Matplotlib, ambas para a linguagem de programação Python.
 ```python
@@ -197,19 +197,19 @@ O treinamento, teste e obtenção dos resultados foi realizado através do Scrip
 
 
 <hr >
-### 1) RandonForest
+#### 1) RandonForest
 
    a) treinamento/teste
    b) resultado split/resultado kfold/curva roc
    c) discussão resultados
 
- ###2) Kneighborn
+#### 2) Kneighborn
 
    a) treinamento/test
    b) resultado split/resultado kfold/curva roc
    c) discussão resultados
 
-###3) SVM
+#### 3) SVM
 
    a) treinamento/test
    b) resultado split/resultado kfold/curva roc
@@ -217,17 +217,17 @@ O treinamento, teste e obtenção dos resultados foi realizado através do Scrip
 
 <hr >
 20%
-### 1) RandonForest
+#### 1) RandonForest
    a) treinamento/teste
    b) resultado split/resultado kfold/curva roc
    c) discussão resultados
 
-###  2) Kneighborn
+####  2) Kneighborn
    a) treinamento/test
    b) resultado split/resultado kfold/curva roc
    c) discussão resultados
 
-###  3) SVM
+#### 3) SVM
    a) treinamento/test
    b) resultado split/resultado kfold/curva roc
    c) discussão resultados
