@@ -168,10 +168,8 @@ A seguir são apresentados os gráficos de distribuição de classe das porçõe
 
 ![Gráfico Distribuição Classe 80%](./Trabalho_Final/Gráfico_Dist_Classes/grafico_dist_80.png)
 
-
 <hr >
-
-#### Treinamentos, testes e resultados :
+#### Treinamentos, testes e resultados:
 
 Após o prévio processamento do dataset “circl-cve-search-expanded.json” – escolha das informações de interesse e divisão dos dados em dois grupos, um com 80% e o outro com 20% dos dados – foi realizado o treinamento do dataset com a porção de 80% das informações nos modelos RandomForest, Kneighborn e Support-vector machine (SVM). Para isso, além de outras bibliotecas, foram utilizadas a biblioteca de aprendizado de máquina scikit-learn e a biblioteca de criação de gráficos e visualizações de dados em geral Matplotlib, ambas para a linguagem de programação Python.
 ```python
@@ -197,43 +195,247 @@ from sklearn.metrics import plot_roc_curve
 ```
 
 O treinamento, teste e obtenção dos resultados foi realizado através do Script Python ["ImplementacaoModelos.py"]  (https://github.com/rogerduarte/CienciaDeDados/blob/main/Trabalho_Final/ImplementacaoModelos.py)
-
-
-<hr >
+O referido Script irá gerar treinar, testar e gerar relatórios dos 3 modelos a seguir.
 
 #### 1) RandonForest:
+É um método de aprendizagem para classificação, regressão e outras tarefas que operam construindo uma infinidade de árvores de decisão, de maneira aleatória.
 
    a) treinamento/teste
+A execução do método é inciada pela função “generate_models”, conforme abaixo
+
+````python
+
+def generate_models():
+"""
+Função principal para gerar os modelos e executá-los
+.
+.
+.
+# ****************************** RandomForestClassifier
+execute_model(RandomForestClassifier(n_estimators=100), train_features_norm, train_label,
+test_features_norm, test_label, model_name="RandomForestClassifier")
+execute_kfold(RandomForestClassifier(n_estimators=100), train_features_norm, train_label, cv,
+model_name="RandomForestClassifier-KFold")
+.
+.
+.
+````
+
    b) resultado split/resultado kfold/curva roc
+Os resultados obtidos do split dos dados e do k-fold foi o seguinte:
+
+---------*--------- Split percentage (RandomForestClassifier) ---------*---------
+Precisão: 0.9522465567848273
+Erro (mean_absolute_error): 0.06926542360155175
+Matriz de confusão: 
+[[6440  423]
+ [ 684 8435]]
+---------*--------- Kfold (RandomForestClassifier-KFold) ---------*---------
+Precisão: 0.9785809906291834
+Erro (mean_absolute_error): 0.15165024245268263
+Matriz de confusão: 
+[[7923   64]
+ [1875 2924]]
+Precisão: 0.9644186046511628
+Erro (mean_absolute_error): 0.06288619475948377
+Matriz de confusão: 
+[[7834  153]
+ [ 651 4147]]
+Precisão: 0.9263492063492064
+Erro (mean_absolute_error): 0.06022682831443097
+Matriz de confusão: 
+[[7638  348]
+ [ 422 4377]]
+Precisão: 0.8430840759395584
+Erro (mean_absolute_error): 0.09831834180680485
+Matriz de confusão: 
+[[7176  810]
+ [ 447 4352]]
+Precisão: 0.9326641572563781
+Erro (mean_absolute_error): 0.0517012123582323
+Matriz de confusão: 
+[[7664  322]
+ [ 339 4460]]
+
+Já os gráficos das curvas ROC obtidas foram as seguintes:
+
+![Gráfico Distribuição Classe 20%](./Trabalho_Final/Curva ROC/80_percent/01-split-percentage-random-forest.png)
+
+![Gráfico Distribuição Classe 20%](./Trabalho_Final/Curva ROC/80_percent/02-kfold-random-forest.png)
+
    c) discussão resultados
 
-#### 2) Kneighborn:
+ #### 2) Kneighborn:
 
-   a) treinamento/test
+   a) treinamento/teste
+A execução do método é inciada pela função “generate_models”, conforme abaixo
+
+````python
+
+def generate_models():
+"""
+Função principal para gerar os modelos e executá-los
+.
+.
+.
+# ****************************** "KNeighborsClassifier
+execute_model(KNeighborsClassifier(n_neighbors=5), train_features_norm, train_label, test_features_norm, test_label,
+model_name="KNeighborsClassifier")
+execute_kfold(KNeighborsClassifier(n_neighbors=5), train_features_norm, train_label, cv,
+model_name="KNeighborsClassifier-KFold")
+.
+.
+.
+````
+
    b) resultado split/resultado kfold/curva roc
+Os resultados obtidos do split dos dados e do k-fold foi o seguinte:
+---------*--------- Split percentage (KNeighborsClassifier) ---------*---------
+Precisão: 0.8527952365200132
+Erro (mean_absolute_error): 0.17019146539857338
+Matriz de confusão: 
+[[5528 1335]
+ [1385 7734]]
+---------*--------- Kfold (KNeighborsClassifier-KFold) ---------*---------
+Precisão: 0.772666128598332
+Erro (mean_absolute_error): 0.21679962458939464
+Matriz de confusão: 
+[[7142  845]
+ [1927 2872]]
+Precisão: 0.7485303723056825
+Erro (mean_absolute_error): 0.19671490027375832
+Matriz de confusão: 
+[[6832 1155]
+ [1360 3438]]
+Precisão: 0.6890955506929248
+Erro (mean_absolute_error): 0.21314039890496675
+Matriz de confusão: 
+[[6281 1705]
+ [1020 3779]]
+Precisão: 0.6462404251993121
+Erro (mean_absolute_error): 0.22901838091513493
+Matriz de confusão: 
+[[5723 2263]
+ [ 665 4134]]
+Precisão: 0.7380696088984571
+Erro (mean_absolute_error): 0.167774736018772
+Matriz de confusão: 
+[[6526 1460]
+ [ 685 4114]]
+
+Já os gráficos das curvas ROC obtidas foram as seguintes:
+
+![Gráfico Distribuição Classe 20%](./Trabalho_Final/Curva ROC/80_percent/03-split-percentage-kneighbors.png)
+
+![Gráfico Distribuição Classe 20%](./Trabalho_Final/Curva ROC/80_percent/04-kfold-kneighbors.png)
+
    c) discussão resultados
+
 
 #### 3) SVM:
 
-   a) treinamento/test
+   a) treinamento/teste
+A execução do método é inciada pela função “generate_models”, conforme abaixo
+
+````python
+
+def generate_models():
+"""
+Função principal para gerar os modelos e executá-los
+.
+.
+.
+# ****************************** SVM
+execute_model(SVC(kernel="linear"), train_features_norm, train_label, test_features_norm, test_label,
+model_name="SVM")
+execute_kfold(SVC(kernel="linear"), train_features_norm, train_label, cv,
+model_name="SVM-KFold")
+.
+.
+.
+````
+
    b) resultado split/resultado kfold/curva roc
+Os resultados obtidos do split dos dados e do k-fold foi o seguinte:
+---------*--------- Split percentage (SVM) ---------*---------
+Precisão: 0.9357778021736743
+Erro (mean_absolute_error): 0.07383306219496934
+Matriz de confusão: 
+[[6278  585]
+ [ 595 8524]]
+---------*--------- Kfold (SVM-KFold) ---------*---------
+Precisão: 0.9773958088062161
+Erro (mean_absolute_error): 0.058188643829188175
+Matriz de confusão: 
+[[7891   96]
+ [ 648 4151]]
+Precisão: 0.9608619173262972
+Erro (mean_absolute_error): 0.04739929605005866
+Matriz de confusão: 
+[[7809  178]
+ [ 428 4370]]
+Precisão: 0.8818022235225278
+Erro (mean_absolute_error): 0.0691435275713727
+Matriz de confusão: 
+[[7380  606]
+ [ 278 4521]]
+Precisão: 0.9055588762701734
+Erro (mean_absolute_error): 0.056941728588189286
+Matriz de confusão: 
+[[7512  474]
+ [ 254 4545]]
+Precisão: 0.8898780723824269
+Erro (mean_absolute_error): 0.06022682831443097
+Matriz de confusão: 
+[[7417  569]
+ [ 201 4598]]
+
+Já os gráficos das curvas ROC obtidas foram as seguintes:
+
+![Gráfico Distribuição Classe 20%](./Trabalho_Final/Curva ROC/80_percent/05-split-percentage-svm.png)
+
+![Gráfico Distribuição Classe 20%](./Trabalho_Final/Curva ROC/80_percent/06-kfold-svm.png)
+
    c) discussão resultados
+Tempo total: Runtime of the program is 4922.091492176056s
+
 
 <hr >
-
+20%
 #### 1) RandonForest:
+
    a) treinamento/teste
+
+
    b) resultado split/resultado kfold/curva roc
+
+
    c) discussão resultados
+
+
 
 ####  2) Kneighborn:
-   a) treinamento/test
+
+   a) treinamento/teste
+
+
    b) resultado split/resultado kfold/curva roc
+
+
    c) discussão resultados
 
-#### 3) SVM: 
-   a) treinamento/test
+
+
+####  3) SVM:
+
+   a) treinamento/teste
+
+
    b) resultado split/resultado kfold/curva roc
+
+
    c) discussão resultados
+
+
 
 
