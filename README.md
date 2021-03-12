@@ -318,7 +318,7 @@ Os resultados obtidos do Split dos dados e do K-Fold foram os seguintes.
 
 <table>
   <th>
-    <td colspan="2">---------*--------- Split percentage (RandomForestClassifier) ---------*---------</td>
+    <td colspan="3">---------*--------- Split percentage (RandomForestClassifier) ---------*---------</td>
   </th>
   <th>
     <td>Precisão</td>
@@ -328,8 +328,7 @@ Os resultados obtidos do Split dos dados e do K-Fold foram os seguintes.
   <tr>
     <td>0.9522465567848273</td>
     <td>0.06926542360155175</td>
-	<td>[[6440  423]
- [ 684 8435]]</td>
+	<td>[6440  423]<br />[684 8435]</td>
   </tr>
 </table>
 
