@@ -413,9 +413,10 @@ Matriz de confusão:
 
 Já os gráficos das curvas ROC obtidas foram as seguintes:
 
-![Gráfico Split KNeighborsClassifier](./Trabalho_Final/Curva_ROC/80_percent/03-split-percentage-kneighbors.png)
-
-![Gráfico Kfold KNeighborsClassifier](./Trabalho_Final/Curva_ROC/80_percent/04-kfold-kneighbors.png)
+<p float="left">
+	<img src="./Trabalho_Final/Curva_ROC/80_percent/03-split-percentage-kneighbors.png" width="500px" />
+	<img src="./Trabalho_Final/Curva_ROC/80_percent/04-kfold-kneighbors.png" width="500px" />
+<p/>
 
    **2.c. Discussão dos resultados:**
    
@@ -479,9 +480,10 @@ Matriz de confusão:
 
 Já os gráficos das curvas ROC obtidas foram as seguintes:
 
-![Gráfico Split SVM](./Trabalho_Final/Curva_ROC/80_percent/05-split-percentage-svm.png)
-
-![Gráfico Kfold SVM](./Trabalho_Final/Curva_ROC/80_percent/06-kfold-svm.png)
+<p float="left">
+	<img src="./Trabalho_Final/Curva_ROC/80_percent/05-split-percentage-svm.png" width="500px" />
+	<img src="./Trabalho_Final/Curva_ROC/80_percent/06-kfold-svm.png" width="500px" />
+<p/>
 
    **3.c. Discussão dos resultados:**
    
