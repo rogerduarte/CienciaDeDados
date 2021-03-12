@@ -491,40 +491,64 @@ model_name="SVM-KFold")
 
 Os resultados obtidos do Split dos dados e do K-Fold foram os seguintes.
 
-```
----------*--------- Split percentage (SVM) ---------*---------
-Precisão: 0.9357778021736743
-Erro (mean_absolute_error): 0.07383306219496934
-Matriz de confusão: 
-[[6278  585]
- [ 595 8524]]
----------*--------- Kfold (SVM-KFold) ---------*---------
-Precisão: 0.9773958088062161
-Erro (mean_absolute_error): 0.058188643829188175
-Matriz de confusão: 
-[[7891   96]
- [ 648 4151]]
-Precisão: 0.9608619173262972
-Erro (mean_absolute_error): 0.04739929605005866
-Matriz de confusão: 
-[[7809  178]
- [ 428 4370]]
-Precisão: 0.8818022235225278
-Erro (mean_absolute_error): 0.0691435275713727
-Matriz de confusão: 
-[[7380  606]
- [ 278 4521]]
-Precisão: 0.9055588762701734
-Erro (mean_absolute_error): 0.056941728588189286
-Matriz de confusão: 
-[[7512  474]
- [ 254 4545]]
-Precisão: 0.8898780723824269
-Erro (mean_absolute_error): 0.06022682831443097
-Matriz de confusão: 
-[[7417  569]
- [ 201 4598]]
-```
+
+<table>
+  <tr>
+    <td colspan="3" style="width:100%;align=center"><b>Split percentage (SVM)<b/></td>
+  </tr>
+  <tr>
+    <td><b>Precisão</b></td>
+    <td><b>Erro</b></td>
+	<td><b>Matriz de confusão:</b></td>
+  </tr>
+  <tr>
+    <td>0.9357778021736743</td>
+    <td>0.07383306219496934</td>
+	<td>[6278  585]<br />[595  8524]</td>
+  </tr>
+</table>
+
+<table>
+  <tr>
+    <td colspan="4" style="width:100%;align=center"><b>K-Folds cross-validator (SVM)<b/></td>
+  </tr>
+  <tr>
+    <td><b>K-Fold</b></td>
+    <td><b>Precisão</b></td>
+    <td><b>Erro</b></td>
+	<td><b>Matriz de confusão:</b></td>
+  </tr>
+  <tr>
+	<td>1</td>
+    <td>0.9773958088062161</td>
+    <td>0.058188643829188175</td>
+	<td>[7891 96]<br />[648  4151]</td>
+  </tr>
+  <tr>
+	<td>2</td>
+    <td>0.9608619173262972</td>
+    <td>0.04739929605005866</td>
+	<td>[7809 178]<br />[428  4370]</td>
+  </tr>
+  <tr>
+	<td>3</td>
+    <td>0.8818022235225278</td>
+    <td>0.0691435275713727</td>
+	<td>[7380 606]<br />[278  4521]</td>
+  </tr>
+  <tr>
+	<td>4</td>
+    <td>0.9055588762701734</td>
+    <td>0.056941728588189286</td>
+	<td>[7512 74]<br />[254  4545]</td>
+  </tr>
+  <tr>
+	<td>5</td>
+    <td>0.8898780723824269</td>
+    <td>0.06022682831443097</td>
+	<td>[7417 569]<br />[201  4598]</td>
+  </tr>
+</table>
 
 Já os gráficos das curvas ROC obtidas foram as seguintes:
 
