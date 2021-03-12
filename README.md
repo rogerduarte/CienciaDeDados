@@ -176,7 +176,8 @@ Conforme saída do CSV de pré-processamento, foram criados dois gráficos com o
 
 A seguir são apresentados os gráficos de distribuição de classe das porções de 20% e 80%.
 
-![](./Trabalho_Final/Gráfico_Dist_Classes/grafico_dist_20.png = 300px) ![](./Trabalho_Final/Gráfico_Dist_Classes/grafico_dist_80.png = 300px)
+<img src="./Trabalho_Final/Gráfico_Dist_Classes/grafico_dist_20.png" width="250px" />
+<img src="./Trabalho_Final/Gráfico_Dist_Classes/grafico_dist_80.png" width="250px" />
 
 <hr >
 
