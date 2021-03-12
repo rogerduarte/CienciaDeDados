@@ -88,7 +88,7 @@ As colunas summary e cvss foram utilizadas como base para determinar quais linha
 		tmp_dict[d] = tmp[d].replace("\"", "'")
 ```		
 
-Com a coluna summary, foi possível mapear quais CVEs geraram impacto e quais não geraram (objetivo do trabalho). O seguinte trecho de código possui os ajustes na coluna summary:
+Com a coluna summary foi possível mapear quais CVEs geraram impacto e quais não geraram (objetivo do trabalho). O seguinte trecho de código possui os ajustes na coluna summary:
 
 ```python
 	elif d == "impact":
@@ -101,7 +101,7 @@ Com a coluna summary, foi possível mapear quais CVEs geraram impacto e quais n�
 			tmp_dict["impact"] = 0	
 ```	
 
-Com o trecho de código apresentado acima, a coluna summary que antes era um dicionário, foi mapeada para um valor binário, que indica se o CVE gera ou não impacto.
+Com o trecho de código apresentado acima, a coluna summary, que antes era um dicionário, foi mapeada para um valor binário que indica se o CVE gera ou não impacto.
 
 Para a coluna access, o seguinte tratamento foi realizado:
 
@@ -139,7 +139,7 @@ Para a coluna access, o seguinte tratamento foi realizado:
 ```
 
 
-Com o trecho de código apresentado acima, a coluna access que antes era um dicionário, foi mapeada para um valor número. Isto foi realizado para facilitar o mapeamento posterior da característica.
+Com o trecho de código apresentado acima, a coluna access, que antes era um dicionário, foi mapeada para um valor número. Isto foi realizado para facilitar o mapeamento posterior da característica.
 
 O campo vulnerable_configuration_cpe_2_2, que possui informações a respeito da configuração do ambiente vulnerável, foi convertida de uma lista de strings para uma única string, conforme trecho de código abaixo:
 
@@ -160,7 +160,7 @@ Como resultado final do script foram criados dois arquivos CVS pré-processados,
 
 #### Distribuição de classes:
 
-Conforme saída do CSV de pré-processamento, foram criados dois gráficos com o mapa de distribuição de classes, com base no campo impact.
+Conforme saída do CSV de pré-processamento, foram criados dois gráficos com o mapa de distribuição de classes com base no campo impact.
 
 A seguir são apresentados os gráficos de distribuição de classe das porções de 20% e 80%.
 
@@ -172,7 +172,7 @@ A seguir são apresentados os gráficos de distribuição de classe das porçõe
 
 #### Treinamentos, testes e resultados:
 
-Após o prévio processamento do dataset “circl-cve-search-expanded.json” – escolha das informações de interesse e divisão dos dados em dois grupos, um com 80% e o outro com 20% dos dados – foi realizado o treinamento do dataset com a porção de 80% das informações nos modelos RandomForest, Kneighborn e Support-vector machine (SVM). Para isso, além de outras bibliotecas, foram utilizadas a biblioteca de aprendizado de máquina scikit-learn e a biblioteca de criação de gráficos e visualizações de dados em geral Matplotlib, ambas para a linguagem de programação Python.
+Após o prévio processamento do dataset “circl-cve-search-expanded.json” – escolha das informações de interesse e divisão dos dados em dois grupos, um com 80% e o outro com 20% dos dados – foi realizado o treinamento do dataset com a porção de 80% das informações nos modelos RandomForest, Kneighborn e Support-vector machine (SVM). Para isso, além de outras bibliotecas, foram utilizadas a biblioteca de aprendizado de máquina scikit-learn e a biblioteca de criação de gráficos e visualizações de dados Matplotlib, ambas para a linguagem de programação Python.
 ```python
 
 import math
@@ -195,14 +195,21 @@ import matplotlib.pyplot as plt
 from sklearn.metrics import plot_roc_curve
 ```
 
-O treinamento, teste e obtenção dos resultados foi realizado através do Script Python ["ImplementacaoModelos.py"]  (https://github.com/rogerduarte/CienciaDeDados/blob/main/Trabalho_Final/ImplementacaoModelos.py)
-O referido Script irá gerar treinar, testar e gerar relatórios dos 3 modelos a seguir.
+O treinamento, o teste e a obtenção dos resultados foi realizado através do Script Python ["ImplementacaoModelos.py"]  (https://github.com/rogerduarte/CienciaDeDados/blob/main/Trabalho_Final/ImplementacaoModelos.py)
+O referido Script irá treinar, testar e gerar os resultados dos 3 modelos a seguir.
+Cabe resaltar que foram utilizados os seguintes sítios como referência para a implantação dos modelos mencionados:
+
+Referência:
+    https://github.com/fabriciojoc/ml-cybersecuritiy-course/
+    https://scikit-learn.org/stable/modules/generated/sklearn.ensemble.RandomForestClassifier.html#sklearn.ensemble.RandomForestClassifier
+    https://scikit-learn.org/stable/modules/generated/sklearn.neighbors.KNeighborsClassifier.html#sklearn.neighbors.KNeighborsClassifier
+    https://scikit-learn.org/stable/modules/generated/sklearn.svm.SVC.html#sklearn.svm.SVC
 
 #### 1) RandonForest:
 É um método de aprendizagem para classificação, regressão e outras tarefas que operam construindo uma infinidade de árvores de decisão de maneira aleatória.
 
-   a) treinamento/teste
-A execução do método é inciada pela função “generate_models”, conforme abaixo:
+   a) Treinamento/Teste: 
+   A execução do método é iniciada pela função “generate_models”, conforme abaixo:
 
 ```python
 def generate_models():
@@ -214,9 +221,37 @@ execute_kfold(RandomForestClassifier(n_estimators=100), train_features_norm, tra
 model_name="RandomForestClassifier-KFold")
 (...)
 ````
+As chamadas acima apontam para o método "execute_model", o qual utiliza funções do scikit-learn para processar as informações passadas como parâmetros. Ao final do processamento, é realizado a geração da curva ROC (Receiver Operating Characteristic Curve - Curva Característica de Operação do Receptor) dos resultados obtidos, caso a variável de controle "generate_roc_curve" esteja ativada.
 
-   b) resultado split/resultado kfold/curva roc
-Os resultados obtidos do split dos dados e do k-fold foi o seguinte:
+```python
+(...)
+from sklearn.metrics import confusion_matrix, precision_score, mean_absolute_error
+(...)
+
+def execute_model(model, train_features_norm, train_label, test_features_norm, test_label, model_name=""):
+    global generate_roc_curve
+    """
+    Executa um modelo conforme parâmetros
+    """
+    if model_name == "RandomForestClassifier" or model_name == "KNeighborsClassifier" or model_name == "SVM":
+        clf = model
+        clf.fit(train_features_norm, train_label)
+        test_pred = clf.predict(test_features_norm)
+        print(f"---------*--------- Split percentage ({model_name}) ---------*---------")
+        print(f"Precisão: ", end="")
+        print(precision_score(test_label, test_pred))
+        print(f"Erro (mean_absolute_error): ", end="")
+        print(mean_absolute_error(test_label, test_pred))
+        print(f"Matriz de confusão: ")
+        print(confusion_matrix(test_label, test_pred))
+
+        if generate_roc_curve is True:
+            plot_roc_curve(clf, test_features_norm, test_label)
+            plt.show()
+```
+
+   b) Resultado split/Resultado kfold/Curva roc:
+Os resultados obtidos do split dos dados e do k-fold foram os seguintes:
 ```python
 ---------*--------- Split percentage (RandomForestClassifier) ---------*---------
 Precisão: 0.9522465567848273
@@ -261,7 +296,7 @@ Já os gráficos das curvas ROC obtidas foram as seguintes:
 
  #### 2) Kneighborn:
 
-   a) treinamento/teste
+   a) Treinamento/Teste
 A execução do método é inciada pela função “generate_models”, conforme abaixo
 
 ```python
@@ -276,8 +311,8 @@ model_name="KNeighborsClassifier-KFold")
 (...)
 ```
 
-   b) resultado split/resultado kfold/curva roc
-Os resultados obtidos do split dos dados e do k-fold foi o seguinte:
+   b) Resultado split/Resultado kfold/Curva roc:
+Os resultados obtidos do split dos dados e do k-fold foram os seguintes:
 ```python
 ---------*--------- Split percentage (KNeighborsClassifier) ---------*---------
 Precisão: 0.8527952365200132
@@ -324,7 +359,7 @@ Já os gráficos das curvas ROC obtidas foram as seguintes:
 
 #### 3) SVM:
 
-   a) treinamento/teste
+   a) Treinamento/Teste:
 A execução do método é inciada pela função “generate_models”, conforme abaixo
 
 ```python
@@ -338,8 +373,8 @@ model_name="SVM-KFold")
 (...)
 ```
 
-   b) resultado split/resultado kfold/curva roc
-Os resultados obtidos do split dos dados e do k-fold foi o seguinte:
+   b) Resultado split/Resultado kfold/Curva roc:
+Os resultados obtidos do split dos dados e do k-fold foram os seguintes:
 ```python
 ---------*--------- Split percentage (SVM) ---------*---------
 Precisão: 0.9357778021736743
@@ -389,12 +424,12 @@ Tempo total: Runtime of the program is 4922.091492176056s
 
 #### 1) RandonForest:
 
-   a) treinamento/teste
+   a) Treinamento/Teste
 
 
-   b) resultado split/resultado kfold/curva roc
 
-Os resultados obtidos do split dos dados e do k-fold foi o seguinte:
+   b) Resultado split/Resultado kfold/Curva roc:
+Os resultados obtidos do split dos dados e do k-fold foram os seguintes:
 ```python
 ---------*--------- Split percentage (RandomForestClassifier) ---------*---------
 Precisão: 0.9552594002855783
@@ -441,12 +476,12 @@ Já os gráficos das curvas ROC obtidas foram as seguintes:
 
 ####  2) Kneighborn:
 
-   a) treinamento/teste
+   a) Treinamento/Teste
 
 
-   b) resultado split/resultado kfold/curva roc
 
-Os resultados obtidos do split dos dados e do k-fold foi o seguinte:
+   b) Resultado split/Resultado kfold/Curva roc:
+Os resultados obtidos do split dos dados e do k-fold foram os seguintes:
 ```python
 ---------*--------- Split percentage (KNeighborsClassifier) ---------*---------
 Precisão: 0.8224730631092868
@@ -495,12 +530,12 @@ Já os gráficos das curvas ROC obtidas foram as seguintes:
 
 ####  3) SVM:
 
-   a) treinamento/teste
+   a) Treinamento/Teste:
 
 
-   b) resultado split/resultado kfold/curva roc
 
-Os resultados obtidos do split dos dados e do k-fold foi o seguinte:
+   b) Resultado split/Resultado kfold/Curva roc:
+Os resultados obtidos do split dos dados e do k-fold foram os seguintes:
 ```python
 ---------*--------- Split percentage (SVM) ---------*---------
 Precisão: 0.9643527204502814
