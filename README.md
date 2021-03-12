@@ -250,19 +250,20 @@ Referências:
    
    A execução do método é iniciada pela função “generate_models”, conforme abaixo.
    Os parâmetros utilizados foram os seguintes:
-   - execute_model
-   	- RandomForestClassifier(n_estimators=100):
-	- train_features_norm:
-	- train_label:
-	- test_features_norm:
-	- test_label:
-	- model_name:
+   **- execute_model:**
+   	- RandomForestClassifier(n_estimators=100): Determina o número de árvores na floresta de decisão. Foi utilizado a opção "n_estimators=100" apenas para deixar explícito, pois o valor é o padrão.
+	- train_features_norm: dados de treino obtidos atravéz do processo de normalização.
+	- train_label: informação obtida pelo método "split_data".
+	- test_features_norm: dados de teste obtidos atravéz do processo de normalização.
+	- test_label: informação obtida pelo método "split_data".
+	- model_name: Nome do modelo que será utilizado posteriormente.
 	
-   - execute_kfold
-      	- RandomForestClassifier(n_estimators=100):
-	- train_features_norm:
-	- train_label:
-	- cv:
+   **- execute_kfold:**
+      	- RandomForestClassifier(n_estimators=100): Determina o número de árvores na floresta de decisão. Foi utilizado a opção "n_estimators=100" apenas para deixar explícito, pois o valor é o padrão.
+	- train_features_norm: dados de treino obtidos atravéz do processo de normalização.
+	- train_label: informação obtida pelo método "split_data".
+	- cv: valor do Cross Validation que será utilizado no processo do K-Fold
+	- model_name: Nome do modelo que será utilizado posteriormente.
 
 ```python
 def generate_models():
@@ -420,19 +421,21 @@ Conforme é possível observar nos resultados, o modelo "RandomForest" obteve um
    
 A execução do método é inciada pela função “generate_models”, conforme abaixo. As duas chamadas fazem menção aos métodos já descritos no item "1.a" do presente relatório.
    Os parâmetros utilizados foram os seguintes:
-   - execute_model
-   	- KNeighborsClassifier(n_neighbors=5):
-	- train_features_norm:
-	- train_label:
-	- test_features_norm:
-	- test_label:
-	- model_name:
+   **- execute_model**
+   	- KNeighborsClassifier(n_neighbors=5): determina o número de vizinhos. Foi utilizado a opção "n_neighbors=5" apenas para deixar explícito, pois o valor é o padrão.
+	- train_features_norm: dados de treino obtidos atravéz do processo de normalização.
+	- train_features_norm: dados de treino obtidos atravéz do processo de normalização.
+	- train_label: informação obtida pelo método "split_data".
+	- test_features_norm: dados de teste obtidos atravéz do processo de normalização.
+	- test_label: informação obtida pelo método "split_data".
+	- model_name: Nome do modelo que será utilizado posteriormente.
 	
-   - execute_kfold
-      	- KNeighborsClassifier(n_neighbors=5):
-	- train_features_norm:
-	- train_label:
-	- cv:
+   **- execute_kfold**
+      	- KNeighborsClassifier(n_neighbors=5): determina o número de vizinhos. Foi utilizado a opção "n_neighbors=5" apenas para deixar explícito, pois o valor é o padrão.
+	- train_features_norm: dados de treino obtidos atravéz do processo de normalização.
+	- train_label: informação obtida pelo método "split_data".
+	- cv: valor do Cross Validation que será utilizado no processo do K-Fold
+	- model_name: Nome do modelo que será utilizado posteriormente.
 	
 ```python
 
