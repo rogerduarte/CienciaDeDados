@@ -12,7 +12,7 @@ Roger R R Duarte (PPGINF-202000131793)
 
 Em nosso trabalho um Dataset relacionado a CVEs foi utilizado. CVE (_Common Vulnerabilities and Exposures_) é um referência pública de segurança da informação relacionada a vulnerabilidades e exposições.
 
-Verificando os campos do Dataset, o objetivo traçado foi o mapeamento de quais CVE geraram impacto e quais não geraram, isso com base nas variáveis do Dataset. Caber ressaltar que qualquer tipo de impacto, seja parcial ou completo, foi considerado como positivo em nosso experimento. 
+Verificando os campos do Dataset, o objetivo traçado foi o mapeamento de quais CVE geraram impacto e quais não geraram sobre determinados tipos de ambientes, isso com base nas variáveis do Dataset. Caber ressaltar que qualquer tipo de impacto, seja parcial ou completo, foi considerado como positivo em nosso experimento. 
 
 Na sequência deste relatório, são apresentados o Dataset e seus respectivos rótulos, informações a respeito do pré-processamento do Dataset, gráficos distribuição de classes, informações de treinamentos, testes e resultados obtidos com o processamento do Dataset utilizando os algoritmos RandomForest, Kneighbors e SVM.
 
@@ -46,7 +46,7 @@ Verificou-se que o dataset possuía os seguintes campos:
                                  "PARTIAL", "COMPLETE" OU "NONE"
 							}
     - last-modified | tipo: date
-    - Nessus | tipo: list() | obs.: Informação fornecida pelo www.tenable.com, indica CVEs relacionados
+    - Nessus | tipo: list() | obs.: Informação fornecida pelo site www.tenable.com, indica CVEs relacionados
     - References | tipo: list()
     - Summary | tipo: string
     - Vulnerable_configuration | tipo: list() | obs.: configuração do produto vulnerável
@@ -59,11 +59,11 @@ Os campos cvss, cwe, access, impact, summary e vulnerable_configuration_cpe_2_2 
 
 #### Pré-processamento:
 
-O pré-processamento foi realizado através do Script Python ["PreProcessamento.py"] (https://github.com/rogerduarte/CienciaDeDados/blob/main/Trabalho_Final/PreProcessamento.py)
+O pré-processamento foi realizado através do Script Python [PreProcessamento.py](https://github.com/rogerduarte/CienciaDeDados/blob/main/Trabalho_Final/PreProcessamento.py).
 
-Foi realizada a leitura do arquivo JSON de forma parcial e apenas as colunas cvss, cwe, access, impact, summary e vulnerable_configuration_cpe_2_2 foram mantidas.
+Foi realizada a leitura do arquivo JSON (Dataset completo) e apenas as colunas cvss, cwe, access, impact, summary e vulnerable_configuration_cpe_2_2 foram mantidas.
 
-As colunas summary e cvss foram utilizadas como base para determinar quais linhas do dataset seriam mantidas, visto que a coluna summary em determinados momentos possuía a mensagem "** REJECT ** DO NOT USE THIS CANDIDATE NUMBER" e a coluna cvss (score) possuia itens em branco. Dessa forma, o seguinte trecho de código foi utilizado para essas duas colunas:
+As colunas summary e cvss foram utilizadas como base para determinar quais linhas do dataset seriam mantidas, visto que a coluna summary em determinados momentos possuía a mensagem "** REJECT ** DO NOT USE THIS CANDIDATE NUMBER" e a coluna cvss (score) possuía itens em branco. Dessa forma, o seguinte trecho de código foi utilizado para essas duas colunas:
 
 ```python
 	elif d == "cvss":
@@ -88,7 +88,7 @@ As colunas summary e cvss foram utilizadas como base para determinar quais linha
 		tmp_dict[d] = tmp[d].replace("\"", "'")
 ```		
 
-As colunas impact e access tiveram que passar por ajustes, visto que estas eram dicionários. Para a coluna summary, o seguinte trecho de código foi adicionado. Dessa forma, foi mapeado quais CVEs geraram impacto e quais não geraram (objetivo do trabalho).
+Com a coluna summary, foi possível mapear quais CVEs geraram impacto e quais não geraram (objetivo do trabalho). O seguinte trecho de código possui os ajustes na coluna summary:
 
 ```python
 	elif d == "impact":
@@ -100,6 +100,8 @@ As colunas impact e access tiveram que passar por ajustes, visto que estas eram 
 		else:
 			tmp_dict["impact"] = 0	
 ```	
+
+Com o trecho de código apresentado acima, a coluna summary que antes era um dicionário, foi mapeada para um valor binário, que indica se o CVE gera ou não impacto.
 
 Para a coluna access, o seguinte tratamento foi realizado:
 
@@ -137,9 +139,9 @@ Para a coluna access, o seguinte tratamento foi realizado:
 ```
 
 
-Com o trecho acima, a coluna access que antes era um dicionário, foi mapeada para um valor número. Isto foi realizado para facilitar o mapeamento posterior da característica.
+Com o trecho de código apresentado acima, a coluna access que antes era um dicionário, foi mapeada para um valor número. Isto foi realizado para facilitar o mapeamento posterior da característica.
 
-O campo vulnerable_configuration_cpe_2_2, que possui informações a respeito do ambiente que possui a vulnerabilidade do CVE, foi convertida de uma lista de strings para uma única string, conforme trecho de código abaixo:
+O campo vulnerable_configuration_cpe_2_2, que possui informações a respeito da configuração do ambiente vulnerável, foi convertida de uma lista de strings para uma única string, conforme trecho de código abaixo:
 
 ```python
 	elif d == "vulnerable_configuration_cpe_2_2":
@@ -158,7 +160,7 @@ Como resultado final do script foram criados dois arquivos CVS pré-processados,
 
 #### Distribuição de classes
 
-Conforme saída do CSV de pré-processamento, foram criados dois gráficos do mapa de distribuição de classes, com base no campo impact.
+Conforme saída do CSV de pré-processamento, foram criados dois gráficos com o mapa de distribuição de classes, com base no campo impact.
 
 A seguir são apresentados os gráficos de distribuição de classe das porções de 20% e 80%.
 
