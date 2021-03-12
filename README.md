@@ -550,9 +550,10 @@ Matriz de confusão:
 
 Já os gráficos das curvas ROC obtidas foram as seguintes:
 
-![Gráfico Split RandomForest](./Trabalho_Final/Curva_ROC/20_percent/01-split-percentage-random-forest.png)
-
-![Gráfico kfold RandomForest](./Trabalho_Final/Curva_ROC/20_percent/02-kfold-random-forest.png)
+<p float="left">
+	<img src="./Trabalho_Final/Curva_ROC/20_percent/01-split-percentage-random-forest.png" width="500px" />
+	<img src="./Trabalho_Final/Curva_ROC/20_percent/02-kfold-random-forest.png" width="500px" />
+<p/>
 
    **4.b. Discussão dos resultados:**
    
@@ -602,9 +603,11 @@ Matriz de confusão:
 
 Já os gráficos das curvas ROC obtidas foram as seguintes:
 
-![Gráfico Split KNeighborsClassifier](./Trabalho_Final/Curva_ROC/20_percent/03-split-percentage-kneighbors.png)
+<p float="left">
+	<img src="./Trabalho_Final/Curva_ROC/20_percent/03-split-percentage-kneighbors.png" width="500px" />
+	<img src="./Trabalho_Final/Curva_ROC/20_percent/04-kfold-kneighbors.png" width="500px" />
+<p/>
 
-![Gráfico Kfold KNeighborsClassifier](./Trabalho_Final/Curva_ROC/20_percent/04-kfold-kneighbors.png)
 
 
    5.b. Discussão dos resultados:
@@ -656,9 +659,10 @@ Matriz de confusão:
 
 Já os gráficos das curvas ROC obtidas foram as seguintes:
 
-![Gráfico Split SVM](./Trabalho_Final/Curva_ROC/20_percent/05-split-percentage-svm.png)
-
-![Gráfico Kfold SVM](./Trabalho_Final/Curva_ROC/20_percent/06-kfold-svm.png)
+<p float="left">
+	<img src="./Trabalho_Final/Curva_ROC/20_percent/05-split-percentage-svm.png" width="500px" />
+	<img src="./Trabalho_Final/Curva_ROC/20_percent/06-kfold-svm.png" width="500px" />
+<p/>
 
    **6.b. Discussão dos Resultados:**
    
