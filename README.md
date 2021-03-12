@@ -585,40 +585,64 @@ df_data = pd.read_csv(data_path_20)
    
 Os resultados obtidos do Split dos dados e do K-Fold foram os seguintes.
 
-```
----------*--------- Split percentage (RandomForestClassifier) ---------*---------
-Precisão: 0.9552594002855783
-Erro (mean_absolute_error): 0.05855855855855856
-Matriz de confusão: 
-[[1755   94]
- [ 140 2007]]
----------*--------- Kfold (RandomForestClassifier-KFold) ---------*---------
-Precisão: 0.9547930283224401
-Erro (mean_absolute_error): 0.04128870816390366
-Matriz de confusão: 
-[[1312   83]
- [  49 1753]]
-Precisão: 0.948537378114843
-Erro (mean_absolute_error): 0.045682102628285357
-Matriz de confusão: 
-[[1299   95]
- [  51 1751]]
-Precisão: 0.8680306905370844
-Erro (mean_absolute_error): 0.11357947434292866
-Matriz de confusão: 
-[[1136  258]
- [ 105 1697]]
-Precisão: 0.9208754208754208
-Erro (mean_absolute_error): 0.09449311639549436
-Matriz de confusão: 
-[[1253  141]
- [ 161 1641]]
-Precisão: 0.9642651296829972
-Erro (mean_absolute_error): 0.0597622027534418
-Matriz de confusão: 
-[[1332   62]
- [ 129 1673]]
-```
+
+<table>
+  <tr>
+    <td colspan="3" style="width:100%;align=center"><b>Split percentage (RandomForestClassifier)<b/></td>
+  </tr>
+  <tr>
+    <td><b>Precisão</b></td>
+    <td><b>Erro</b></td>
+	<td><b>Matriz de confusão:</b></td>
+  </tr>
+  <tr>
+    <td>0.9552594002855783</td>
+    <td>0.05855855855855856</td>
+	<td>[1755 94]<br />[140  2007]</td>
+  </tr>
+</table>
+
+<table>
+  <tr>
+    <td colspan="4" style="width:100%;align=center"><b>K-Folds cross-validator (RandomForestClassifier)<b/></td>
+  </tr>
+  <tr>
+    <td><b>K-Fold</b></td>
+    <td><b>Precisão</b></td>
+    <td><b>Erro</b></td>
+	<td><b>Matriz de confusão:</b></td>
+  </tr>
+  <tr>
+	<td>1</td>
+    <td>0.9547930283224401</td>
+    <td>0.04128870816390366</td>
+	<td>[1312 83]<br />[49  1753]</td>
+  </tr>
+  <tr>
+	<td>2</td>
+    <td>0.948537378114843</td>
+    <td>0.045682102628285357</td>
+	<td>[1299 95]<br />[51   1751]</td>
+  </tr>
+  <tr>
+	<td>3</td>
+    <td>0.8680306905370844</td>
+    <td> 0.11357947434292866</td>
+	<td>[1136 258]<br />[105  1697]</td>
+  </tr>
+  <tr>
+	<td>4</td>
+    <td>0.9208754208754208</td>
+    <td>0.09449311639549436</td>
+	<td>[1253 141]<br />[161  1641]</td>
+  </tr>
+  <tr>
+	<td>5</td>
+    <td>0.9642651296829972</td>
+    <td>0.0597622027534418</td>
+	<td>[1332 62]<br />[129  1673]</td>
+  </tr>
+</table>
 
 Já os gráficos das curvas ROC obtidas foram as seguintes:
 
@@ -638,40 +662,64 @@ Conforme é possível observar nos resultados, o modelo "RandomForest" na porç�
    
 Os resultados obtidos do Split dos dados e do K-Fold foram os seguintes.
 
-```
----------*--------- Split percentage (KNeighborsClassifier) ---------*---------
-Precisão: 0.8224730631092868
-Erro (mean_absolute_error): 0.22272272272272273
-Matriz de confusão: 
-[[1503  346]
- [ 544 1603]]
----------*--------- Kfold (KNeighborsClassifier-KFold) ---------*---------
-Precisão: 0.8706624605678234
-Erro (mean_absolute_error): 0.12261495151704724
-Matriz de confusão: 
-[[1149  246]
- [ 146 1656]]
-Precisão: 0.8586497890295358
-Erro (mean_absolute_error): 0.13829787234042554
-Matriz de confusão: 
-[[1126  268]
- [ 174 1628]]
-Precisão: 0.7324324324324324
-Erro (mean_absolute_error): 0.29474342928660824
-Matriz de confusão: 
-[[ 899  495]
- [ 447 1355]]
-Precisão: 0.7650566487775791
-Erro (mean_absolute_error): 0.2856695869837297
-Matriz de confusão: 
-[[1000  394]
- [ 519 1283]]
-Precisão: 0.8252740167633784
-Erro (mean_absolute_error): 0.24812265331664582
-Matriz de confusão: 
-[[1123  271]
- [ 522 1280]]
-```
+
+<table>
+  <tr>
+    <td colspan="3" style="width:100%;align=center"><b>Split percentage (KNeighborsClassifier)<b/></td>
+  </tr>
+  <tr>
+    <td><b>Precisão</b></td>
+    <td><b>Erro</b></td>
+	<td><b>Matriz de confusão:</b></td>
+  </tr>
+  <tr>
+    <td>0.8224730631092868</td>
+    <td>0.22272272272272273</td>
+	<td>[1503 346]<br/>[544  1603]</td>
+  </tr>
+</table>
+
+<table>
+  <tr>
+    <td colspan="4" style="width:100%;align=center"><b>K-Folds cross-validator (KNeighborsClassifier)<b/></td>
+  </tr>
+  <tr>
+    <td><b>K-Fold</b></td>
+    <td><b>Precisão</b></td>
+    <td><b>Erro</b></td>
+	<td><b>Matriz de confusão:</b></td>
+  </tr>
+  <tr>
+	<td>1</td>
+    <td>0.8706624605678234</td>
+    <td>0.12261495151704724</td>
+	<td>[1149 246]<br />[146  1656]</td>
+  </tr>
+  <tr>
+	<td>2</td>
+    <td>0.8586497890295358</td>
+    <td>0.13829787234042554</td>
+	<td>[1126 268]<br />[174  1628]</td>
+  </tr>
+  <tr>
+	<td>3</td>
+    <td>0.7324324324324324</td>
+    <td>0.29474342928660824</td>
+	<td>[899 495]<br />[447 1355]</td>
+  </tr>
+  <tr>
+	<td>4</td>
+    <td>0.7650566487775791</td>
+    <td>0.2856695869837297</td>
+	<td>[1000 394]<br />[519  1283]</td>
+  </tr>
+  <tr>
+	<td>5</td>
+    <td>0.8252740167633784</td>
+    <td>0.24812265331664582</td>
+	<td>[1123 271]<br />[522  1280]</td>
+  </tr>
+</table>
 
 Já os gráficos das curvas ROC obtidas foram as seguintes:
 
@@ -693,41 +741,64 @@ Conforme é possível observar nos resultados, o modelo "KNeighborsClassifier" n
    
 Os resultados obtidos do Split dos dados e do K-Fold foram os seguintes.
 
-```
----------*--------- Split percentage (SVM) ---------*---------
-Precisão: 0.9643527204502814
-Erro (mean_absolute_error): 0.041791791791791794
-Matriz de confusão: 
-[[1773   76]
- [  91 2056]]
----------*--------- Kfold (SVM-KFold) ---------*---------
-Precisão: 0.9533622559652929
-Erro (mean_absolute_error): 0.04066312167657179
-Matriz de confusão: 
-[[1309   86]
- [  44 1758]]
-Precisão: 0.9454643628509719
-Erro (mean_absolute_error): 0.04755944931163955
-Matriz de confusão: 
-[[1293  101]
- [  51 1751]]
-Precisão: 0.9258658008658008
-Erro (mean_absolute_error): 0.07133917396745933
-Matriz de confusão: 
-[[1257  137]
- [  91 1711]]
-Precisão: 0.9261707988980716
-Erro (mean_absolute_error): 0.0797872340425532
-Matriz de confusão: 
-[[1260  134]
- [ 121 1681]]
-Precisão: 0.9632606199770379
-Erro (mean_absolute_error): 0.058823529411764705
-Matriz de confusão: 
-[[1330   64]
- [ 124 1678]]
-```
 
+<table>
+  <tr>
+    <td colspan="3" style="width:100%;align=center"><b>Split percentage (SVM)<b/></td>
+  </tr>
+  <tr>
+    <td><b>Precisão</b></td>
+    <td><b>Erro</b></td>
+	<td><b>Matriz de confusão:</b></td>
+  </tr>
+  <tr>
+    <td>0.9643527204502814</td>
+    <td>0.041791791791791794</td>
+	<td>[1773 76]<br />[91   2056]</td>
+  </tr>
+</table>
+
+<table>
+  <tr>
+    <td colspan="4" style="width:100%;align=center"><b>K-Folds cross-validator (SVM)<b/></td>
+  </tr>
+  <tr>
+    <td><b>K-Fold</b></td>
+    <td><b>Precisão</b></td>
+    <td><b>Erro</b></td>
+	<td><b>Matriz de confusão:</b></td>
+  </tr>
+  <tr>
+	<td>1</td>
+    <td>0.9533622559652929</td>
+    <td>0.04066312167657179</td>
+	<td>[1309 86]<br />[44   1758]</td>
+  </tr>
+  <tr>
+	<td>2</td>
+    <td>0.9454643628509719</td>
+    <td> 0.04755944931163955</td>
+	<td>[1293 101]<br />[51   1751]</td>
+  </tr>
+  <tr>
+	<td>3</td>
+    <td>0.9258658008658008</td>
+    <td>0.07133917396745933</td>
+	<td>[1257 137]<br />[91   1711]</td>
+  </tr>
+  <tr>
+	<td>4</td>
+    <td>0.9261707988980716</td>
+    <td>0.0797872340425532</td>
+	<td>[1260 134]<br />[121  1681]</td>
+  </tr>
+  <tr>
+	<td>5</td>
+    <td>0.9632606199770379</td>
+    <td> 0.058823529411764705</td>
+	<td>[1330 64]<br />[124  1678]</td>
+  </tr>
+</table>
 
 Já os gráficos das curvas ROC obtidas foram as seguintes:
 
