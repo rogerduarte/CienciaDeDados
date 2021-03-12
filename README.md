@@ -210,7 +210,32 @@ from sklearn.metrics import plot_roc_curve
 
 O treinamento, o teste e a obtenção dos resultados foi realizado através do Script Python [ImplementacaoModelos.py](https://github.com/rogerduarte/CienciaDeDados/blob/main/Trabalho_Final/ImplementacaoModelos.py).
 O referido Script irá treinar, testar e gerar os resultados dos 3 modelos a seguir.
-Cabe resaltar que foram utilizados os seguintes sítios como referência para a implementação dos modelos mencionados:
+
+- Para o tratamento das características textuais foram utilizadas os métodos TDF-IDF e Word2Vec, conforme o código abaixo:
+```python
+    # Faz o tratamento das características textuais e já faz a junção com os numéricos
+    for a in textual_attributes:
+        # TDF-IDF
+        train_texts, test_texts = textual_feature_tfid(train_data[a].values, test_data[a].values)
+        train_features = np.concatenate((train_features, train_texts.toarray()), axis=1)
+        test_features = np.concatenate((test_features, test_texts.toarray()), axis=1)
+        # Word2Vec
+        train_texts, test_texts = textual_feature_word2vec(train_data[a].values, test_data[a].values)
+        train_features = np.concatenate((train_features, train_texts), axis=1)
+        test_features = np.concatenate((test_features, test_texts), axis=1)
+```
+Além disso, antes de iniciar as chamadas do processamento do modelos é realizado a normalização dos dados com o código abaixo:
+
+```python
+
+    # Faz a normalização
+    scaler_param = MinMaxScaler()
+    scaler_param.fit(train_features)
+    train_features_norm = scaler_param.transform(train_features)
+    test_features_norm = scaler_param.transform(test_features)
+```
+
+Cabe ressaltar que foram utilizados os seguintes sítios como referência para a implementação dos modelos mencionados:
 
 Referências:
 
@@ -224,15 +249,27 @@ Referências:
    **1.a. Treinamento/Teste:** 
    
    A execução do método é iniciada pela função “generate_models”, conforme abaixo.
+   Os parâmetros utilizados foram os seguintes:
+   - execute_model
+   	- RandomForestClassifier(n_estimators=100):
+	- train_features_norm:
+	- train_label:
+	- test_features_norm:
+	- test_label:
+	- model_name:
+	
+   - execute_kfold
+      	- RandomForestClassifier(n_estimators=100):
+	- train_features_norm:
+	- train_label:
+	- cv:
 
 ```python
 def generate_models():
 (...)
 # ****************************** RandomForestClassifier
-execute_model(RandomForestClassifier(n_estimators=100), train_features_norm, train_label,
-test_features_norm, test_label, model_name="RandomForestClassifier")
-execute_kfold(RandomForestClassifier(n_estimators=100), train_features_norm, train_label, cv,
-model_name="RandomForestClassifier-KFold")
+execute_model(RandomForestClassifier(n_estimators=100), train_features_norm, train_label, test_features_norm, test_label, model_name="RandomForestClassifier")
+execute_kfold(RandomForestClassifier(n_estimators=100), train_features_norm, train_label, cv, model_name="RandomForestClassifier-KFold")
 (...)
 ````
 Inicialmente é realizado a chamada do método "execute_model", o qual utiliza funções do scikit-learn para processar as informações passadas como parâmetros. Ao final do processamento, é realizado a geração da curva ROC (Receiver Operating Characteristic Curve - Curva Característica de Operação do Receptor) dos resultados obtidos, caso a variável de controle "generate_roc_curve" esteja ativada.
@@ -382,16 +419,28 @@ Conforme é possível observar nos resultados, o modelo "RandomForest" obteve um
    **2.a. Treinamento/Teste:**
    
 A execução do método é inciada pela função “generate_models”, conforme abaixo. As duas chamadas fazem menção aos métodos já descritos no item "1.a" do presente relatório.
-
+   Os parâmetros utilizados foram os seguintes:
+   - execute_model
+   	- KNeighborsClassifier(n_neighbors=5):
+	- train_features_norm:
+	- train_label:
+	- test_features_norm:
+	- test_label:
+	- model_name:
+	
+   - execute_kfold
+      	- KNeighborsClassifier(n_neighbors=5):
+	- train_features_norm:
+	- train_label:
+	- cv:
+	
 ```python
 
 def generate_models():
 (...)
 # ****************************** "KNeighborsClassifier
-execute_model(KNeighborsClassifier(n_neighbors=5), train_features_norm, train_label, test_features_norm, test_label,
-model_name="KNeighborsClassifier")
-execute_kfold(KNeighborsClassifier(n_neighbors=5), train_features_norm, train_label, cv,
-model_name="KNeighborsClassifier-KFold")
+execute_model(KNeighborsClassifier(n_neighbors=5), train_features_norm, train_label, test_features_norm, test_label, model_name="KNeighborsClassifier")
+execute_kfold(KNeighborsClassifier(n_neighbors=5), train_features_norm, train_label, cv, model_name="KNeighborsClassifier-KFold")
 (...)
 ```
 
@@ -475,15 +524,27 @@ Conforme é possível observar nos resultados, o modelo "KNeighborsClassifier" o
    **3.a. Treinamento/Teste:**
    
 A execução do método é inciada pela função “generate_models”, conforme abaixo. As duas chamadas fazem menção aos métodos já descritos no item "1.a" do presente relatório.
-
+   Os parâmetros utilizados foram os seguintes:
+   - execute_model
+   	- SVC(kernel="linear"):
+	- train_features_norm:
+	- train_label:
+	- test_features_norm:
+	- test_label:
+	- model_name:
+	
+   - execute_kfold
+      	- SVC(kernel="linear"):
+	- train_features_norm:
+	- train_label:
+	- cv:
+	
 ```python
 def generate_models():
 (...)
 # ****************************** SVM
-execute_model(SVC(kernel="linear"), train_features_norm, train_label, test_features_norm, test_label,
-model_name="SVM")
-execute_kfold(SVC(kernel="linear"), train_features_norm, train_label, cv,
-model_name="SVM-KFold")
+execute_model(SVC(kernel="linear"), train_features_norm, train_label, test_features_norm, test_label, model_name="SVM")
+execute_kfold(SVC(kernel="linear"), train_features_norm, train_label, cv, model_name="SVM-KFold")
 (...)
 ```
 
