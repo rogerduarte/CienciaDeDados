@@ -334,7 +334,7 @@ Os resultados obtidos do Split dos dados e do K-Fold foram os seguintes.
     <td><b>Erro (kfold=1):</b></td>
 	<td>0.15165024245268263</td>
 	<td><b>Matriz de confusão: (kfold=1):</b></td>
-	<td>[7923&nbsp;64] <br />[1875&nbsp;2924]</td>
+	<td>[7923 64] <br />[1875 2924]</td>
   </tr>
   <tr>
 	<td><b>Precisão (kfold=2):</b></td>
@@ -342,7 +342,7 @@ Os resultados obtidos do Split dos dados e do K-Fold foram os seguintes.
     <td><b>Erro (kfold=2):</b></td>
     <td>0.06288619475948377</td>
 	<td><b>Matriz de confusão: (kfold=2):</b></td>
-	<td>[7834&nbsp;153]<br />[651&nbsp;&nbsp;4147]</td>
+	<td>[7834 153]<br />[651  4147]</td>
   </tr>
   <tr>
 	<td><b>Precisão (kfold=3):</b></td>
@@ -350,7 +350,7 @@ Os resultados obtidos do Split dos dados e do K-Fold foram os seguintes.
     <td><b>Erro (kfold=3):</b></td>
     <td>0.06022682831443097</td>
 	<td><b>Matriz de confusão: (kfold=3):</b></td>
-    <td>[7638&nbsp;348]<br />[422&nbsp;&nbsp;4377]</td>
+    <td>[7638 348]<br />[422  4377]</td>
   </tr>
   <tr>
 	<td><b>Precisão (kfold=4):</b></td>
@@ -358,14 +358,14 @@ Os resultados obtidos do Split dos dados e do K-Fold foram os seguintes.
     <td><b>Erro (kfold=4):</b></td>
     <td>0.09831834180680485</td>
 	<td><b>Matriz de confusão: (kfold=4):</b></td>
-	<td>[7176&nbsp;810]<br />[447&nbsp;&nbsp;4352]</td>
+	<td>[7176 810]<br />[447  4352]</td>
   </tr>
 	<td><b>Precisão (kfold=5):</b></td>
     <td>0.9326641572563781</td>
     <td><b>Erro (kfold=5):</b></td>
     <td>0.0517012123582323</td>
 	<td><b>Matriz de confusão: (kfold=5):</b></td>
-	<td>[7664&nbsp;322]<br />[339&nbsp;&nbsp;4460]</td>
+	<td>[7664 322]<br />[339  4460]</td>
   </tr>
 </table>
 
