@@ -537,7 +537,6 @@ A execução do método é inciada pela função “generate_models”, conforme
    **- execute_model**
    
 	* SVC(kernel="linear"):  Especifíca o tipo de kernel que será utilizado pelo algoritmo, ou seja, como os dados serão organizados. Foi utilizado a opção kernel="linear", no qual usará um hiperplano linear (uma linha no caso de dados 2D).
-	- train_features_norm: dados de treino obtidos atravéz do processo de normalização.
 	* train_features_norm: dados de treino obtidos atravéz do processo de normalização.
 	* train_label: informação obtida pelo método "split_data".
 	* test_features_norm: dados de teste obtidos atravéz do processo de normalização.
