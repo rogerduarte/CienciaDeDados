@@ -310,7 +310,7 @@ Os resultados obtidos do Split dos dados e do K-Fold foram os seguintes.
 
 <table>
   <tr>
-    <td colspan="3"><b><center>Split percentage (RandomForestClassifier)</center><b/></td>
+    <td colspan="3" style="witdh:100%"><b><center>Split percentage (RandomForestClassifier)</center><b/></td>
   </tr>
   <tr>
     <td><b>Precisão</b></td>
@@ -326,16 +326,21 @@ Os resultados obtidos do Split dos dados e do K-Fold foram os seguintes.
 
 <table>
   <tr>
-    <td colspan="6"><b><center>Kfold (RandomForestClassifier-KFold)</center><b/></td>
+    <td colspan="3" style="witdh:100%"><b><center>Kfold=1 (RandomForestClassifier-KFold)</center><b/></td>
   </tr>
   <tr>
-    <td><b>Precisão (kfold=1):</b></td>
-	<td>0.9785809906291834</td>
-    <td><b>Erro (kfold=1):</b></td>
-	<td>0.15165024245268263</td>
-	<td><b>Matriz de confusão: (kfold=1):</b></td>
+    <td><b>Precisão</b></td>
+    <td><b>Erro</b></td>
+	<td><b>Matriz de confusão:</b></td>
+  </tr>
+  <tr>
+    <td>0.9785809906291834</td>
+    <td>0.15165024245268263</td>
 	<td>[7923 64] <br />[1875 2924]</td>
   </tr>
+</table>
+
+<table>
   <tr>
 	<td><b>Precisão (kfold=2):</b></td>
     <td>0.9644186046511628</td>
