@@ -77,7 +77,7 @@ output_model_word2vec = os.path.join(output_model_folder, "vectorizer-tfidf.mode
 output_model_tdidf = os.path.join(output_model_folder, "vectorizer-w2vec.model")
 output_model_split = {"RandomForestClassifier": os.path.join(output_model_folder, "RandomForestClassifier_model_split.model"),
                       "KNeighborsClassifier": os.path.join(output_model_folder, "KNeighborsClassifier_model_split.model"),
-                      "SMV": os.path.join(output_model_folder, "SVM_model_model_split.model")}
+                      "SVM": os.path.join(output_model_folder, "SVM_model_model_split.model")}
 output_model_kfold = {"RandomForestClassifier-KFold":
                           [os.path.join(output_model_folder, "RandomForestClassifier_model_kfold1.model"),
                            os.path.join(output_model_folder, "RandomForestClassifier_model_kfold2.model"),
@@ -420,10 +420,10 @@ if __name__ == "__main__":
             print("Geração dos gráficos de curva ROC desabilitado")
 
     # Treina os modelos
-    generate_models(svm=True)
+    generate_models(True, True, True)
     # Executa os modelos com base em treinos já realizados (salvos em disco).
     # Utiliza a porção dos 20%
-    execute_models_production(svm=True)
+    execute_models_production(True, True, True)
 
     end = time.time()
     print(f"\nRuntime of the program is {end - start}s")

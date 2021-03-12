@@ -1,0 +1,71 @@
+---------*--------- Split percentage (SVM) ---------*---------
+Precisão: 0.8948105081826012
+Erro (mean_absolute_error): 0.11168814916781379
+Matriz de confusão: 
+[[5886  977]
+ [ 808 8311]]
+---------*--------- Kfold (SVM-KFold) ---------*---------
+Precisão: 0.9681166021407425
+Erro (mean_absolute_error): 0.05380885343344283
+Matriz de confusão: 
+[[7847  140]
+ [ 548 4251]]
+Precisão: 0.9477806788511749
+Erro (mean_absolute_error): 0.05334376222135315
+Matriz de confusão: 
+[[7747  240]
+ [ 442 4356]]
+Precisão: 0.8196114708603145
+Erro (mean_absolute_error): 0.10512319123973406
+Matriz de confusão: 
+[[7011  975]
+ [ 369 4430]]
+Precisão: 0.8542626728110599
+Erro (mean_absolute_error): 0.08674227610481032
+Matriz de confusão: 
+[[7227  759]
+ [ 350 4449]]
+Precisão: 0.809541217327728
+Erro (mean_absolute_error): 0.11044192412983965
+Matriz de confusão: 
+[[6944 1042]
+ [ 370 4429]]
+
+
+
+
+---------*--------- Split percentage (SVM)-Production---------*---------
+Precisão: 0.9564670752789565
+Erro (mean_absolute_error): 0.2677078640436502
+Matriz de confusão: 
+[[8543  277]
+ [5071 6086]]
+
+---------*--------- Kfold (SVM-KFold)-Production ---------*---------
+Precisão: 0.9622833843017329
+Erro (mean_absolute_error): 0.28607899083946536
+Matriz de confusão: 
+[[8598  222]
+ [5493 5664]]
+Precisão: 0.957675402897607
+Erro (mean_absolute_error): 0.2770185713570606
+Matriz de confusão: 
+[[8560  260]
+ [5274 5883]]
+Precisão: 0.9607026439695763
+Erro (mean_absolute_error): 0.3037993692746659
+Matriz de confusão: 
+[[8603  217]
+ [5852 5305]]
+Precisão: 0.9544385655496767
+Erro (mean_absolute_error): 0.24893627671822596
+Matriz de confusão: 
+[[8510  310]
+ [4663 6494]]
+Precisão: 0.9482783254750679
+Erro (mean_absolute_error): 0.244381038193923
+Matriz de confusão: 
+[[8458  362]
+ [4520 6637]]
+
+ Runtime of the program is 6809.267582893372s
