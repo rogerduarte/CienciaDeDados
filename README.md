@@ -251,19 +251,19 @@ Referências:
    A execução do método é iniciada pela função “generate_models”, conforme abaixo.
    Os parâmetros utilizados foram os seguintes:
    **- execute_model:**
-   	- RandomForestClassifier(n_estimators=100): Determina o número de árvores na floresta de decisão. Foi utilizado a opção "n_estimators=100" apenas para deixar explícito, pois o valor é o padrão.
-	- train_features_norm: dados de treino obtidos atravéz do processo de normalização.
-	- train_label: informação obtida pelo método "split_data".
-	- test_features_norm: dados de teste obtidos atravéz do processo de normalização.
-	- test_label: informação obtida pelo método "split_data".
-	- model_name: Nome do modelo que será utilizado posteriormente.
+   	* RandomForestClassifier(n_estimators=100): Determina o número de árvores na floresta de decisão. Foi utilizado a opção "n_estimators=100" apenas para deixar explícito, pois o valor é o padrão.
+	* train_features_norm: dados de treino obtidos atravéz do processo de normalização.
+	* train_label: informação obtida pelo método "split_data".
+	* test_features_norm: dados de teste obtidos atravéz do processo de normalização.
+	* test_label: informação obtida pelo método "split_data".
+	* model_name: Nome do modelo que será utilizado posteriormente.
 	
    **- execute_kfold:**
-      	- RandomForestClassifier(n_estimators=100): Determina o número de árvores na floresta de decisão. Foi utilizado a opção "n_estimators=100" apenas para deixar explícito, pois o valor é o padrão.
-	- train_features_norm: dados de treino obtidos atravéz do processo de normalização.
-	- train_label: informação obtida pelo método "split_data".
-	- cv: valor do Cross Validation que será utilizado no processo do K-Fold
-	- model_name: Nome do modelo que será utilizado posteriormente.
+      	* RandomForestClassifier(n_estimators=100): Determina o número de árvores na floresta de decisão. Foi utilizado a opção "n_estimators=100" apenas para deixar explícito, pois o valor é o padrão.
+	* train_features_norm: dados de treino obtidos atravéz do processo de normalização.
+	* train_label: informação obtida pelo método "split_data".
+	* cv: valor do Cross Validation que será utilizado no processo do K-Fold
+	* model_name: Nome do modelo que será utilizado posteriormente.
 
 ```python
 def generate_models():
