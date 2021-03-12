@@ -209,7 +209,7 @@ Referência:
 É um método de aprendizagem para classificação, regressão e outras tarefas que operam construindo uma infinidade de árvores de decisão de maneira aleatória.
 
    a) Treinamento/Teste: 
-   A execução do método é iniciada pela função “generate_models”, conforme abaixo:
+   A execução do método é iniciada pela função “generate_models”, conforme abaixo.
 
 ```python
 def generate_models():
@@ -221,7 +221,7 @@ execute_kfold(RandomForestClassifier(n_estimators=100), train_features_norm, tra
 model_name="RandomForestClassifier-KFold")
 (...)
 ````
-As chamadas acima apontam para o método "execute_model", o qual utiliza funções do scikit-learn para processar as informações passadas como parâmetros. Ao final do processamento, é realizado a geração da curva ROC (Receiver Operating Characteristic Curve - Curva Característica de Operação do Receptor) dos resultados obtidos, caso a variável de controle "generate_roc_curve" esteja ativada.
+Inicialmente é realizado a chamado do método "execute_model", o qual utiliza funções do scikit-learn para processar as informações passadas como parâmetros. Ao final do processamento, é realizado a geração da curva ROC (Receiver Operating Characteristic Curve - Curva Característica de Operação do Receptor) dos resultados obtidos, caso a variável de controle "generate_roc_curve" esteja ativada.
 
 ```python
 (...)
@@ -249,9 +249,47 @@ def execute_model(model, train_features_norm, train_label, test_features_norm, t
             plot_roc_curve(clf, test_features_norm, test_label)
             plt.show()
 ```
+Por fim, após o processamento dos dados no método mencionado acima, é realizado a chamado do método "execute_kfold", o qual irá realizar a validação cruzada dos dados. Ao final, irá também gerar os gráficos da curva ROC caso a variável de controle esteja ativada.
+```python
+def execute_kfold(model, X, Y, cv, model_name=""):
+    """
+    Execução k-fold cross validation, k=cv
+    """
+    global generate_roc_curve
 
-   b) Resultado split/Resultado kfold/Curva roc:
-Os resultados obtidos do split dos dados e do k-fold foram os seguintes:
+    """
+    https://scikit-learn.org/stable/modules/generated/sklearn.model_selection.StratifiedKFold.html
+    https://scikit-learn.org/stable/glossary.html#term-random_state
+    """
+    kf = StratifiedKFold(n_splits=cv, random_state=None)
+
+    count = 1
+    ax = plt.gca()
+
+    print(f"---------*--------- Kfold ({model_name}) ---------*---------")
+    for train_index, test_index in kf.split(X, Y):
+        X_train, X_test = X[train_index], X[test_index]
+        Y_train, Y_test = Y[train_index], Y[test_index]
+        clf = model
+        clf.fit(X_train, Y_train)
+        pred_t = clf.predict(X_test)
+        print(f"Precisão: ", end="")
+        print(precision_score(Y_test, pred_t))
+        print(f"Erro (mean_absolute_error): ", end="")
+        print(mean_absolute_error(Y_test, pred_t))
+        print(f"Matriz de confusão: ")
+        print(confusion_matrix(Y_test, pred_t))
+
+        if generate_roc_curve is True:
+            plot_roc_curve(clf, X_test, Y_test, ax=ax, label=f"{model_name}-{count}")
+            count += 1
+
+    if generate_roc_curve is True:
+        plt.show()
+```
+
+   b) Resultado Split/Resultado K-Fold/Curva ROC:
+Os resultados obtidos do split dos dados e do k-fold foram os seguintes.
 ```python
 ---------*--------- Split percentage (RandomForestClassifier) ---------*---------
 Precisão: 0.9522465567848273
@@ -292,7 +330,7 @@ Já os gráficos das curvas ROC obtidas foram as seguintes:
 
 ![Gráfico kfold RandomForest](./Trabalho_Final/Curva_ROC/80_percent/02-kfold-random-forest.png)
 
-   c) discussão resultados
+   c) Discussão dos resultados:
 
  #### 2) Kneighborn:
 
@@ -311,7 +349,7 @@ model_name="KNeighborsClassifier-KFold")
 (...)
 ```
 
-   b) Resultado split/Resultado kfold/Curva roc:
+   b) Resultado Split/Resultado K-Fold/Curva ROC:
 Os resultados obtidos do split dos dados e do k-fold foram os seguintes:
 ```python
 ---------*--------- Split percentage (KNeighborsClassifier) ---------*---------
@@ -373,7 +411,7 @@ model_name="SVM-KFold")
 (...)
 ```
 
-   b) Resultado split/Resultado kfold/Curva roc:
+   b) Resultado Split/Resultado K-Fold/Curva ROC:
 Os resultados obtidos do split dos dados e do k-fold foram os seguintes:
 ```python
 ---------*--------- Split percentage (SVM) ---------*---------
@@ -428,7 +466,7 @@ Tempo total: Runtime of the program is 4922.091492176056s
 
 
 
-   b) Resultado split/Resultado kfold/Curva roc:
+   b) Resultado Split/Resultado K-Fold/Curva ROC:
 Os resultados obtidos do split dos dados e do k-fold foram os seguintes:
 ```python
 ---------*--------- Split percentage (RandomForestClassifier) ---------*---------
@@ -480,7 +518,7 @@ Já os gráficos das curvas ROC obtidas foram as seguintes:
 
 
 
-   b) Resultado split/Resultado kfold/Curva roc:
+   b) Resultado Split/Resultado K-Fold/Curva ROC:
 Os resultados obtidos do split dos dados e do k-fold foram os seguintes:
 ```python
 ---------*--------- Split percentage (KNeighborsClassifier) ---------*---------
@@ -534,7 +572,7 @@ Já os gráficos das curvas ROC obtidas foram as seguintes:
 
 
 
-   b) Resultado split/Resultado kfold/Curva roc:
+   b) Resultado Split/Resultado K-Fold/Curva ROC:
 Os resultados obtidos do split dos dados e do k-fold foram os seguintes:
 ```python
 ---------*--------- Split percentage (SVM) ---------*---------
