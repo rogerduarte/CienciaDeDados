@@ -716,7 +716,7 @@ Os resultados obtidos do Split dos dados e do K-Fold foram os seguintes.
 Já os gráficos das curvas ROC obtidas foram as seguintes:
 
 <p float="left">
-	<img src="./Trabalho_Final/Curva_ROC/20_percent/01-split-percentage-random-forest.png" width="48%" />
+	<img src="./Trabalho_Final/Curva_ROC/20_percent/01-percentage-random-forest.png" width="48%" />
 	<img src="./Trabalho_Final/Curva_ROC/20_percent/02-kfold-random-forest.png" width="48%" />
 <p/>
 
