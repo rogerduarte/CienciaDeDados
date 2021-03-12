@@ -314,7 +314,7 @@ Os resultados obtidos do Split dos dados e do K-Fold foram os seguintes.
   </tr>
   <tr>
     <td><b>Precisão</b></td>
-    <td><b>Erro</b></td>
+    <td><b>Erro (mean_absolute_error)</b></td>
 	<td><b>Matriz de confusão:</b></td>
   </tr>
   <tr>
@@ -331,7 +331,7 @@ Os resultados obtidos do Split dos dados e do K-Fold foram os seguintes.
   <tr>
     <td><b>K-Fold</b></td>
     <td><b>Precisão</b></td>
-    <td><b>Erro</b></td>
+    <td><b>Erro (mean_absolute_error)</b></td>
 	<td><b>Matriz de confusão:</b></td>
   </tr>
   <tr>
@@ -406,7 +406,7 @@ Os resultados obtidos do Split dos dados e do K-Fold foram os seguintes.
   </tr>
   <tr>
     <td><b>Precisão</b></td>
-    <td><b>Erro</b></td>
+    <td><b>Erro (mean_absolute_error)</b></td>
 	<td><b>Matriz de confusão:</b></td>
   </tr>
   <tr>
@@ -423,7 +423,7 @@ Os resultados obtidos do Split dos dados e do K-Fold foram os seguintes.
   <tr>
     <td><b>K-Fold</b></td>
     <td><b>Precisão</b></td>
-    <td><b>Erro</b></td>
+    <td><b>Erro (mean_absolute_error)</b></td>
 	<td><b>Matriz de confusão:</b></td>
   </tr>
   <tr>
@@ -498,7 +498,7 @@ Os resultados obtidos do Split dos dados e do K-Fold foram os seguintes.
   </tr>
   <tr>
     <td><b>Precisão</b></td>
-    <td><b>Erro</b></td>
+    <td><b>Erro (mean_absolute_error)</b></td>
 	<td><b>Matriz de confusão:</b></td>
   </tr>
   <tr>
@@ -515,7 +515,7 @@ Os resultados obtidos do Split dos dados e do K-Fold foram os seguintes.
   <tr>
     <td><b>K-Fold</b></td>
     <td><b>Precisão</b></td>
-    <td><b>Erro</b></td>
+    <td><b>Erro (mean_absolute_error)</b></td>
 	<td><b>Matriz de confusão:</b></td>
   </tr>
   <tr>
@@ -592,7 +592,7 @@ Os resultados obtidos do Split dos dados e do K-Fold foram os seguintes.
   </tr>
   <tr>
     <td><b>Precisão</b></td>
-    <td><b>Erro</b></td>
+    <td><b>Erro (mean_absolute_error)</b></td>
 	<td><b>Matriz de confusão:</b></td>
   </tr>
   <tr>
@@ -609,7 +609,7 @@ Os resultados obtidos do Split dos dados e do K-Fold foram os seguintes.
   <tr>
     <td><b>K-Fold</b></td>
     <td><b>Precisão</b></td>
-    <td><b>Erro</b></td>
+    <td><b>Erro (mean_absolute_error)</b></td>
 	<td><b>Matriz de confusão:</b></td>
   </tr>
   <tr>
@@ -669,7 +669,7 @@ Os resultados obtidos do Split dos dados e do K-Fold foram os seguintes.
   </tr>
   <tr>
     <td><b>Precisão</b></td>
-    <td><b>Erro</b></td>
+    <td><b>Erro (mean_absolute_error)</b></td>
 	<td><b>Matriz de confusão:</b></td>
   </tr>
   <tr>
@@ -686,7 +686,7 @@ Os resultados obtidos do Split dos dados e do K-Fold foram os seguintes.
   <tr>
     <td><b>K-Fold</b></td>
     <td><b>Precisão</b></td>
-    <td><b>Erro</b></td>
+    <td><b>Erro (mean_absolute_error)</b></td>
 	<td><b>Matriz de confusão:</b></td>
   </tr>
   <tr>
@@ -748,7 +748,7 @@ Os resultados obtidos do Split dos dados e do K-Fold foram os seguintes.
   </tr>
   <tr>
     <td><b>Precisão</b></td>
-    <td><b>Erro</b></td>
+    <td><b>Erro (mean_absolute_error)</b></td>
 	<td><b>Matriz de confusão:</b></td>
   </tr>
   <tr>
@@ -765,7 +765,7 @@ Os resultados obtidos do Split dos dados e do K-Fold foram os seguintes.
   <tr>
     <td><b>K-Fold</b></td>
     <td><b>Precisão</b></td>
-    <td><b>Erro</b></td>
+    <td><b>Erro (mean_absolute_error)</b></td>
 	<td><b>Matriz de confusão:</b></td>
   </tr>
   <tr>
