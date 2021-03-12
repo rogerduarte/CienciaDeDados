@@ -185,7 +185,7 @@ A seguir são apresentados os gráficos de distribuição de classe das porçõe
 
 #### Treinamentos, testes e resultados:
 
-Após o prévio processamento do dataset “circl-cve-search-expanded.json” – escolha das informações de interesse e divisão dos dados em dois grupos, um com 80% e o outro com 20% dos dados – foi realizado o treinamento do dataset com a porção de 80% das informações nos modelos RandomForest, Kneighborn e Support-vector machine (SVM). Para isso, além de outras bibliotecas, foram utilizadas a biblioteca de aprendizado de máquina scikit-learn e a biblioteca de criação de gráficos e visualizações de dados Matplotlib, ambas para a linguagem de programação Python.
+Após o prévio processamento do dataset “circl-cve-search-expanded.json” – escolha das informações de interesse e divisão dos dados em dois grupos, um com 80% e o outro com 20% dos dados – foi realizado o treinamento do dataset com a porção de 80% das informações nos modelos RandomForest, Kneighborn e Support-vector machine (SVM). Para isso, além de outras bibliotecas, foram utilizadas a biblioteca de aprendizado de máquina scikit-learn 0.24.1 e a biblioteca de criação de gráficos e visualizações de dados Matplotlib 3.3.4, ambas para a linguagem de programação Python.
 ```python
 
 import math
@@ -210,7 +210,32 @@ from sklearn.metrics import plot_roc_curve
 
 O treinamento, o teste e a obtenção dos resultados foi realizado através do Script Python [ImplementacaoModelos.py](https://github.com/rogerduarte/CienciaDeDados/blob/main/Trabalho_Final/ImplementacaoModelos.py).
 O referido Script irá treinar, testar e gerar os resultados dos 3 modelos a seguir.
-Cabe resaltar que foram utilizados os seguintes sítios como referência para a implementação dos modelos mencionados:
+
+- Para o tratamento das características textuais foram utilizadas os métodos TDF-IDF e Word2Vec, conforme o código abaixo:
+```python
+    # Faz o tratamento das características textuais e já faz a junção com os numéricos
+    for a in textual_attributes:
+        # TDF-IDF
+        train_texts, test_texts = textual_feature_tfid(train_data[a].values, test_data[a].values)
+        train_features = np.concatenate((train_features, train_texts.toarray()), axis=1)
+        test_features = np.concatenate((test_features, test_texts.toarray()), axis=1)
+        # Word2Vec
+        train_texts, test_texts = textual_feature_word2vec(train_data[a].values, test_data[a].values)
+        train_features = np.concatenate((train_features, train_texts), axis=1)
+        test_features = np.concatenate((test_features, test_texts), axis=1)
+```
+Além disso, antes de iniciar as chamadas do processamento do modelos é realizado a normalização dos dados com o código abaixo:
+
+```python
+
+    # Faz a normalização
+    scaler_param = MinMaxScaler()
+    scaler_param.fit(train_features)
+    train_features_norm = scaler_param.transform(train_features)
+    test_features_norm = scaler_param.transform(test_features)
+```
+
+Cabe ressaltar que foram utilizados os seguintes sítios como referência para a implementação dos modelos mencionados:
 
 Referências:
 
@@ -224,15 +249,31 @@ Referências:
    **1.a. Treinamento/Teste:** 
    
    A execução do método é iniciada pela função “generate_models”, conforme abaixo.
+   Os parâmetros utilizados foram os seguintes:
+   
+   **- execute_model:**
+   
+   	* RandomForestClassifier(n_estimators=100): Determina o número de árvores na floresta de decisão. Foi utilizado a opção "n_estimators=100" apenas para deixar explícito, pois o valor é o padrão.
+	* train_features_norm: dados de treino obtidos atravéz do processo de normalização.
+	* train_label: informação obtida pelo método "split_data".
+	* test_features_norm: dados de teste obtidos atravéz do processo de normalização.
+	* test_label: informação obtida pelo método "split_data".
+	* model_name: Nome do modelo que será utilizado posteriormente.
+	
+   **- execute_kfold:**
+   
+	* RandomForestClassifier(n_estimators=100): Determina o número de árvores na floresta de decisão. Foi utilizado a opção "n_estimators=100" apenas para deixar explícito, pois o valor é o padrão.
+	* train_features_norm: dados de treino obtidos atravéz do processo de normalização.
+	* train_label: informação obtida pelo método "split_data".
+	* cv: valor do Cross Validation que será utilizado no processo do K-Fold.
+	* model_name: Nome do modelo que será utilizado posteriormente.
 
 ```python
 def generate_models():
 (...)
 # ****************************** RandomForestClassifier
-execute_model(RandomForestClassifier(n_estimators=100), train_features_norm, train_label,
-test_features_norm, test_label, model_name="RandomForestClassifier")
-execute_kfold(RandomForestClassifier(n_estimators=100), train_features_norm, train_label, cv,
-model_name="RandomForestClassifier-KFold")
+execute_model(RandomForestClassifier(n_estimators=100), train_features_norm, train_label, test_features_norm, test_label, model_name="RandomForestClassifier")
+execute_kfold(RandomForestClassifier(n_estimators=100), train_features_norm, train_label, cv, model_name="RandomForestClassifier-KFold")
 (...)
 ````
 Inicialmente é realizado a chamada do método "execute_model", o qual utiliza funções do scikit-learn para processar as informações passadas como parâmetros. Ao final do processamento, é realizado a geração da curva ROC (Receiver Operating Characteristic Curve - Curva Característica de Operação do Receptor) dos resultados obtidos, caso a variável de controle "generate_roc_curve" esteja ativada.
@@ -382,16 +423,32 @@ Conforme é possível observar nos resultados, o modelo "RandomForest" obteve um
    **2.a. Treinamento/Teste:**
    
 A execução do método é inciada pela função “generate_models”, conforme abaixo. As duas chamadas fazem menção aos métodos já descritos no item "1.a" do presente relatório.
-
+   Os parâmetros utilizados foram os seguintes:
+   
+   **- execute_model**
+   
+	* KNeighborsClassifier(n_neighbors=5): determina o número de vizinhos. Foi utilizado a opção "n_neighbors=5" apenas para deixar explícito, pois o valor é o padrão.
+	* train_features_norm: dados de treino obtidos atravéz do processo de normalização.
+	* train_label: informação obtida pelo método "split_data".
+	* test_features_norm: dados de teste obtidos atravéz do processo de normalização.
+	* test_label: informação obtida pelo método "split_data".
+	* model_name: Nome do modelo que será utilizado posteriormente.
+	
+   **- execute_kfold**
+   
+	* KNeighborsClassifier(n_neighbors=5): determina o número de vizinhos. Foi utilizado a opção "n_neighbors=5" apenas para deixar explícito, pois o valor é o padrão.
+	* train_features_norm: dados de treino obtidos atravéz do processo de normalização.
+	* train_label: informação obtida pelo método "split_data".
+	* cv: valor do Cross Validation que será utilizado no processo do K-Fold.
+	* model_name: Nome do modelo que será utilizado posteriormente.
+	
 ```python
 
 def generate_models():
 (...)
 # ****************************** "KNeighborsClassifier
-execute_model(KNeighborsClassifier(n_neighbors=5), train_features_norm, train_label, test_features_norm, test_label,
-model_name="KNeighborsClassifier")
-execute_kfold(KNeighborsClassifier(n_neighbors=5), train_features_norm, train_label, cv,
-model_name="KNeighborsClassifier-KFold")
+execute_model(KNeighborsClassifier(n_neighbors=5), train_features_norm, train_label, test_features_norm, test_label, model_name="KNeighborsClassifier")
+execute_kfold(KNeighborsClassifier(n_neighbors=5), train_features_norm, train_label, cv, model_name="KNeighborsClassifier-KFold")
 (...)
 ```
 
@@ -475,15 +532,31 @@ Conforme é possível observar nos resultados, o modelo "KNeighborsClassifier" o
    **3.a. Treinamento/Teste:**
    
 A execução do método é inciada pela função “generate_models”, conforme abaixo. As duas chamadas fazem menção aos métodos já descritos no item "1.a" do presente relatório.
-
+   Os parâmetros utilizados foram os seguintes:
+   
+   **- execute_model**
+   
+	* SVC(kernel="linear"):  Especifíca o tipo de kernel que será utilizado pelo algoritmo, ou seja, como os dados serão organizados. Foi utilizado a opção kernel="linear", no qual usará um hiperplano linear (uma linha no caso de dados 2D).
+	* train_features_norm: dados de treino obtidos atravéz do processo de normalização.
+	* train_label: informação obtida pelo método "split_data".
+	* test_features_norm: dados de teste obtidos atravéz do processo de normalização.
+	* test_label: informação obtida pelo método "split_data".
+	* model_name: Nome do modelo que será utilizado posteriormente.
+	
+   **- execute_kfold**
+   
+	* SVC(kernel="linear"): Especifíca o tipo de kernel que será utilizado pelo algoritmo, ou seja, como os dados serão organizados. Foi utilizado a opção kernel="linear", no qual usará um hiperplano linear (uma linha no caso de dados 2D).
+	* train_features_norm: dados de treino obtidos atravéz do processo de normalização.
+	* train_label: informação obtida pelo método "split_data".
+	* cv: valor do Cross Validation que será utilizado no processo do K-Fold.
+	* model_name: Nome do modelo que será utilizado posteriormente.
+	
 ```python
 def generate_models():
 (...)
 # ****************************** SVM
-execute_model(SVC(kernel="linear"), train_features_norm, train_label, test_features_norm, test_label,
-model_name="SVM")
-execute_kfold(SVC(kernel="linear"), train_features_norm, train_label, cv,
-model_name="SVM-KFold")
+execute_model(SVC(kernel="linear"), train_features_norm, train_label, test_features_norm, test_label, model_name="SVM")
+execute_kfold(SVC(kernel="linear"), train_features_norm, train_label, cv, model_name="SVM-KFold")
 (...)
 ```
 
@@ -561,7 +634,7 @@ Já os gráficos das curvas ROC obtidas foram as seguintes:
    
 Conforme é possível observar nos resultados, o modelo "SVM" obteve uma precisão mínima de "0.8818022235225278" e máxima de "0.9773958088062161" no K-Fold. Já com o Split dos dados, a precisão foi de "0.9357778021736743". Já a média absoluta de erros variou de "0.04739929605005866" até "0.0691435275713727" no K-Fold e "0.07383306219496934" no Split dos dados. Esse resultado sugere que a precisão do modelo é expressivamene alta, considerando o tamanho do dataset e as informações utilizadas para as tomadas de decisão. Ainda, em comparação com os outros 2 modelos já descritos, o SVM obteve as melhores médias.
 
-Cumpre referir que o tempo total de execução de todo o processamntos dos modelos foi o seguinte:
+Cumpre referir que o tempo total de execução de todo o processamentos dos modelos foi o seguinte:
 
 - Tempo total: Runtime of the program is 4922.091492176056s
 
@@ -811,7 +884,7 @@ Já os gráficos das curvas ROC obtidas foram as seguintes:
    
 Conforme é possível observar nos resultados, o modelo "SVM" na porção dos 20% dos dados obteve uma precisão mínima de "0.9258658008658008" e máxima de "0.9632606199770379" no K-Fold. Já com o Split dos dados, a precisão foi de "0.9643527204502814". Já a média absoluta de erros variou de "0.04066312167657179" até "0.0797872340425532" no K-Fold e "0.041791791791791794" no Split dos dados. Esse resultado foi expresivamente melhor nessa porção dos dados comparada a primeira porção dos 80% dos dados. Esse resultado sugere que a manutenção da alta precisão do modelo, conforme foi obtido também na porção de 80% dos dados. Além disso, a precisão mínima no processamento do K-Fold foi superior se comparado com a porção e 80% dos dados
 
-Cumpre referir que o tempo total de execução de todo o processamntos dos modelos foi o seguinte:
+Cumpre referir que o tempo total de execução de todo o processamentos dos modelos foi o seguinte:
 
 - Tempo total: Runtime of the program is 428.8825192451477s
 
