@@ -334,8 +334,8 @@ Já os gráficos das curvas ROC obtidas foram as seguintes:
 
  #### 2) Kneighborn:
 
-   2.a) Treinamento/Teste
-A execução do método é inciada pela função “generate_models”, conforme abaixo
+   2.a) Treinamento/Teste:
+A execução do método é inciada pela função “generate_models”, conforme abaixo. As duas chamadas fazem menção aos métodos já descritos no item "1.a" do presente relatório.
 
 ```python
 
@@ -348,6 +348,7 @@ execute_kfold(KNeighborsClassifier(n_neighbors=5), train_features_norm, train_la
 model_name="KNeighborsClassifier-KFold")
 (...)
 ```
+
 
    2.b) Resultado Split/Resultado K-Fold/Curva ROC:
 Os resultados obtidos do Split dos dados e do K-Fold foram os seguintes.
@@ -398,7 +399,7 @@ Já os gráficos das curvas ROC obtidas foram as seguintes:
 #### 3) SVM:
 
    3.a) Treinamento/Teste:
-A execução do método é inciada pela função “generate_models”, conforme abaixo
+A execução do método é inciada pela função “generate_models”, conforme abaixo. As duas chamadas fazem menção aos métodos já descritos no item "1.a" do presente relatório.
 
 ```python
 def generate_models():
@@ -459,6 +460,9 @@ Tempo total: Runtime of the program is 4922.091492176056s
 
 
 <hr >
+
+
+Após o treinamento, os testes e a obteção de resultados dos modelos RandomForest, Kneighborn e Support-vector machine (SVM), foi realizado o processamento dos dados que estavam contidos na porção de 20% do dataset pré-processado. O objetivo é validar os modelos e comparar os resultados.
 
 #### 1) RandonForest:
 
