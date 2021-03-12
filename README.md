@@ -219,7 +219,7 @@ Referências:
 * https://scikit-learn.org/stable/modules/generated/sklearn.neighbors.KNeighborsClassifier.html
 * https://scikit-learn.org/stable/modules/generated/sklearn.svm.SVC.html
 
-#### 1. RandonForest:
+#### 1. RandomForest:
 
    **1.a. Treinamento/Teste:** 
    
@@ -579,7 +579,7 @@ df_data = pd.read_csv(data_path_80)
 # Criação dos DataFrames conforme as porções de dados
 df_data = pd.read_csv(data_path_20)
 ```
-#### 4. RandonForest:
+#### 4. RandomForest:
 
    **4.a. Resultado Split/Resultado K-Fold/Curva ROC:**
    
