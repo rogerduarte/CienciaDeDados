@@ -328,44 +328,59 @@ Os resultados obtidos do Split dos dados e do K-Fold foram os seguintes.
   <tr>
     <td>0.9522465567848273</td>
     <td>0.06926542360155175</td>
-	<td>[6440  423]<br />[684 8435]</td>
+	<td>[6440 423]<br />[684  8435]</td>
   </tr>
 </table>
 
-```
+<table>
+  <tr>
+    <td colspan="15"><b>---------*--------- Kfold (RandomForestClassifier-KFold) ---------*---------<b/></td>
+  </tr>
+  <tr>
+    <td><b>Precisão (kfold=1)</b></td>
+    <td><b>Erro (kfold=1)</b></td>
+	<td><b>Matriz de confusão: (kfold=1)</b></td>
+	
+	<td><b>Precisão (kfold=2)</b></td>
+    <td><b>Erro (kfold=2)</b></td>
+	<td><b>Matriz de confusão: (kfold=2)</b></td>
+	
+	<td><b>Precisão (kfold=3)</b></td>
+    <td><b>Erro (kfold=3)</b></td>
+	<td><b>Matriz de confusão: (kfold=3)</b></td>
+	
+	<td><b>Precisão (kfold=4)</b></td>
+    <td><b>Erro (kfold=4)</b></td>
+	<td><b>Matriz de confusão: (kfold=4)</b></td>
+	
+	<td><b>Precisão (kfold=5)</b></td>
+    <td><b>Erro (kfold=5)</b></td>
+	<td><b>Matriz de confusão: (kfold=5)</b></td>
+  </tr>
+  <tr>
+    <td>0.9785809906291834</td>
+    <td>0.15165024245268263</td>
+	<td>[7923 64] <br />[1875 2924]</td>
+	
 
-Precisão: 0.9522465567848273
-Erro (mean_absolute_error): 0.06926542360155175
-Matriz de confusão: 
-[[6440  423]
- [ 684 8435]]
----------*--------- Kfold (RandomForestClassifier-KFold) ---------*---------
-Precisão: 0.9785809906291834
-Erro (mean_absolute_error): 0.15165024245268263
-Matriz de confusão: 
-[[7923   64]
- [1875 2924]]
-Precisão: 0.9644186046511628
-Erro (mean_absolute_error): 0.06288619475948377
-Matriz de confusão: 
-[[7834  153]
- [ 651 4147]]
-Precisão: 0.9263492063492064
-Erro (mean_absolute_error): 0.06022682831443097
-Matriz de confusão: 
-[[7638  348]
- [ 422 4377]]
-Precisão: 0.8430840759395584
-Erro (mean_absolute_error): 0.09831834180680485
-Matriz de confusão: 
-[[7176  810]
- [ 447 4352]]
-Precisão: 0.9326641572563781
-Erro (mean_absolute_error): 0.0517012123582323
-Matriz de confusão: 
-[[7664  322]
- [ 339 4460]]
-```
+    <td>0.9644186046511628</td>
+    <td>0.06288619475948377</td>
+	<td>[7834 153]<br />[651  4147]</td>
+
+    <td>0.9263492063492064</td>
+    <td>0.06022682831443097</td>
+	<td>[7638 348]<br />[422  4377]</td>
+	
+    <td>0.8430840759395584</td>
+    <td>0.09831834180680485</td>
+	<td>[7176 810]<br />[447  4352]</td>
+	
+    <td>0.9326641572563781</td>
+    <td>0.0517012123582323</td>
+	<td>[7664 322]<br />[339  4460]</td>
+  </tr>
+</table>
+
 Já os gráficos das curvas ROC obtidas foram as seguintes:
 
 <p float="left">
