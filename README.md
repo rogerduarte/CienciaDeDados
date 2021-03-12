@@ -207,26 +207,21 @@ import matplotlib.pyplot as plt
 from sklearn.metrics import plot_roc_curve
 ```
 
-O treinamento, o teste e a obtenção dos resultados foi realizado através do Script Python ["ImplementacaoModelos.py"]  (https://github.com/rogerduarte/CienciaDeDados/blob/main/Trabalho_Final/ImplementacaoModelos.py)
+O treinamento, o teste e a obtenção dos resultados foi realizado através do Script Python [ImplementacaoModelos.py](https://github.com/rogerduarte/CienciaDeDados/blob/main/Trabalho_Final/ImplementacaoModelos.py).
 O referido Script irá treinar, testar e gerar os resultados dos 3 modelos a seguir.
-Cabe resaltar que foram utilizados os seguintes sítios como referência para a implantação dos modelos mencionados:
+Cabe resaltar que foram utilizados os seguintes sítios como referência para a implementação dos modelos mencionados:
 
-Referência:
+Referências:
 
-    - https://github.com/fabriciojoc/ml-cybersecuritiy-course/
-    
-    
-    - https://scikit-learn.org/stable/modules/generated/sklearn.ensemble.RandomForestClassifier.html#sklearn.ensemble.RandomForestClassifier
+* https://github.com/fabriciojoc/ml-cybersecuritiy-course/
+* https://scikit-learn.org/stable/modules/generated/sklearn.ensemble.RandomForestClassifier.html
+* https://scikit-learn.org/stable/modules/generated/sklearn.neighbors.KNeighborsClassifier.html
+* https://scikit-learn.org/stable/modules/generated/sklearn.svm.SVC.html
 
+#### 1. RandonForest:
 
-    - https://scikit-learn.org/stable/modules/generated/sklearn.neighbors.KNeighborsClassifier.html#sklearn.neighbors.KNeighborsClassifier
-
-
-    - https://scikit-learn.org/stable/modules/generated/sklearn.svm.SVC.html#sklearn.svm.SVC
-
-#### 1) RandonForest:
-
-   1.a) Treinamento/Teste: 
+   **1.a. Treinamento/Teste:** 
+   
    A execução do método é iniciada pela função “generate_models”, conforme abaixo.
 
 ```python
@@ -267,7 +262,9 @@ def execute_model(model, train_features_norm, train_label, test_features_norm, t
             plot_roc_curve(clf, test_features_norm, test_label)
             plt.show()
 ```
+
 Por fim, após o processamento dos dados no método mencionado acima, é realizado a chamada do método "execute_kfold", o qual irá realizar a validação cruzada dos dados. Ao final, irá também gerar os gráficos da curva ROC, caso a variável de controle esteja ativada.
+
 ```python
 def execute_kfold(model, X, Y, cv, model_name=""):
     """
@@ -306,9 +303,11 @@ def execute_kfold(model, X, Y, cv, model_name=""):
         plt.show()
 ```
 
-   1.b) Resultado Split/Resultado K-Fold/Curva ROC:
+   **1.b. Resultado Split/Resultado K-Fold/Curva ROC:**
+   
 Os resultados obtidos do Split dos dados e do K-Fold foram os seguintes.
-```python
+
+```
 ---------*--------- Split percentage (RandomForestClassifier) ---------*---------
 Precisão: 0.9522465567848273
 Erro (mean_absolute_error): 0.06926542360155175
@@ -348,12 +347,14 @@ Já os gráficos das curvas ROC obtidas foram as seguintes:
 
 ![Gráfico kfold RandomForest](./Trabalho_Final/Curva_ROC/80_percent/02-kfold-random-forest.png)
 
-   1.c) Discussão dos resultados:
+   **1.c. Discussão dos resultados:**
+   
 Conforme é possível observar nos resultados, o modelo "RandomForest" obteve uma precisão mínima de "0.8430840759395584" e máxima de "0.9785809906291834" no K-Fold. Já com o Split dos dados, a precisão foi de "0.9522465567848273". Já a média absoluta de erros variou de "0.0517012123582323" até "0.15165024245268263" no K-Fold e "0.06926542360155175" no Split dos dados. Esse resultado sugere que a precisão do modelo é expressivamene alta, considerando o tamanho do dataset e as informações utilizadas para as tomadas de decisão.
 
- #### 2) KNeighborsClassifier:
+ #### 2. KNeighborsClassifier:
 
-   2.a) Treinamento/Teste:
+   **2.a. Treinamento/Teste:**
+   
 A execução do método é inciada pela função “generate_models”, conforme abaixo. As duas chamadas fazem menção aos métodos já descritos no item "1.a" do presente relatório.
 
 ```python
@@ -369,9 +370,11 @@ model_name="KNeighborsClassifier-KFold")
 ```
 
 
-   2.b) Resultado Split/Resultado K-Fold/Curva ROC:
+   **2.b. Resultado Split/Resultado K-Fold/Curva ROC:**
+   
 Os resultados obtidos do Split dos dados e do K-Fold foram os seguintes.
-```python
+
+```
 ---------*--------- Split percentage (KNeighborsClassifier) ---------*---------
 Precisão: 0.8527952365200132
 Erro (mean_absolute_error): 0.17019146539857338
@@ -412,12 +415,14 @@ Já os gráficos das curvas ROC obtidas foram as seguintes:
 
 ![Gráfico Kfold KNeighborsClassifier](./Trabalho_Final/Curva_ROC/80_percent/04-kfold-kneighbors.png)
 
-   2.c) Discussão dos resultados:
+   **2.c. Discussão dos resultados:**
+   
 Conforme é possível observar nos resultados, o modelo "KNeighborsClassifier" obteve uma precisão mínima de "0.6462404251993121" e máxima de "0.772666128598332" no K-Fold. Já com o Split dos dados, a precisão foi de "0.8527952365200132". Já a média absoluta de erros variou de "0.167774736018772" até "0.22901838091513493" no K-Fold e "0.17019146539857338" no Split dos dados. Esse resultado sugere que a precisão do modelo é razoavél, considerando o tamanho do dataset e as informações utilizadas para as tomadas de decisão. Ainda, o resultado positivo do Split foi relativamente maior que o do K-Fold.
 
-#### 3) SVM:
+#### 3. SVM:
 
-   3.a) Treinamento/Teste:
+   **3.a. Treinamento/Teste:**
+   
 A execução do método é inciada pela função “generate_models”, conforme abaixo. As duas chamadas fazem menção aos métodos já descritos no item "1.a" do presente relatório.
 
 ```python
@@ -431,9 +436,11 @@ model_name="SVM-KFold")
 (...)
 ```
 
-   3.b) Resultado Split/Resultado K-Fold/Curva ROC:
+   **3.b. Resultado Split/Resultado K-Fold/Curva ROC:**
+
 Os resultados obtidos do Split dos dados e do K-Fold foram os seguintes.
-```python
+
+```
 ---------*--------- Split percentage (SVM) ---------*---------
 Precisão: 0.9357778021736743
 Erro (mean_absolute_error): 0.07383306219496934
@@ -474,7 +481,8 @@ Já os gráficos das curvas ROC obtidas foram as seguintes:
 
 ![Gráfico Kfold SVM](./Trabalho_Final/Curva_ROC/80_percent/06-kfold-svm.png)
 
-   3.c) Discussão dos resultados:
+   **3.c. Discussão dos resultados:**
+   
 Conforme é possível observar nos resultados, o modelo "SVM" obteve uma precisão mínima de "0.8818022235225278" e máxima de "0.9773958088062161" no K-Fold. Já com o Split dos dados, a precisão foi de "0.9357778021736743". Já a média absoluta de erros variou de "0.04739929605005866" até "0.0691435275713727" no K-Fold e "0.07383306219496934" no Split dos dados. Esse resultado sugere que a precisão do modelo é expressivamene alta, considerando o tamanho do dataset e as informações utilizadas para as tomadas de decisão. Ainda, em comparação com os outros 2 modelos já descritos, o SVM obteve as melhores médias.
 
 Cumpre referir que o tempo total de execução de todo o processamntos dos modelos foi o seguinte:
@@ -495,11 +503,13 @@ df_data = pd.read_csv(data_path_80)
 # Criação dos DataFrames conforme as porções de dados
 df_data = pd.read_csv(data_path_20)
 ```
-#### 4) RandonForest:
+#### 4. RandonForest:
 
-   4.a) Resultado Split/Resultado K-Fold/Curva ROC:
+   **4.a. Resultado Split/Resultado K-Fold/Curva ROC:**
+   
 Os resultados obtidos do Split dos dados e do K-Fold foram os seguintes.
-```python
+
+```
 ---------*--------- Split percentage (RandomForestClassifier) ---------*---------
 Precisão: 0.9552594002855783
 Erro (mean_absolute_error): 0.05855855855855856
@@ -533,21 +543,25 @@ Matriz de confusão:
 [[1332   62]
  [ 129 1673]]
 ```
+
 Já os gráficos das curvas ROC obtidas foram as seguintes:
 
 ![Gráfico Split RandomForest](./Trabalho_Final/Curva_ROC/20_percent/01-split-percentage-random-forest.png)
 
 ![Gráfico kfold RandomForest](./Trabalho_Final/Curva_ROC/20_percent/02-kfold-random-forest.png)
 
-   4.b) Discussão dos resultados:
+   **4.b. Discussão dos resultados:**
+   
 Conforme é possível observar nos resultados, o modelo "RandomForest" na porção dos 20% dos dados obteve uma precisão mínima de "0.8680306905370844" e máxima de "0.9642651296829972" no K-Fold. Já com o Split dos dados, a precisão foi de "0.9552594002855783". Já a média absoluta de erros variou de "0.04128870816390366" até "0.11357947434292866" no K-Fold e "0.05855855855855856" no Split dos dados. Esse resultado sugere que a manutenção da alta precisão do modelo, conforme foi obtido também na porção de 80% dos dados.
 
 
-####  5) KNeighborsClassifier:
+####  5. KNeighborsClassifier:
 
-   5.a) Resultado Split/Resultado K-Fold/Curva ROC:
+   **5.a. Resultado Split/Resultado K-Fold/Curva ROC:**
+   
 Os resultados obtidos do Split dos dados e do K-Fold foram os seguintes.
-```python
+
+```
 ---------*--------- Split percentage (KNeighborsClassifier) ---------*---------
 Precisão: 0.8224730631092868
 Erro (mean_absolute_error): 0.22272272272272273
@@ -589,15 +603,18 @@ Já os gráficos das curvas ROC obtidas foram as seguintes:
 ![Gráfico Kfold KNeighborsClassifier](./Trabalho_Final/Curva_ROC/20_percent/04-kfold-kneighbors.png)
 
 
-   5.b) Discussão dos resultados:
+   5.b. Discussão dos resultados:
+   
 Conforme é possível observar nos resultados, o modelo "KNeighborsClassifier" na porção dos 20% dos dados obteve uma precisão mínima de "0.7324324324324324" e máxima de "0.8706624605678234" no K-Fold. Já com o Split dos dados, a precisão foi de "0.8224730631092868". Já a média absoluta de erros variou de "0.12261495151704724" até "0.29474342928660824" no K-Fold e "0.22272272272272273" no Split dos dados. Esse resultado foi expresivamente melhor nessa porção dos dados comparada a primeira porção dos 80% dos dados.
 
 
-####  6) SVM:
+####  6. SVM:
 
-   6.a) Resultado Split/Resultado K-Fold/Curva ROC:
+   6.a. Resultado Split/Resultado K-Fold/Curva ROC:
+   
 Os resultados obtidos do Split dos dados e do K-Fold foram os seguintes.
-```python
+
+```
 ---------*--------- Split percentage (SVM) ---------*---------
 Precisão: 0.9643527204502814
 Erro (mean_absolute_error): 0.041791791791791794
@@ -639,7 +656,8 @@ Já os gráficos das curvas ROC obtidas foram as seguintes:
 
 ![Gráfico Kfold SVM](./Trabalho_Final/Curva_ROC/20_percent/06-kfold-svm.png)
 
-   6.b) Discussão dos Resultados:
+   **6.b. Discussão dos Resultados:**
+   
 Conforme é possível observar nos resultados, o modelo "SVM" na porção dos 20% dos dados obteve uma precisão mínima de "0.9258658008658008" e máxima de "0.9632606199770379" no K-Fold. Já com o Split dos dados, a precisão foi de "0.9643527204502814". Já a média absoluta de erros variou de "0.04066312167657179" até "0.0797872340425532" no K-Fold e "0.041791791791791794" no Split dos dados. Esse resultado foi expresivamente melhor nessa porção dos dados comparada a primeira porção dos 80% dos dados. Esse resultado sugere que a manutenção da alta precisão do modelo, conforme foi obtido também na porção de 80% dos dados. Além disso, a precisão mínima no processamento do K-Fold foi superior se comparado com a porção e 80% dos dados
 
 Cumpre referir que o tempo total de execução de todo o processamntos dos modelos foi o seguinte:
