@@ -204,7 +204,7 @@ O referido Script irá gerar treinar, testar e gerar relatórios dos 3 modelos a
    a) treinamento/teste
 A execução do método é inciada pela função “generate_models”, conforme abaixo
 
-````python
+```python
 
 def generate_models():
 """
@@ -224,7 +224,7 @@ model_name="RandomForestClassifier-KFold")
 
    b) resultado split/resultado kfold/curva roc
 Os resultados obtidos do split dos dados e do k-fold foi o seguinte:
-````python
+```python
 ---------*--------- Split percentage (RandomForestClassifier) ---------*---------
 Precisão: 0.9522465567848273
 Erro (mean_absolute_error): 0.06926542360155175
@@ -257,7 +257,7 @@ Erro (mean_absolute_error): 0.0517012123582323
 Matriz de confusão: 
 [[7664  322]
  [ 339 4460]]
-````
+```
 Já os gráficos das curvas ROC obtidas foram as seguintes:
 
 ![Gráfico Split RandomForest](./Trabalho_Final/Curva ROC/80_percent/01-split-percentage-random-forest.png)
@@ -271,7 +271,7 @@ Já os gráficos das curvas ROC obtidas foram as seguintes:
    a) treinamento/teste
 A execução do método é inciada pela função “generate_models”, conforme abaixo
 
-````python
+```python
 
 def generate_models():
 """
@@ -287,11 +287,11 @@ model_name="KNeighborsClassifier-KFold")
 .
 .
 .
-````
+```
 
    b) resultado split/resultado kfold/curva roc
 Os resultados obtidos do split dos dados e do k-fold foi o seguinte:
-````python
+```python
 ---------*--------- Split percentage (KNeighborsClassifier) ---------*---------
 Precisão: 0.8527952365200132
 Erro (mean_absolute_error): 0.17019146539857338
@@ -324,7 +324,7 @@ Erro (mean_absolute_error): 0.167774736018772
 Matriz de confusão: 
 [[6526 1460]
  [ 685 4114]]
-````
+```
 
 Já os gráficos das curvas ROC obtidas foram as seguintes:
 
@@ -340,7 +340,7 @@ Já os gráficos das curvas ROC obtidas foram as seguintes:
    a) treinamento/teste
 A execução do método é inciada pela função “generate_models”, conforme abaixo
 
-````python
+```python
 
 def generate_models():
 """
@@ -356,11 +356,11 @@ model_name="SVM-KFold")
 .
 .
 .
-````
+```
 
    b) resultado split/resultado kfold/curva roc
 Os resultados obtidos do split dos dados e do k-fold foi o seguinte:
-````python
+```python
 ---------*--------- Split percentage (SVM) ---------*---------
 Precisão: 0.9357778021736743
 Erro (mean_absolute_error): 0.07383306219496934
@@ -393,7 +393,7 @@ Erro (mean_absolute_error): 0.06022682831443097
 Matriz de confusão: 
 [[7417  569]
  [ 201 4598]]
-````
+```
 
 Já os gráficos das curvas ROC obtidas foram as seguintes:
 
