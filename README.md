@@ -880,10 +880,17 @@ Já os gráficos das curvas ROC obtidas foram as seguintes:
    
 Conforme é possível observar nos resultados, o modelo "SVM" na porção dos 20% dos dados obteve uma precisão mínima de "0.9258658008658008" e máxima de "0.9632606199770379" no K-Fold. Já com o Split dos dados, a precisão foi de "0.9643527204502814". Já a média absoluta de erros variou de "0.04066312167657179" até "0.0797872340425532" no K-Fold e "0.041791791791791794" no Split dos dados. Esse resultado foi expresivamente melhor nessa porção dos dados comparada a primeira porção dos 80% dos dados. Esse resultado sugere que a manutenção da alta precisão do modelo, conforme foi obtido também na porção de 80% dos dados. Além disso, a precisão mínima no processamento do K-Fold foi superior se comparado com a porção e 80% dos dados
 
-Cumpre referir que o tempo total de execução de todo o processamentos dos modelos foi o seguinte:
-
-- Tempo total: Runtime of the program is 428.8825192451477s
-
 <hr >
 
 Todos os resultados obtidos podem ser analisados em (https://github.com/rogerduarte/CienciaDeDados/tree/main/Trabalho_Final/Sa%C3%ADdas%20Processamentos)
+
+
+<hr >
+
+#### Resultado FINAL: 
+
+Foi possível observar atravéz da implantação dos modelos e com base no dataset utilizado as seguintes conclusões:
+
+1) blablabla
+2) blablabla
+3) blablabla
