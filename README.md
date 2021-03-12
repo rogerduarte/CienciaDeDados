@@ -331,6 +331,7 @@ Já os gráficos das curvas ROC obtidas foram as seguintes:
 ![Gráfico kfold RandomForest](./Trabalho_Final/Curva_ROC/80_percent/02-kfold-random-forest.png)
 
    1.c) Discussão dos resultados:
+Conforme é possível observar nos resultados, o modelo "RandomForest" obteve uma precisão mínima de "0.8430840759395584" e máxima de "0.9785809906291834". Já com o Split dos dados, a precisão foi de "0.9522465567848273". Já a média absoluta de erros variou de "0.0517012123582323" até "0.15165024245268263" no K-Fold e "0.06926542360155175" no Split dos dados. Esse resultado sugere que a precisão do modelo é expressivamene alta, considerando o tamanho do dataset e as informações utilizadas para as tomadas de decisão.
 
  #### 2) Kneighborn:
 
@@ -394,7 +395,7 @@ Já os gráficos das curvas ROC obtidas foram as seguintes:
 ![Gráfico Kfold Kneighbors](./Trabalho_Final/Curva_ROC/80_percent/04-kfold-kneighbors.png)
 
    2.c) discussão resultados
-
+Conforme é possível observar nos resultados, o modelo "KNeighborsClassifier" obteve uma precisão mínima de "0.6462404251993121" e máxima de "0.772666128598332". Já com o Split dos dados, a precisão foi de "0.8527952365200132". Já a média absoluta de erros variou de "0.167774736018772" até "0.22901838091513493" no K-Fold e "0.17019146539857338" no Split dos dados. Esse resultado sugere que a precisão do modelo é razoavél, considerando o tamanho do dataset e as informações utilizadas para as tomadas de decisão. Ainda, o resultado positivo do Split foi relativamente maior que o do K-Fold.
 
 #### 3) SVM:
 
@@ -456,8 +457,11 @@ Já os gráficos das curvas ROC obtidas foram as seguintes:
 ![Gráfico Kfold SVM](./Trabalho_Final/Curva_ROC/80_percent/06-kfold-svm.png)
 
    3.c) discussão resultados
-Tempo total: Runtime of the program is 4922.091492176056s
+Conforme é possível observar nos resultados, o modelo "SVM" obteve uma precisão mínima de "0.8818022235225278" e máxima de "0.9773958088062161". Já com o Split dos dados, a precisão foi de "0.9357778021736743". Já a média absoluta de erros variou de "0.04739929605005866" até "0.0691435275713727" no K-Fold e "0.07383306219496934" no Split dos dados. Esse resultado sugere que a precisão do modelo é expressivamene alta, considerando o tamanho do dataset e as informações utilizadas para as tomadas de decisão. Ainda, em comparação com os outros 2 modelos já descritos, o SVM obteve as melhores médias.
 
+Cumpre referir que o tempo total de execução de todo o processamntos dos modelos foi o seguinte:
+
+- Tempo total: Runtime of the program is 4922.091492176056s
 
 <hr >
 
