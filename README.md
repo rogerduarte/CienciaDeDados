@@ -65,7 +65,9 @@ Foi realizada a leitura do arquivo JSON (Dataset completo) e apenas as colunas c
 
 As colunas summary e cvss foram utilizadas como base para determinar quais linhas do dataset seriam mantidas, visto que a coluna summary em determinados momentos possuía a mensagem "** REJECT ** DO NOT USE THIS CANDIDATE NUMBER" e a coluna cvss (score) possuía itens em branco. Dessa forma, o seguinte trecho de código foi utilizado para essas duas colunas:
 
+
 ```python
+	(...)
 	elif d == "cvss":
 		# Não inclui no dataset pre-processado itens com cvss zerados
 		if tmp[d] is None:
@@ -73,10 +75,12 @@ As colunas summary e cvss foram utilizadas como base para determinar quais linha
 		break
 	else:
 		tmp_dict[d] = tmp[d]
+	(...)
 ```
 								
 
 ```python
+	(...)
 	elif d == "summary":
 		# Em determinados casos, existe a marcação de "REJECT" no summary.
 		# Tais CVEs que contêm o REJECT no summary serão eliminados
@@ -86,11 +90,13 @@ As colunas summary e cvss foram utilizadas como base para determinar quais linha
 			use_line = False
 			break
 		tmp_dict[d] = tmp[d].replace("\"", "'")
+	(...)
 ```		
 
 Com a coluna summary foi possível mapear quais CVEs geraram impacto e quais não geraram (objetivo do trabalho). O seguinte trecho de código possui os ajustes na coluna summary:
 
 ```python
+	(...)
 	elif d == "impact":
 		if ((d in tmp.keys()) and
 			(tmp[d]["availability"] == "PARTIAL" or tmp[d]["availability"] == "COMPLETE") and
@@ -99,6 +105,7 @@ Com a coluna summary foi possível mapear quais CVEs geraram impacto e quais nã
 			tmp_dict["impact"] = 1
 		else:
 			tmp_dict["impact"] = 0	
+	(...)
 ```	
 
 Com o trecho de código apresentado acima, a coluna summary, que antes era um dicionário, foi mapeada para um valor binário que indica se o CVE gera ou não impacto.
@@ -106,6 +113,7 @@ Com o trecho de código apresentado acima, a coluna summary, que antes era um di
 Para a coluna access, o seguinte tratamento foi realizado:
 
 ```python
+	(...)
 	self.control_access = {
 		"vector": {
 			"ADJACENT_NETWORK": 1,
@@ -124,10 +132,11 @@ Para a coluna access, o seguinte tratamento foi realizado:
 		},
 		"NotAvailable": 12
 	}
-	
+	(...)
 ```
 
 ```python
+	(...)
 	elif d == "access":
 		if d in tmp.keys():
 			# Faz a categorização do access conforme variável self.access_control
@@ -136,6 +145,7 @@ Para a coluna access, o seguinte tratamento foi realizado:
 			tmp_dict["access"] += self.control_access["complexity"][tmp[d]["complexity"]]
 		else:
 			tmp_dict["access"] = self.control_access["NotAvailable"]						
+	(...)
 ```
 
 
@@ -144,6 +154,7 @@ Com o trecho de código apresentado acima, a coluna access, que antes era um dic
 O campo vulnerable_configuration_cpe_2_2, que possui informações a respeito da configuração do ambiente vulnerável, foi convertida de uma lista de strings para uma única string, conforme trecho de código abaixo:
 
 ```python
+	(...)
 	elif d == "vulnerable_configuration_cpe_2_2":
 		if type(tmp[d]) is list and len(tmp[d]) > 0:
 			tmp_vc = ""
@@ -152,6 +163,7 @@ O campo vulnerable_configuration_cpe_2_2, que possui informações a respeito da
 			tmp_dict[d] = tmp_vc
 		else:
 			tmp_dict[d] = "NotAvailable"
+	(...)
 ```
 
 Como resultado final do script foram criados dois arquivos CVS pré-processados, um com uma porção de 80% dos dados e outra com 20%.
