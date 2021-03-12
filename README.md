@@ -317,14 +317,14 @@ Os resultados obtidos do Split dos dados e do K-Fold foram os seguintes.
 | 10.0 | 6927 |
 
 <table>
-  <th>
-    <td colspan="3">---------*--------- Split percentage (RandomForestClassifier) ---------*---------</td>
-  </th>
-  <th>
-    <td>Precisão</td>
-    <td>Erro</td>
-	<td>Matriz de confusão:</td>
-  </th>
+  <tr>
+    <td colspan="3"><b>---------*--------- Split percentage (RandomForestClassifier) ---------*---------<b/></td>
+  </tr>
+  <tr>
+    <td><b>Precisão</b></td>
+    <td><b>Erro</b></td>
+	<td><b>Matriz de confusão:</b></td>
+  </tr>
   <tr>
     <td>0.9522465567848273</td>
     <td>0.06926542360155175</td>
