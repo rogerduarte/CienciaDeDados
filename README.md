@@ -416,7 +416,7 @@ Já os gráficos das curvas ROC obtidas foram as seguintes:
 
    **1.c. Discussão dos resultados:**
    
-Conforme é possível observar nos resultados, o modelo "RandomForest" obteve uma precisão mínima de "0.8430840759395584" e máxima de "0.9785809906291834" no K-Fold. Já com o Split dos dados, a precisão foi de "0.9522465567848273". Já a média absoluta de erros variou de "0.0517012123582323" até "0.15165024245268263" no K-Fold e "0.06926542360155175" no Split dos dados. Esse resultado sugere que a precisão do modelo é expressivamene alta, considerando o tamanho do dataset e as informações utilizadas para as tomadas de decisão.
+Conforme é possível observar nos resultados, o modelo "RandomForest" obteve uma precisão mínima de "0.7716535433070866" e máxima de "0.9697966507177034" no K-Fold. Já com o Split dos dados, a precisão foi de "0.930338389731622". Já a média absoluta de erros variou de "0.07524442706296441" até "0.14329292139225655" no K-Fold e "0.1090601927168064" no Split dos dados. Esse resultado sugere que a precisão do modelo é alta, considerando o tamanho do dataset e as informações utilizadas para as tomadas de decisão.
 
  #### 2. KNeighborsClassifier:
 
@@ -525,7 +525,7 @@ Já os gráficos das curvas ROC obtidas foram as seguintes:
 
    **2.c. Discussão dos resultados:**
    
-Conforme é possível observar nos resultados, o modelo "KNeighborsClassifier" obteve uma precisão mínima de "0.6462404251993121" e máxima de "0.772666128598332" no K-Fold. Já com o Split dos dados, a precisão foi de "0.8527952365200132". Já a média absoluta de erros variou de "0.167774736018772" até "0.22901838091513493" no K-Fold e "0.17019146539857338" no Split dos dados. Esse resultado sugere que a precisão do modelo é razoavél, considerando o tamanho do dataset e as informações utilizadas para as tomadas de decisão. Ainda, o resultado positivo do Split foi relativamente maior que o do K-Fold.
+Conforme é possível observar nos resultados, o modelo "KNeighborsClassifier" obteve uma precisão mínima de "0.5999106611078022" e máxima de "0.7855846512833808" no K-Fold. Já com o Split dos dados, a precisão foi de "0.7862013174621518". Já a média absoluta de erros variou de "0.20303456905990927" até "0.2703949941337505" no K-Fold e "0.26066825178325614" no Split dos dados. Esse resultado sugere que a precisão do modelo é razoavelmente baixa.
 
 #### 3. SVM:
 
@@ -634,10 +634,6 @@ Já os gráficos das curvas ROC obtidas foram as seguintes:
    
 Conforme é possível observar nos resultados, o modelo "SVM" obteve uma precisão mínima de "0.8818022235225278" e máxima de "0.9773958088062161" no K-Fold. Já com o Split dos dados, a precisão foi de "0.9357778021736743". Já a média absoluta de erros variou de "0.04739929605005866" até "0.0691435275713727" no K-Fold e "0.07383306219496934" no Split dos dados. Esse resultado sugere que a precisão do modelo é expressivamene alta, considerando o tamanho do dataset e as informações utilizadas para as tomadas de decisão. Ainda, em comparação com os outros 2 modelos já descritos, o SVM obteve as melhores médias.
 
-Cumpre referir que o tempo total de execução de todo o processamentos dos modelos foi o seguinte:
-
-- Tempo total: Runtime of the program is 4922.091492176056s
-
 <hr >
 
 Após o treinamento, os testes e a obteção de resultados dos modelos RandomForest, Kneighborn e Support-vector machine (SVM) para a porção dos 80% dos dados, foi realizado o processamento dos dados que estavam contidos na porção de 20% do dataset pré-processado. O objetivo é validar os modelos e comparar os resultados. Para isso, foi realizado a seguintes mudançs no código do Scrypt Python "ImplementacaoModelos.py"
@@ -669,9 +665,9 @@ Os resultados obtidos do Split dos dados e do K-Fold foram os seguintes.
 	<td><b>Matriz de confusão:</b></td>
   </tr>
   <tr>
-    <td>0.9552594002855783</td>
-    <td>0.05855855855855856</td>
-	<td>[1755 94]<br />[140  2007]</td>
+    <td>0.9266188959660298</td>
+    <td>0.23662211543274767</td>
+	<td>[8267 553]<br />[4174  6983]</td>
   </tr>
 </table>
 
@@ -687,33 +683,33 @@ Os resultados obtidos do Split dos dados e do K-Fold foram os seguintes.
   </tr>
   <tr>
 	<td>1</td>
-    <td>0.9547930283224401</td>
-    <td>0.04128870816390366</td>
-	<td>[1312 83]<br />[49  1753]</td>
+    <td>0.9313820743259655</td>
+    <td>0.20288331581318517</td>
+	<td>[8255 565]<br />[3488  7669]</td>
   </tr>
   <tr>
 	<td>2</td>
-    <td>0.948537378114843</td>
-    <td>0.045682102628285357</td>
-	<td>[1299 95]<br />[51   1751]</td>
+    <td>0.9448778616191329</td>
+    <td>0.21024177804475147</td>
+	<td>[8389 431]<br />[3769   7388]</td>
   </tr>
   <tr>
 	<td>3</td>
-    <td>0.8680306905370844</td>
-    <td> 0.11357947434292866</td>
-	<td>[1136 258]<br />[105  1697]</td>
+    <td>0.9388465362943321</td>
+    <td>0.29338739550483056</td>
+	<td>[8451 369]<br />[5492  5665]</td>
   </tr>
   <tr>
 	<td>4</td>
-    <td>0.9208754208754208</td>
-    <td>0.09449311639549436</td>
-	<td>[1253 141]<br />[161  1641]</td>
+    <td>0.9165649786455156</td>
+    <td>0.28507783951544274</td>
+	<td>[8273 547]<br />[5148  6009]</td>
   </tr>
   <tr>
 	<td>5</td>
-    <td>0.9642651296829972</td>
-    <td>0.0597622027534418</td>
-	<td>[1332 62]<br />[129  1673]</td>
+    <td>0.9369237523781648</td>
+    <td>0.25959853831906693</td>
+	<td>[8389 431]<br />[4755  6402]</td>
   </tr>
 </table>
 
@@ -726,7 +722,7 @@ Já os gráficos das curvas ROC obtidas foram as seguintes:
 
    **4.b. Discussão dos resultados:**
    
-Conforme é possível observar nos resultados, o modelo "RandomForest" na porção dos 20% dos dados obteve uma precisão mínima de "0.8680306905370844" e máxima de "0.9642651296829972" no K-Fold. Já com o Split dos dados, a precisão foi de "0.9552594002855783". Já a média absoluta de erros variou de "0.04128870816390366" até "0.11357947434292866" no K-Fold e "0.05855855855855856" no Split dos dados. Esse resultado sugere que a manutenção da alta precisão do modelo, conforme foi obtido também na porção de 80% dos dados.
+Conforme é possível observar nos resultados, o modelo "RandomForest" na porção dos 20% dos dados obteve uma precisão mínima de "0.9165649786455156" e máxima de "0.9448778616191329" no K-Fold. Já com o Split dos dados, a precisão foi de "0.9266188959660298". Já a média absoluta de erros variou de "0.20288331581318517" até "0.29338739550483056" no K-Fold e "0.23662211543274767" no Split dos dados. Esse resultado sugere a manutenção da alta precisão do modelo, conforme foi obtido também na porção de 80% dos dados.
 
 
 ####  5. KNeighborsClassifier:
@@ -746,9 +742,9 @@ Os resultados obtidos do Split dos dados e do K-Fold foram os seguintes.
 	<td><b>Matriz de confusão:</b></td>
   </tr>
   <tr>
-    <td>0.8224730631092868</td>
-    <td>0.22272272272272273</td>
-	<td>[1503 346]<br/>[544  1603]</td>
+    <td>0.7300113483957495</td>
+    <td>0.3352855784151775</td>
+	<td>[6203 2617]<br/>[4081  7076]</td>
   </tr>
 </table>
 
@@ -764,33 +760,33 @@ Os resultados obtidos do Split dos dados e do K-Fold foram os seguintes.
   </tr>
   <tr>
 	<td>1</td>
-    <td>0.8706624605678234</td>
-    <td>0.12261495151704724</td>
-	<td>[1149 246]<br />[146  1656]</td>
+    <td>0.735875106202209</td>
+    <td>0.3361365570405967</td>
+	<td>[6333 2487]<br />[4228  6929]</td>
   </tr>
   <tr>
 	<td>2</td>
-    <td>0.8586497890295358</td>
-    <td>0.13829787234042554</td>
-	<td>[1126 268]<br />[174  1628]</td>
+    <td>0.7730773933243673</td>
+    <td>0.3348851178855684</td>
+	<td>[6964 1856]<br />[4834  6323]</td>
   </tr>
   <tr>
 	<td>3</td>
-    <td>0.7324324324324324</td>
-    <td>0.29474342928660824</td>
-	<td>[899 495]<br />[447 1355]</td>
+    <td>0.7230492556698971</td>
+    <td>0.3349852330179707</td>
+	<td>[6048 2772]<br />[3920 7237]</td>
   </tr>
   <tr>
 	<td>4</td>
-    <td>0.7650566487775791</td>
-    <td>0.2856695869837297</td>
-	<td>[1000 394]<br />[519  1283]</td>
+    <td>0.6956560205255242</td>
+    <td>0.3370876507984182</td>
+	<td>[5380 3440]<br />[3294  7863]</td>
   </tr>
   <tr>
 	<td>5</td>
-    <td>0.8252740167633784</td>
-    <td>0.24812265331664582</td>
-	<td>[1123 271]<br />[522  1280]</td>
+    <td>0.7201473447252634</td>
+    <td>0.34309455874255396</td>
+	<td>[6085 2735]<br />[4119  7038]</td>
   </tr>
 </table>
 
@@ -805,7 +801,7 @@ Já os gráficos das curvas ROC obtidas foram as seguintes:
 
    5.b. Discussão dos resultados:
    
-Conforme é possível observar nos resultados, o modelo "KNeighborsClassifier" na porção dos 20% dos dados obteve uma precisão mínima de "0.7324324324324324" e máxima de "0.8706624605678234" no K-Fold. Já com o Split dos dados, a precisão foi de "0.8224730631092868". Já a média absoluta de erros variou de "0.12261495151704724" até "0.29474342928660824" no K-Fold e "0.22272272272272273" no Split dos dados. Esse resultado foi expresivamente melhor nessa porção dos dados comparada a primeira porção dos 80% dos dados.
+Conforme é possível observar nos resultados, o modelo "KNeighborsClassifier" na porção dos 20% dos dados obteve uma precisão mínima de "0.6956560205255242" e máxima de "0.7730773933243673" no K-Fold. Já com o Split dos dados, a precisão foi de "0.7300113483957495". Já a média absoluta de erros variou de "0.3348851178855684" até "0.3370876507984182" no K-Fold e "0.3352855784151775" no Split dos dados. Esse resultado foi semelhante nessa porção dos dados comparada a primeira porção dos 80% dos dados. Além disso, a média absoluta de erros foi maior que na primeira porção, apesar de ter sido bem semelhante entre os vizinhos.
 
 
 ####  6. SVM:
