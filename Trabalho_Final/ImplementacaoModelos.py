@@ -399,17 +399,17 @@ def execute_models_production(random_florest=False, k_neighbors=False, svm=False
     # ****************************** RandomForestClassifier
     if random_florest is True:
         execute_model_production(test_features_norm, test_label, model_name="RandomForestClassifier")
-        execute_kfold_production(test_features_norm, test_label, 5, model_name="RandomForestClassifier-KFold")
+        execute_kfold_production(test_features_norm, test_label, cv, model_name="RandomForestClassifier-KFold")
 
     # ****************************** "KNeighborsClassifier
     if k_neighbors is True:
         execute_model_production(test_features_norm, test_label, model_name="KNeighborsClassifier")
-        execute_kfold_production(test_features_norm, test_label, 5, model_name="KNeighborsClassifier-KFold")
+        execute_kfold_production(test_features_norm, test_label, cv, model_name="KNeighborsClassifier-KFold")
 
     # ****************************** "SVM
     if svm is True:
         execute_model_production(test_features_norm, test_label, model_name="SVM")
-        execute_kfold_production(test_features_norm, test_label, 5, model_name="SVM-KFold")
+        execute_kfold_production(test_features_norm, test_label, cv, model_name="SVM-KFold")
 
 
 if __name__ == "__main__":
