@@ -976,6 +976,7 @@ Todos os resultados obtidos podem ser analisados em (https://github.com/rogerdua
 
 Foi possível observar através da implantação dos modelos e com base no dataset utilizado as seguintes conclusões:
 
-1) blablabla
-2) blablabla
-3) blablabla
+1) Com base nos resultados de precisão de margem de erros, o resultado foi bom, visto que foi possível obter altas taxas de precisão em alguns modelos.
+2) Através das implementações e dos resultado, é possível afirmar que caso fosse implantado em ambiente de produção, seria possível obter resultado possitivo na detecção de CVEs que geram impactos e dos que não gerariam impacto.
+3) Além disso, não foram realizados ajustes de parâmetros padrão dos modelos, com excessão do modelo SVM que foi configurado para utilizar o modelo de kernel linear.
+4) Por sim, os resultados foram positivos e provavelmente existe a possibilidade de melhorias na predição e no tempo de execução dos modelos, visto que não foram realizados trocas de parâmetros padrãos além dos que já foram mencionados.
